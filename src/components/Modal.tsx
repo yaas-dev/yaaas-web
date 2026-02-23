@@ -55,18 +55,6 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
                 )}
             </AnimatePresence>
 
-            <style jsx>{`
-        .bg-secondary { background-color: #1a1a1a; }
-        .border-border { border: 1px solid #333333; }
-        .text-muted { color: #404040; }
-        .text-primary { color: #B89C24; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .justify-center { justify-content: center; }
-        .fixed { position: fixed; }
-        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-        .z-\[100\] { z-index: 100; }
-      `}</style>
         </ModalContext.Provider>
     );
 }

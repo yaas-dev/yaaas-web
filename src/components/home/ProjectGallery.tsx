@@ -19,18 +19,17 @@ const projects = [
 export default function ProjectGallery() {
     return (
         <section id="projects" className="py-24 bg-background">
-            <div className="container mx-auto px-4">
-                {/* Figma Header Style */}
-                <div className="section-title mb-4">
-                    <h2 className="text-2xl md:text-3xl font-bold tracking-[0.2em]">THE YAAAS PROJECTS</h2>
+            <div className="max-w-[1400px] mx-auto px-4">
+                <div className="relative inline-block mb-4">
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-[0.2em] uppercase">THE YAAAS PROJECTS</h2>
+                    <span className="absolute -bottom-4 left-0 w-[100px] h-1 bg-primary block" />
                 </div>
 
-                <p className="text-xs italic text-[#999999] tracking-widest mb-16 uppercase">
+                <p className="text-xs italic text-muted tracking-widest mb-16 uppercase mt-8">
                     Check out our diverse portfolio of projects for our world-class brands.
                 </p>
 
-                {/* Dense Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-0 mb-24">
+                <div className="grid grid-cols-2 md:grid-cols-5 mb-24">
                     {projects.map((project, index) => (
                         <motion.div
                             key={project.id}
@@ -46,28 +45,20 @@ export default function ProjectGallery() {
                                 className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            {/* Gold border on hover to match Figma's highlighted active state */}
                             <div className="absolute inset-0 border-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity z-10" />
                         </motion.div>
                     ))}
                 </div>
 
                 <div className="flex justify-center">
-                    <Link href="/projects" className="btn-pill">
+                    <Link
+                        href="/projects"
+                        className="border border-white rounded-full px-8 py-2 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+                    >
                         VIEW ALL PROJECTS
                     </Link>
                 </div>
             </div>
-
-            <style jsx>{`
-        .aspect-square { aspect-ratio: 1 / 1; }
-        .grid { display: grid; }
-        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        @media (min-width: 768px) {
-          .md\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-        }
-        .gap-0 { gap: 0; }
-      `}</style>
         </section>
     );
 }
