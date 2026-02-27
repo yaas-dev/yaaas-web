@@ -209,7 +209,7 @@ export default function TalentsPage() {
         .feature-inner {
           display: grid;
           grid-template-columns: 2fr 1fr;
-          min-height: 356px;
+          min-height: 430px;
         }
 
         .feature-inner.reverse {
@@ -259,7 +259,7 @@ export default function TalentsPage() {
         .profile-panel {
           position: relative;
           display: grid;
-          grid-template-rows: 1fr auto;
+          grid-template-rows: 66% 34%;
           background: linear-gradient(160deg, #b07245 0%, #0a0a0a 64%);
         }
 
@@ -267,7 +267,7 @@ export default function TalentsPage() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: top;
+          object-position: center top;
           min-height: 0;
         }
 
@@ -275,14 +275,14 @@ export default function TalentsPage() {
           background: #000;
           padding: 14px 18px 16px;
           border-top-right-radius: 36px;
-          min-height: 126px;
+          min-height: 140px;
         }
 
         .profile-copy h3 {
-          font-size: 24px;
+          font-size: 20px;
           font-family: var(--font-playfair), serif;
-          letter-spacing: 0.08em;
-          margin-bottom: 8px;
+          letter-spacing: 0.04em;
+          margin-bottom: 6px;
         }
 
         .profile-copy span {
@@ -339,6 +339,7 @@ export default function TalentsPage() {
           .feature-inner,
           .feature-inner.reverse {
             grid-template-columns: 1fr;
+            min-height: 0;
           }
 
           .feature-inner.reverse .work-panel,
@@ -348,6 +349,10 @@ export default function TalentsPage() {
 
           .work-panel {
             min-height: 248px;
+          }
+
+          .profile-panel {
+            grid-template-rows: 240px auto;
           }
 
         }
@@ -402,6 +407,10 @@ export default function TalentsPage() {
           .profile-copy h3 {
             font-size: 18px;
           }
+
+          .profile-panel {
+            grid-template-rows: 210px auto;
+          }
         }
 
         @media (max-width: 420px) {
@@ -412,6 +421,10 @@ export default function TalentsPage() {
           .small-pill {
             font-size: 10px;
             padding: 5px 10px;
+          }
+
+          .profile-panel {
+            grid-template-rows: 180px auto;
           }
         }
       `}</style>
