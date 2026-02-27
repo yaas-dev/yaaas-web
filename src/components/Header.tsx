@@ -1,240 +1,103 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Menu, X } from 'lucide-react';
 
-const NAV_LINKS = [
-    { name: "HOME", href: "/" },
-    { name: "CATALOGUE", href: "/art-catalogue" },
-    { name: "TALENT", href: "/talents" },
-    { name: "GALLERY", href: "/projects" },
-];
-
-export default function Header() {
+const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const pathname = usePathname();
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 30);
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
-
-    // Lock body scroll when mobile menu is open
-    useEffect(() => {
-        document.body.style.overflow = isOpen ? "hidden" : "";
-        return () => { document.body.style.overflow = ""; };
-    }, [isOpen]);
+    const navLinks = [
+        { name: 'HOME', href: '/' },
+        { name: 'CATALOGUE', href: '/catalogue' },
+        { name: 'TALENT', href: '/talent' },
+        { name: 'GALLERY', href: '/gallery' },
+    ];
 
     return (
-        <>
-            {/* ── HEADER BAR ── */}
-            <header
-                style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    zIndex: 200,
-                    transition: "background 0.4s ease, padding 0.4s ease",
-                    background: scrolled ? "rgba(0,0,0,0.95)" : "rgba(0,0,0,0.75)",
-                    backdropFilter: scrolled ? "blur(10px)" : "blur(4px)",
-                    borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-                    padding: scrolled ? "10px 0" : "16px 0",
-                }}
-            >
-                <div style={{
-                    maxWidth: 1400,
-                    margin: "0 auto",
-                    padding: "0 2.5rem",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                }}>
+        <nav className="absolute top-0 left-0 w-full z-50 bg-black/80 md:bg-black/90 text-white px-6 py-4 md:px-12 lg:px-20 border-b-2 border-[#B59431]/20">
+            <div className="max-w-7xl mx-auto flex items-center justify-between">
 
-                    {/* Logo */}
-                    <Link href="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+                {/* Logo Section */}
+                <div className="flex items-center space-x-2">
+                    <div className="relative w-24 h-16 md:w-32 md:h-20 lg:w-40 lg:h-24">
                         <Image
                             src="/images/logo.png"
-                            alt="Yaa Asantewaa Agency"
-                            width={110}
-                            height={110}
+                            alt="YAA ASANTEWAA AGENCY"
+                            fill
+                            className="object-contain object-left"
                             priority
-                            style={{ height: 58, width: "auto", objectFit: "contain" }}
                         />
-                    </Link>
-
-                    {/* Desktop nav */}
-                    <nav className="header-desktop-nav">
-                        {NAV_LINKS.map(({ name, href }) => (
-                            <Link
-                                key={name}
-                                href={href}
-                                className={pathname === href ? "nav-link nav-link-active" : "nav-link"}
-                            >
-                                {name}
-                            </Link>
-                        ))}
-                        <Link href="/contact" className="nav-contact">
-                            CONTACT
-                        </Link>
-                    </nav>
-
-                    {/* Hamburger (mobile only) */}
-                    <button
-                        onClick={() => setIsOpen(v => !v)}
-                        aria-label={isOpen ? "Close menu" : "Open menu"}
-                        className="hamburger-btn"
-                    >
-                        <span className={`ham-bar ${isOpen ? "ham-bar-1-open" : ""}`} />
-                        <span className={`ham-bar ${isOpen ? "ham-bar-2-open" : ""}`} />
-                        <span className={`ham-bar ${isOpen ? "ham-bar-3-open" : ""}`} />
-                    </button>
+                    </div>
                 </div>
-            </header>
 
-            {/* ── MOBILE FULL-SCREEN MENU ── */}
-            <div className={`mobile-menu ${isOpen ? "mobile-menu-open" : ""}`}>
-                <nav className="mobile-nav">
-                    {NAV_LINKS.map(({ name, href }) => (
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center space-x-8 lg:space-x-12">
+                    {navLinks.map((link) => (
                         <Link
-                            key={name}
-                            href={href}
-                            className={pathname === href ? "mobile-link mobile-link-active" : "mobile-link"}
-                            onClick={() => setIsOpen(false)}
+                            key={link.name}
+                            href={link.href}
+                            className={`text-[13px] font-bold tracking-[0.15em] transition-colors hover:text-[#B59431] ${link.name === 'HOME' ? 'text-[#B59431]' : 'text-[#e0e0e0]'
+                                }`}
                         >
-                            {name}
+                            {link.name}
                         </Link>
                     ))}
                     <Link
                         href="/contact"
-                        className="mobile-contact"
-                        onClick={() => setIsOpen(false)}
+                        className="bg-[#B59431] text-black px-6 py-2 rounded font-extrabold text-[13px] tracking-[0.15em] hover:bg-[#d4ae3b] transition-all"
                     >
                         CONTACT
                     </Link>
-                </nav>
+                </div>
+
+                {/* Mobile Menu Button */}
+                <div className="md:hidden">
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="text-white focus:outline-none"
+                    >
+                        {isOpen ? <X size={28} /> : <Menu size={28} />}
+                    </button>
+                </div>
             </div>
 
-            <style>{`
-                /* ── Desktop nav ── */
-                .header-desktop-nav {
-                    display: none;
-                    align-items: center;
-                    gap: 2.75rem;
-                }
-                @media (min-width: 768px) {
-                    .header-desktop-nav { display: flex; }
-                }
+            {/* Mobile Navigation Drawer */}
+            <div
+                className={`fixed inset-0 z-50 bg-black transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
+                    } transition-transform duration-300 ease-in-out md:hidden`}
+            >
+                <div className="flex flex-col h-full p-8">
+                    <div className="flex justify-end">
+                        <button onClick={() => setIsOpen(false)} className="text-[#B59431]">
+                            <X size={32} />
+                        </button>
+                    </div>
 
-                .nav-link {
-                    font-size: 10px;
-                    letter-spacing: 0.38em;
-                    font-weight: 700;
-                    color: rgba(255,255,255,0.6);
-                    text-transform: uppercase;
-                    transition: color 0.25s ease;
-                }
-                .nav-link:hover,
-                .nav-link-active {
-                    color: #B89C24;
-                }
-
-                .nav-contact {
-                    display: inline-block;
-                    background: #B89C24;
-                    color: #000;
-                    font-size: 10px;
-                    font-weight: 700;
-                    letter-spacing: 0.32em;
-                    text-transform: uppercase;
-                    padding: 10px 24px;
-                    transition: background 0.25s ease;
-                    white-space: nowrap;
-                }
-                .nav-contact:hover { background: #d4b230; }
-
-                /* ── Hamburger ── */
-                .hamburger-btn {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 5px;
-                    padding: 4px;
-                    cursor: pointer;
-                    z-index: 210;
-                    background: none;
-                    border: none;
-                }
-                @media (min-width: 768px) {
-                    .hamburger-btn { display: none; }
-                }
-
-                .ham-bar {
-                    display: block;
-                    width: 25px;
-                    height: 2px;
-                    background: #fff;
-                    border-radius: 2px;
-                    transition: transform 0.3s ease, opacity 0.3s ease;
-                    transform-origin: center;
-                }
-                .ham-bar-1-open { transform: translateY(7px) rotate(45deg); }
-                .ham-bar-2-open { opacity: 0; transform: scaleX(0); }
-                .ham-bar-3-open { transform: translateY(-7px) rotate(-45deg); }
-
-                /* ── Mobile menu ── */
-                .mobile-menu {
-                    position: fixed;
-                    inset: 0;
-                    z-index: 190;
-                    background: #000;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    transform: translateX(100%);
-                    transition: transform 0.45s cubic-bezier(0.77, 0, 0.18, 1);
-                }
-                @media (min-width: 768px) {
-                    .mobile-menu { display: none; }
-                }
-                .mobile-menu-open { transform: translateX(0); }
-
-                .mobile-nav {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 2.25rem;
-                }
-
-                .mobile-link {
-                    font-size: 1.6rem;
-                    letter-spacing: 0.45em;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    color: rgba(255,255,255,0.75);
-                    transition: color 0.2s ease;
-                }
-                .mobile-link:hover,
-                .mobile-link-active {
-                    color: #B89C24;
-                }
-
-                .mobile-contact {
-                    margin-top: 1.25rem;
-                    background: #B89C24;
-                    color: #000;
-                    font-size: 0.9rem;
-                    font-weight: 700;
-                    letter-spacing: 0.35em;
-                    text-transform: uppercase;
-                    padding: 16px 52px;
-                    transition: background 0.25s ease;
-                }
-                .mobile-contact:hover { background: #d4b230; }
-            `}</style>
-        </>
+                    <div className="flex flex-col items-center justify-center flex-grow space-y-8">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                onClick={() => setIsOpen(false)}
+                                className={`text-xl font-bold tracking-[0.2em] transition-colors ${link.name === 'HOME' ? 'text-[#B59431]' : 'text-white'}`}
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                        <Link
+                            href="/contact"
+                            onClick={() => setIsOpen(false)}
+                            className="bg-[#B59431] text-black w-full text-center py-4 rounded-lg font-bold text-lg tracking-widest"
+                        >
+                            CONTACT
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </nav>
     );
-}
+};
+
+export default Header;
