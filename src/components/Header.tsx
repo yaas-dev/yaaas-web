@@ -16,6 +16,7 @@ export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
+    const isTalentPage = pathname.startsWith("/talents");
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 30);
@@ -40,16 +41,22 @@ export default function Header() {
                     right: 0,
                     zIndex: 200,
                     transition: "background 0.4s ease, padding 0.4s ease",
-                    background: scrolled ? "rgba(0,0,0,0.95)" : "rgba(0,0,0,0.75)",
-                    backdropFilter: scrolled ? "blur(10px)" : "blur(4px)",
-                    borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-                    padding: scrolled ? "10px 0" : "16px 0",
+                    background: isTalentPage
+                        ? (scrolled ? "rgba(0,0,0,0.58)" : "rgba(0,0,0,0.18)")
+                        : (scrolled ? "rgba(0,0,0,0.95)" : "rgba(0,0,0,0.75)"),
+                    backdropFilter: isTalentPage
+                        ? "blur(2px)"
+                        : (scrolled ? "blur(10px)" : "blur(4px)"),
+                    borderBottom: isTalentPage
+                        ? "1px solid transparent"
+                        : (scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent"),
+                    padding: isTalentPage ? (scrolled ? "6px 0" : "10px 0") : (scrolled ? "10px 0" : "16px 0"),
                 }}
             >
                 <div style={{
-                    maxWidth: 1400,
+                    maxWidth: isTalentPage ? 1320 : 1400,
                     margin: "0 auto",
-                    padding: "0 2.5rem",
+                    padding: isTalentPage ? "0 2rem" : "0 2.5rem",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
@@ -63,22 +70,26 @@ export default function Header() {
                             width={110}
                             height={110}
                             priority
-                            style={{ height: 58, width: "auto", objectFit: "contain" }}
+                            style={{
+                                height: isTalentPage ? 42 : 58,
+                                width: "auto",
+                                objectFit: "contain",
+                            }}
                         />
                     </Link>
 
                     {/* Desktop nav */}
-                    <nav className="header-desktop-nav">
+                    <nav className={`header-desktop-nav ${isTalentPage ? "header-desktop-nav-talent" : ""}`}>
                         {NAV_LINKS.map(({ name, href }) => (
                             <Link
                                 key={name}
                                 href={href}
-                                className={pathname === href ? "nav-link nav-link-active" : "nav-link"}
+                                className={`${pathname === href ? "nav-link nav-link-active" : "nav-link"} ${isTalentPage ? "nav-link-talent" : ""}`}
                             >
                                 {name}
                             </Link>
                         ))}
-                        <Link href="/contact" className="nav-contact">
+                        <Link href="/contact" className={`nav-contact ${isTalentPage ? "nav-contact-talent" : ""}`}>
                             CONTACT
                         </Link>
                     </nav>
@@ -126,6 +137,9 @@ export default function Header() {
                     align-items: center;
                     gap: 2.75rem;
                 }
+                .header-desktop-nav-talent {
+                    gap: 1.2rem;
+                }
                 @media (min-width: 768px) {
                     .header-desktop-nav { display: flex; }
                 }
@@ -142,6 +156,10 @@ export default function Header() {
                 .nav-link-active {
                     color: #B89C24;
                 }
+                .nav-link-talent {
+                    font-size: 9px;
+                    letter-spacing: 0.2em;
+                }
 
                 .nav-contact {
                     display: inline-block;
@@ -154,6 +172,12 @@ export default function Header() {
                     padding: 10px 24px;
                     transition: background 0.25s ease;
                     white-space: nowrap;
+                }
+                .nav-contact-talent {
+                    font-size: 9px;
+                    letter-spacing: 0.2em;
+                    padding: 8px 14px;
+                    border-radius: 4px;
                 }
                 .nav-contact:hover { background: #d4b230; }
 
