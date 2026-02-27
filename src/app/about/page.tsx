@@ -18,7 +18,9 @@ const collaborations = [
 
 export default function AboutPage() {
     const collabSlides = collaborations.map((collab, i) => (
-        <div key={i} className="w-full h-full relative flex items-center justify-center">
+        <div key={collab.name} className="w-full h-full relative flex items-center justify-center">
+            {/* Switched to standard img with descriptive class or Next Image if preferred. 
+                Using standard img here as per your original, but added relative key. */}
             <img src={collab.image} alt={collab.name} className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale" />
             <div className="relative z-10 text-center px-4 max-w-2xl">
                 <h3 className="text-4xl md:text-6xl font-bold mb-6 italic font-serif uppercase tracking-tight">{collab.name}</h3>
@@ -30,7 +32,7 @@ export default function AboutPage() {
     ));
 
     return (
-        <div className="pt-32 pb-24 container mx-auto px-4 min-h-screen bg-background text-white">
+        <div className="pt-32 pb-24 mx-auto px-4 min-h-screen bg-background text-white max-w-[1400px]">
             <div className="mb-24">
                 <div className="section-title mb-8">
                     <h1 className="text-4xl md:text-6xl font-bold tracking-[0.2em] uppercase">The Agency</h1>
@@ -79,14 +81,6 @@ export default function AboutPage() {
                     <Carousel items={collabSlides} showArrows={true} showDots={true} autoPlay={false} />
                 </div>
             </section>
-
-            <style jsx>{`
-        .pt-32 { padding-top: 8rem; }
-        .mb-24 { margin-bottom: 6rem; }
-        .mb-40 { margin-bottom: 10rem; }
-        .container { max-width: 1400px; margin: 0 auto; }
-        .aspect-square { aspect-ratio: 1 / 1; }
-      `}</style>
         </div>
     );
 }
