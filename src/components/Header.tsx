@@ -5,6 +5,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 
+
+const NAV_LINKS = [
+    { name: "HOME", href: "/" },
+    { name: "CATALOGUE", href: "/art-catalogue" },
+    { name: "TALENT", href: "/talents" },
+    { name: "SERVICES", href: "/services" },
+    { name: "GALLERY", href: "/projects" },
+];
+
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
