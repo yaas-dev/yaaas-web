@@ -19,9 +19,9 @@ const AboutSection = () => {
             </div>
 
             {/* Content overlay */}
-            <div className="relative z-10 w-[50%] h-full flex flex-col items-center justify-center">
+            <div className="relative z-10 w-[90%] md:w-[70%] lg:w-[50%] h-full flex flex-col items-center justify-center">
                 {/* Black background extended fully horizontally */}
-                <div className="bg-black/90 w-full py-12 md:py-20 px-10 flex flex-col items-center justify-center border-y border-white/10 shadow-2xl">
+                <div className="bg-black/90 w-full py-12 md:py-20 px-6 md:px-10 flex flex-col items-center justify-center border-y border-white/10 shadow-2xl">
                     <div className="w-full text-center">
 
                         <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">

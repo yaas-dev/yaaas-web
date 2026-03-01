@@ -34,7 +34,7 @@ export default function RootLayout({
           <PageTransition>
             <main>{children}</main>
           </PageTransition>
-          {/* <Footer /> */}
+          <Footer />
         </ModalProvider>
       </body>
     </html>

@@ -31,12 +31,12 @@ export default function TalentsPreview() {
                 </div>
 
                 {/* Talents Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-10 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-6 md:px-10 lg:px-20 mb-16">
                     {talents.map((talent, index) => (
                         <Link
                             key={index}
                             href={talent.href}
-                            className="group relative h-[700px] md:h-[800px] overflow-hidden rounded-xl block shadow-xl border border-white/5"
+                            className="group relative h-[450px] md:h-[700px] lg:h-[900px] overflow-hidden rounded-xl block shadow-xl border border-white/5"
                         >
                             <Image
                                 src={talent.image}
