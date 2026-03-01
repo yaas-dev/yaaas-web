@@ -13,9 +13,10 @@ export default function Home() {
     <div className="">
       <Hero />
       <AboutSection />
-      {/* <TalentsPreview /> */}
-      {/* <ArtCatalogue /> */}
       <Services />
+      <TalentsPreview />
+      {/* <ArtCatalogue /> */}
+
       {/* <UpcomingEvents /> */}
       {/* <ContactSection /> */}
     </div>

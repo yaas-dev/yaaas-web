@@ -6,47 +6,37 @@ import Image from "next/image";
 
 const talents = [
     {
-        title: "PHOTOGRAPHY",
+        title: "Visual Artists",
         image: "/images/talents/photography.png",
         href: "/talents/photography"
     },
     {
-        title: "PAINTING",
+        title: "Sonic Artists",
         image: "/images/talents/painting.png",
         href: "/talents/painting"
-    },
-    {
-        title: "MUSIC",
-        image: "/images/talents/music.png",
-        href: "/talents/music"
-    },
-    {
-        title: "STRING ART & SCULPTING",
-        image: "/images/talents/sculpting.png",
-        href: "/talents/sculpting"
     }
 ];
 
 export default function TalentsPreview() {
     return (
         <section id="talents" className="py-24 bg-black">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+            <div className="">
 
                 {/* Section Header */}
-                <div className="mb-16 md:mb-20">
-                    <h2 className="text-3xl md:text-5xl lg:text-[54px] font-bold tracking-[0.15em] uppercase text-white mb-4 md:mb-6">
-                        YAAAS TALENTS
+                <div className="w-full relative pt-12 md:pt-24 mb-16 md:mb-24 z-50">
+                    <h2 className="text-3xl md:text-5xl lg:text-[54px] font-bold tracking-[0.15em] uppercase text-white mb-4 md:mb-6 ml-[10%]">
+                        THE YAAAS TALENTS
                     </h2>
-                    <div className="w-64 md:w-80 h-[4px] md:h-[6px] bg-[#B59431]"></div>
+                    <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
                 {/* Talents Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-10 mb-16">
                     {talents.map((talent, index) => (
                         <Link
                             key={index}
                             href={talent.href}
-                            className="group relative h-[400px] md:h-[500px] overflow-hidden rounded-xl block shadow-xl border border-white/5"
+                            className="group relative h-[700px] md:h-[800px] overflow-hidden rounded-xl block shadow-xl border border-white/5"
                         >
                             <Image
                                 src={talent.image}
@@ -68,16 +58,6 @@ export default function TalentsPreview() {
                             <div className="absolute inset-0 border-[3px] border-transparent group-hover:border-[#B59431]/60 transition-colors duration-500 rounded-xl" />
                         </Link>
                     ))}
-                </div>
-
-                {/* View Details Button */}
-                <div className="flex justify-center">
-                    <Link
-                        href="/talents"
-                        className="bg-white text-black px-10 py-4 rounded font-extrabold text-[12px] md:text-[14px] tracking-[0.15em] hover:bg-gray-200 transition-all uppercase shadow-lg text-center"
-                    >
-                        VIEW TALENTS
-                    </Link>
                 </div>
             </div>
         </section>
