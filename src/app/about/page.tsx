@@ -32,7 +32,7 @@ export default function AboutPage() {
     ));
 
     return (
-        <div className="pt-32 pb-24 mx-auto px-4 min-h-screen bg-background text-white max-w-[1400px]">
+        <div className="pt-32 pb-24 mx-auto min-h-screen bg-background text-white">
             <div className="mb-24">
                 <div className="section-title mb-8">
                     <h1 className="text-4xl md:text-6xl font-bold tracking-[0.2em] uppercase">The Agency</h1>

@@ -13,11 +13,11 @@ export default function Home() {
     <div className="">
       <Hero />
       <AboutSection />
-      <TalentsPreview />
-      <ArtCatalogue />
+      {/* <TalentsPreview /> */}
+      {/* <ArtCatalogue /> */}
       <Services />
-      <UpcomingEvents />
-      <ContactSection />
+      {/* <UpcomingEvents /> */}
+      {/* <ContactSection /> */}
     </div>
   );
 }

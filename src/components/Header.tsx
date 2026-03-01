@@ -25,8 +25,8 @@ const Header = () => {
     ];
 
     return (
-        <nav className="absolute top-0 left-0 w-full z-50 bg-black/80 md:bg-black/90 text-white px-6 py-4 md:px-12 lg:px-20 border-b-2 border-[#B59431]/20">
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <nav className="absolute top-0 left-0 w-full z-50 bg-black/80 md:bg-black/90 text-white py-4 border-b-2 border-[#B59431]/20">
+            <div className=" mx-auto flex items-center justify-between">
 
                 {/* Logo Section */}
                 <div className="flex items-center space-x-2">

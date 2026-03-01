@@ -1,19 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const servicesList = [
     {
         id: 1,
-        text: "Lorem ipsum dolor sit amet consectetur. Nec nulla amet accumsan egestas sed tincidunt praesent. Lectus sed ac imperdiet mauris. Pellentesque blandit auctor eget nulla lacus at volutpat nulla ullamcorper. Amet elementum tempus sagittis nulla mattis et velit. Sagittis varius adipiscing in ultrices amet quis accumsan in in.At orci sed tortor euismod. Id id ullamcorper maecenas ornare nisl eget urna mauris ut. Lobortis vitae nibh amet consectetur ut feugiat nec ut.",
+        text: "Creative direction + strategy",
+        image: "/images/service_1.png"
     },
     {
         id: 2,
-        text: "Lorem ipsum dolor sit amet consectetur. Nec nulla amet accumsan egestas sed tincidunt praesent. Lectus sed ac imperdiet mauris. Pellentesque blandit auctor eget nulla lacus at volutpat nulla ullamcorper. Amet elementum tempus sagittis nulla mattis et velit. Sagittis varius adipiscing in ultrices amet quis accumsan in in.At orci sed tortor euismod. Id id ullamcorper maecenas ornare nisl eget urna mauris ut. Lobortis vitae nibh amet consectetur ut feugiat nec ut.",
+        text: "Talents development + representation ",
+        image: "/images/service_2.png"
     },
     {
         id: 3,
-        text: "Lorem ipsum dolor sit amet consectetur. Nec nulla amet accumsan egestas sed tincidunt praesent. Lectus sed ac imperdiet mauris. Pellentesque blandit auctor eget nulla lacus at volutpat nulla ullamcorper. Amet elementum tempus sagittis nulla mattis et velit. Sagittis varius adipiscing in ultrices amet quis accumsan in in.At orci sed tortor euismod. Id id ullamcorper maecenas ornare nisl eget urna mauris ut. Lobortis vitae nibh amet consectetur ut feugiat nec ut.",
+        text: "Experiential + cultural programming",
+        image: "/images/service_3.png"
     }
 ];
 
@@ -32,9 +36,9 @@ export default function Services() {
             {/* Header Section */}
             <div className="w-full relative pt-12 md:pt-24 mb-16 md:mb-24 z-50">
                 <h2 className="text-3xl md:text-5xl lg:text-[54px] font-bold tracking-[0.15em] uppercase text-white mb-4 md:mb-6 ml-[10%]">
-                    SERVICES
+                    THE YAAAS SERVICES
                 </h2>
-                <div className="w-[75%] md:w-[45%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
+                <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
             </div>
 
             {/* Content List */}
@@ -48,17 +52,26 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8 }}
-                            className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-16 w-full max-w-[1000px]`}
+                            className="relative w-full h-[300px] md:h-[400px] lg:h-[450px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex items-center"
                         >
-                            {/* Image Placeholder */}
-                            <div className="w-[280px] h-[220px] md:w-[350px] md:h-[280px] flex-shrink-0 bg-gray-600/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl border border-white/10 relative flex items-center justify-center">
-                                {/* The user will replace this div with their <Image> tag */}
-                                <span className="text-white/30 text-sm tracking-widest font-semibold uppercase">Image Placeholder</span>
+                            {/* Background Image Layer */}
+                            <div className="absolute inset-0 w-full h-full bg-gray-800 z-0 flex items-center justify-center">
+                                <Image
+                                    src={service.image}
+                                    alt={service.text}
+                                    fill
+                                    className="object-cover object-center"
+                                />
                             </div>
 
+                            {/* Dark Gradient Overlay for text readability */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
+
                             {/* Text Content */}
-                            <div className="flex-1 text-white text-[15px] md:text-[17px] leading-[1.8] font-light text-center md:text-left">
-                                {service.text}
+                            <div className="relative z-20 w-full md:w-2/3 px-8 md:px-16 text-left">
+                                <h3 className="text-white text-2xl md:text-4xl lg:text-5xl font-bold tracking-wide leading-tight">
+                                    {service.text}
+                                </h3>
                             </div>
                         </motion.div>
                     );
