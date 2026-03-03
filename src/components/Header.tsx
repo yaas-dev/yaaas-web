@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 
@@ -16,13 +17,19 @@ const NAV_LINKS = [
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
 
     const navLinks = [
         { name: 'HOME', href: '/' },
         { name: 'CATALOGUE', href: '/catalogue' },
-        { name: 'TALENT', href: '/talent' },
-        { name: 'GALLERY', href: '/gallery' },
+        { name: 'TALENT', href: '/talents' },
+        { name: 'GALLERY', href: '/projects' },
     ];
+
+    const isActive = (href: string) => {
+        if (href === '/') return pathname === '/';
+        return pathname.startsWith(href);
+    };
 
     return (
         <nav className="absolute top-0 left-0 w-full z-50 bg-black/80 md:bg-black/90 text-white py-4 border-b-2 border-[#B59431]/20">
@@ -47,8 +54,7 @@ const Header = () => {
                         <Link
                             key={link.name}
                             href={link.href}
-                            className={`text-[13px] font-bold tracking-[0.15em] transition-colors hover:text-[#B59431] ${link.name === 'HOME' ? 'text-[#B59431]' : 'text-[#e0e0e0]'
-                                }`}
+                            className={`text-[13px] font-bold tracking-[0.15em] transition-colors hover:text-[#B59431] ${isActive(link.href) ? 'text-[#B59431]' : 'text-[#e0e0e0]'}`}
                         >
                             {link.name}
                         </Link>
@@ -90,7 +96,7 @@ const Header = () => {
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className={`text-xl font-bold tracking-[0.2em] transition-colors ${link.name === 'HOME' ? 'text-[#B59431]' : 'text-white'}`}
+                                className={`text-xl font-bold tracking-[0.2em] transition-colors ${isActive(link.href) ? 'text-[#B59431]' : 'text-white'}`}
                             >
                                 {link.name}
                             </Link>

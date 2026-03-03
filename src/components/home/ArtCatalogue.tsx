@@ -1,75 +1,124 @@
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import EnquiryModal, { Artwork } from '@/components/shared/EnquiryModal';
 
-const stackItems = [
-    { id: 'l3', x: "-180%", scale: 0.65, zIndex: 10, frame: 'bg-white', art: 'bg-gradient-to-br from-cyan-300 to-blue-400' },
-    { id: 'l2', x: "-120%", scale: 0.75, zIndex: 20, frame: 'bg-[#FFF2D0]', art: 'bg-gradient-to-br from-purple-800 to-indigo-900' },
-    { id: 'l1', x: "-60%", scale: 0.85, zIndex: 30, frame: 'bg-white', art: 'bg-gradient-to-br from-slate-900 to-blue-900' },
-    { id: 'r1', x: "60%", scale: 0.85, zIndex: 30, frame: 'bg-white', art: 'bg-gradient-to-br from-blue-500 to-cyan-500' },
-    { id: 'r2', x: "120%", scale: 0.75, zIndex: 20, frame: 'bg-white', art: 'bg-gradient-to-br from-blue-700 to-blue-400' },
-    { id: 'r3', x: "180%", scale: 0.65, zIndex: 10, frame: 'bg-white', art: 'bg-gradient-to-br from-blue-800 to-[#B59431]' },
+const cardLayouts = [
+    { x: "-200%", scale: 0.5, zIndex: 0, opacity: 0 },
+    { x: "-140%", scale: 0.7, zIndex: 10, opacity: 0.5 },
+    { x: "-75%", scale: 0.85, zIndex: 20, opacity: 0.8 },
+    { x: "0%", scale: 1.15, zIndex: 50, opacity: 1 },    // The main central card
+    { x: "75%", scale: 0.85, zIndex: 20, opacity: 0.8 },
+    { x: "140%", scale: 0.7, zIndex: 10, opacity: 0.5 },
+    { x: "200%", scale: 0.5, zIndex: 0, opacity: 0 },
+];
+
+const initialCardData: Artwork[] = [
+    { id: 1, src: '/images/service_1.png', artist: 'Artist Name', title: 'Abstract Blue' },
+    { id: 2, src: '/images/service_2.png', artist: 'Artist Name', title: 'Golden Hour' },
+    { id: 3, src: '/images/service_3.png', artist: 'Artist Name', title: 'Ocean Deep' },
+    { id: 4, src: '/images/service_1.png', artist: 'Artist Name', title: 'Modern Flux' },
+    { id: 5, src: '/images/service_2.png', artist: 'Artist Name', title: 'Urban Edge' },
+    { id: 6, src: '/images/service_3.png', artist: 'Artist Name', title: 'Digital Media' },
+    { id: 7, src: '/images/service_1.png', artist: 'Artist Name', title: 'Mixed Media' },
 ];
 
 const ArtCatalogue = () => {
+    const [cards, setCards] = useState(initialCardData);
+    const [selectedArt, setSelectedArt] = useState<Artwork | null>(null);
+
+    useEffect(() => {
+        // Pause carousel when modal is open
+        if (selectedArt) return;
+
+        const interval = setInterval(() => {
+            setCards((prevItems) => {
+                const newItems = [...prevItems];
+                const firstItem = newItems.shift();
+                if (firstItem) newItems.push(firstItem);
+                return newItems;
+            });
+        }, 2500); // 2.5s interval
+
+        return () => clearInterval(interval);
+    }, [selectedArt]);
+
     return (
-        <section id="catalogue" className="bg-black py-24 overflow-hidden relative min-h-[80vh] flex flex-col justify-center">
-            {/* Header Section */}
-            <div className="w-full absolute top-12 md:top-24 left-0 z-50">
-                <h2 className="text-3xl md:text-5xl lg:text-[54px] font-bold tracking-[0.15em] uppercase text-white mb-4 md:mb-6 ml-[10%]">
-                    ART CATALOGUE
-                </h2>
-                <div className="w-[75%] md:w-[45%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
-            </div>
+        <section id="catalogue" className="bg-black py-4 overflow-hidden relative flex flex-col justify-center">
 
             {/* Stacked Gallery Container */}
-            <div className="relative w-full max-w-[1400px] mx-auto flex items-center justify-center mt-32 h-[400px] md:h-[600px]">
+            <div className="relative w-full max-w-[1400px] mx-auto flex items-center justify-center mt-2 h-[450px] md:h-[600px]">
 
-                {/* Background Cards */}
-                {stackItems.map((item, index) => (
-                    <motion.div
-                        key={item.id}
-                        className={`absolute ${item.frame} w-[160px] h-[240px] sm:w-[220px] sm:h-[320px] md:w-[280px] md:h-[400px] p-2 md:p-4 shadow-2xl`}
-                        style={{ zIndex: item.zIndex }}
-                        initial={{ opacity: 0, x: 0, scale: 0.5 }}
-                        whileInView={{ opacity: 1, x: item.x, scale: item.scale }}
-                        transition={{ duration: 0.8, delay: 0.1 * index, ease: "easeOut" }}
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <div className={`w-full h-full border border-black/30 ${item.art} relative overflow-hidden opacity-90 backdrop-blur-sm`}>
-                        </div>
-                    </motion.div>
-                ))}
+                <AnimatePresence>
+                    {cards.map((item, index) => {
+                        const layout = cardLayouts[index];
+                        const isCenter = index === 3;
 
-                {/* Central Featured Card */}
-                <motion.div
-                    className="relative z-50 w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[460px] md:h-[460px] border-[5px] border-[#00B7FF] shadow-[0_0_40px_10px_rgba(0,183,255,0.3)] bg-[#9BA7AC] p-6 lg:p-10 flex items-center justify-center"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-                    viewport={{ once: true, margin: "-50px" }}
-                >
-                    {/* The Actual Art Container */}
-                    <div className="relative w-full h-full border border-black shadow-2xl overflow-hidden bg-gradient-to-br from-teal-500 via-cyan-700 to-blue-900">
-                        {/* Blur overlay to perfectly mimic the foggy center art in reference */}
-                        <div className="absolute inset-0 backdrop-blur-[6px] bg-white/10"></div>
-                        <div className="absolute inset-0 bg-teal-900 mix-blend-overlay opacity-50"></div>
-                    </div>
+                        return (
+                            <motion.div
+                                key={item.id}
+                                className="absolute bg-white w-[160px] h-[240px] sm:w-[220px] sm:h-[320px] md:w-[280px] md:h-[400px] p-2 md:p-3 shadow-2xl border-[4px] cursor-pointer"
+                                style={{ zIndex: layout.zIndex }}
+                                animate={{
+                                    opacity: layout.opacity,
+                                    x: layout.x,
+                                    scale: layout.scale,
+                                    borderColor: isCenter ? "#00B7FF" : "transparent",
+                                    boxShadow: isCenter ? "0 0 40px 10px rgba(0,183,255,0.3)" : "0 20px 25px -5px rgba(0,0,0,0.5)",
+                                }}
+                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                onClick={() => setSelectedArt(item)}
+                            >
+                                <div className={`w-full h-full border border-black/30 bg-black relative overflow-hidden backdrop-blur-sm`}>
+                                    <Image
+                                        src={item.src}
+                                        alt={item.title}
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 50vw, 33vw"
+                                    />
 
-                    {/* View Catalogue ButtonOverlay */}
-                    <div className="absolute inset-0 flex items-center justify-center z-10">
-                        <Link
-                            href="/catalogue"
-                            className="bg-white text-black px-6 py-3 md:px-8 md:py-4 rounded font-extrabold text-xs md:text-sm tracking-[0.15em] hover:bg-gray-100 transition-all uppercase shadow-2xl"
-                        >
-                            VIEW CATALOGUE
-                        </Link>
-                    </div>
-                </motion.div>
+                                    {/* Side card dark overlay */}
+                                    {!isCenter && (
+                                        <div className="absolute inset-0 bg-black/50 mix-blend-overlay transition-opacity duration-700"></div>
+                                    )}
 
+                                    {/* Button overlay shown only on center card */}
+                                    <AnimatePresence>
+                                        {isCenter && (
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ delay: 0.3, duration: 0.4 }}
+                                                className="absolute inset-0 flex items-center justify-center z-10 bg-black/10 hover:bg-black/30 transition-colors"
+                                            >
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setSelectedArt(item);
+                                                    }}
+                                                    className="bg-white text-black px-6 py-3 rounded font-extrabold text-[#000] text-xs tracking-[0.15em] hover:bg-[#ebf8ff] uppercase shadow-2xl transition-colors"
+                                                >
+                                                    ENQUIRE
+                                                </button>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </AnimatePresence>
             </div>
+
+            <EnquiryModal
+                isOpen={!!selectedArt}
+                onClose={() => setSelectedArt(null)}
+                artwork={selectedArt}
+            />
         </section>
     );
 };
