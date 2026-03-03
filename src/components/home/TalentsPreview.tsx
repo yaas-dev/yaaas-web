@@ -19,7 +19,7 @@ const talents = [
 
 export default function TalentsPreview() {
     return (
-        <section id="talents" className="py-24 bg-black">
+        <section id="talents" className="py-12 md:py-16 bg-black">
             <div className="">
 
                 {/* Section Header */}
@@ -31,12 +31,12 @@ export default function TalentsPreview() {
                 </div>
 
                 {/* Talents Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-6 md:px-10 lg:px-20 mb-16">
+                <div className="grid grid-cols-2 gap-4 md:gap-8 px-4 md:px-10 lg:px-20 mb-16">
                     {talents.map((talent, index) => (
                         <Link
                             key={index}
                             href={talent.href}
-                            className="group relative h-[450px] md:h-[700px] lg:h-[900px] overflow-hidden rounded-xl block shadow-xl border border-white/5"
+                            className="group relative h-[250px] sm:h-[400px] md:h-[700px] lg:h-[900px] overflow-hidden rounded-xl block shadow-xl border border-white/5"
                         >
                             <Image
                                 src={talent.image}
@@ -49,7 +49,7 @@ export default function TalentsPreview() {
 
                             {/* Category Text */}
                             <div className="absolute inset-0 flex items-center justify-center p-4">
-                                <h3 className="text-[#B59431] text-xl md:text-2xl font-black tracking-[0.25em] text-center uppercase drop-shadow-2xl">
+                                <h3 className="text-[#B59431] text-xs sm:text-xl md:text-2xl font-black tracking-[0.25em] text-center uppercase drop-shadow-2xl">
                                     {talent.title}
                                 </h3>
                             </div>

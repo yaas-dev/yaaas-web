@@ -11,7 +11,7 @@ const projects = [
 
 export default function ProjectGallery() {
     return (
-        <section id="projects" className="py-24 bg-black">
+        <section id="projects" className="py-12 md:py-16 bg-black">
             <div className="">
 
                 {/* Section Header */}
@@ -53,7 +53,7 @@ export default function ProjectGallery() {
                     })}
                 </div>
                 <div className="flex items-center justify-center">
-                    <Link href="/projects" className="text-black bg-white px-4 py-3 rounded-sm text-md font-bold tracking-wide uppercase">
+                    <Link href="/catalogue" className="text-black bg-white px-4 py-3 rounded-sm text-md font-bold tracking-wide uppercase">
                         View Full Gallery
                     </Link>
                 </div>

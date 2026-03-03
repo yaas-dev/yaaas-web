@@ -34,7 +34,7 @@ export default function Services() {
             }}
         >
             {/* Header Section */}
-            <div className="w-full relative pt-12 md:pt-24 mb-16 md:mb-24 z-50">
+            <div className="w-full relative pt-12 md:pt-16 mb-12 md:mb-16 z-50">
                 <h2 className="text-3xl md:text-5xl lg:text-[54px] font-bold tracking-[0.15em] uppercase text-white mb-4 md:mb-6 ml-[10%]">
                     THE YAAAS SERVICES
                 </h2>
@@ -42,7 +42,7 @@ export default function Services() {
             </div>
 
             {/* Content List */}
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-24 flex flex-col gap-16 md:gap-24 items-center">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-12 md:pb-16 flex flex-col gap-16 md:gap-24 items-center">
                 {servicesList.map((service, index) => {
                     const isEven = index % 2 === 0;
                     return (
