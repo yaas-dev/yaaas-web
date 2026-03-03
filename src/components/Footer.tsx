@@ -34,10 +34,9 @@ export default function Footer() {
                             <ul className="flex flex-col gap-4 text-xs md:text-sm uppercase tracking-widest font-semibold text-gray-300">
                                 {[
                                     { label: "HOME", href: "/" },
-                                    { label: "CATALOGUE", href: "/art-catalogue" },
+                                    { label: "CATALOGUE", href: "/catalogue" },
                                     { label: "TALENT", href: "/talents" },
-                                    { label: "SERVICES", href: "/services" },
-                                    { label: "GALLERY", href: "/projects" },
+                                    { label: "ABOUT US", href: "/about" },
                                     { label: "CONTACT", href: "/contact" },
                                 ].map(({ label, href }) => (
                                     <li key={label}>

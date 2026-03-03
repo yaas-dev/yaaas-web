@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TalentCarousel from '@/components/shared/TalentCarousel';
 import EnquiryModal, { Artwork } from '@/components/shared/EnquiryModal';
@@ -76,9 +77,9 @@ export default function TalentsPage() {
                 {/* Grid Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 md:gap-x-16 gap-y-12 md:gap-y-16 w-full mb-16">
                     {talentsData.map((art) => (
-                        <div
+                        <Link
+                            href="/talents/eolia"
                             key={art.id}
-                            onClick={() => setSelectedArt(art)}
                             className="flex flex-col group cursor-pointer"
                         >
                             <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4">
@@ -92,14 +93,14 @@ export default function TalentsPage() {
 
                                 {/* Overlay Hint */}
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                                    <span className="text-white font-bold tracking-widest uppercase border border-white/50 px-6 py-2">Enquire</span>
+                                    <span className="text-white font-bold tracking-widest uppercase border border-white/50 px-6 py-2">View Profile</span>
                                 </div>
                             </div>
                             <div className="flex flex-col pl-1">
                                 <span className="text-[#d8b511] font-bold text-sm md:text-[15px] tracking-wide mb-1">{art.artist}</span>
                                 <span className="text-[#d8b511] font-medium text-xs md:text-sm tracking-wide">{art.title}</span>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 

@@ -8,12 +8,12 @@ const talents = [
     {
         title: "Visual Artists",
         image: "/images/talents/photography.png",
-        href: "/talents/photography"
+        href: "/talents"
     },
     {
         title: "Sonic Artists",
         image: "/images/talents/painting.png",
-        href: "/talents/painting"
+        href: "/talents"
     }
 ];
 

@@ -12,7 +12,7 @@ const NAV_LINKS = [
     { name: "CATALOGUE", href: "/art-catalogue" },
     { name: "TALENT", href: "/talents" },
     { name: "SERVICES", href: "/services" },
-    { name: "GALLERY", href: "/projects" },
+    { name: "ABOUT US", href: "/about" },
 ];
 
 const Header = () => {
@@ -23,7 +23,7 @@ const Header = () => {
         { name: 'HOME', href: '/' },
         { name: 'CATALOGUE', href: '/catalogue' },
         { name: 'TALENT', href: '/talents' },
-        { name: 'GALLERY', href: '/projects' },
+        { name: 'ABOUT US', href: '/about' },
     ];
 
     const isActive = (href: string) => {

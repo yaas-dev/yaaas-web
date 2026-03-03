@@ -12,120 +12,125 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="pt-32 pb-24 container mx-auto px-4 min-h-screen bg-background text-white">
-            <div className="mb-24">
-                <div className="section-title mb-8">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-[0.2em] uppercase">Contact Us</h1>
+        <main className="min-h-screen bg-black flex flex-col pt-24 font-sans text-white pb-20">
+
+            {/* CONTACT US Banner */}
+            <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-2 shadow-2xl z-10 mb-16 md:mb-24">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+                    <h1 className="text-white text-3xl md:text-5xl font-bold uppercase tracking-widest drop-shadow-lg">CONTACT US</h1>
                 </div>
-                <p className="text-[#999999] text-xs uppercase tracking-[0.3em] font-medium max-w-2xl">
-                    Interested in a collaboration, representation, or acquiring a piece from our catalogue? Reach out to our team.
-                </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-24">
-                <div>
-                    <div className="space-y-12 mb-16">
-                        <div>
-                            <span className="text-primary text-[10px] block mb-4 font-bold uppercase tracking-[0.4em]">Address</span>
-                            <p className="text-xl md:text-2xl font-light tracking-wide leading-relaxed">
-                                12 Vanguard Square, <br /> London, EC1A 4JQ
-                            </p>
-                        </div>
-                        <div>
-                            <span className="text-primary text-[10px] block mb-4 font-bold uppercase tracking-[0.4em]">General Inquiries</span>
-                            <p className="text-xl md:text-2xl font-light tracking-wide">hello@yaaas-agency.com</p>
-                        </div>
-                        <div>
-                            <span className="text-primary text-[10px] block mb-4 font-bold uppercase tracking-[0.4em]">Artist Submissions</span>
-                            <p className="text-xl md:text-2xl font-light tracking-wide">submissions@yaaas-agency.com</p>
+            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
+                <div className="mb-16 md:mb-24">
+                    <p className="text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide max-w-2xl">
+                        Interested in a collaboration, representation, or acquiring a piece from our catalogue? Reach out to our team. Let's make a difference together!
+                    </p>
+                </div>
+
+                <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+
+                    {/* Left Column: Information */}
+                    <div>
+                        <div className="space-y-12">
+                            <div>
+                                <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">Address</span>
+                                <p className="text-white text-xl md:text-2xl font-light tracking-wide leading-relaxed">
+                                    12 Vanguard Square, <br /> London, EC1A 4JQ
+                                </p>
+                            </div>
+                            <div>
+                                <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">General Inquiries</span>
+                                <p className="text-white text-xl md:text-2xl font-light tracking-wide">hello@yaaas-agency.com</p>
+                            </div>
+                            <div>
+                                <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">Artist Submissions</span>
+                                <p className="text-white text-xl md:text-2xl font-light tracking-wide">submissions@yaaas-agency.com</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="relative">
-                    <AnimatePresence mode="wait">
-                        {!isSubmitted ? (
-                            <motion.form
-                                key="form"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.6 }}
-                                onSubmit={handleSubmit}
-                                className="flex flex-col gap-10"
-                            >
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-[10px] uppercase tracking-[0.4em] text-[#666666] font-bold">FULL NAME</label>
-                                    <input
-                                        required
-                                        type="text"
-                                        className="bg-transparent border-b border-white/10 py-4 focus:border-primary outline-none transition-colors text-sm uppercase tracking-widest font-medium"
-                                        placeholder="NAME"
-                                    />
-                                </div>
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-[10px] uppercase tracking-[0.4em] text-[#666666] font-bold">EMAIL ADDRESS</label>
-                                    <input
-                                        required
-                                        type="email"
-                                        className="bg-transparent border-b border-white/10 py-4 focus:border-primary outline-none transition-colors text-sm uppercase tracking-widest font-medium"
-                                        placeholder="EMAIL"
-                                    />
-                                </div>
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-[10px] uppercase tracking-[0.4em] text-[#666666] font-bold">SUBJECT</label>
-                                    <select className="bg-transparent border-b border-white/10 py-4 focus:border-primary outline-none transition-colors appearance-none text-xs uppercase tracking-[0.2em] font-medium text-white cursor-pointer">
-                                        <option className="bg-black">GENERAL INQUIRY</option>
-                                        <option className="bg-black">ART ACQUISITION</option>
-                                        <option className="bg-black">REPRESENTATION</option>
-                                        <option className="bg-black">COLLABORATION</option>
-                                    </select>
-                                </div>
-                                <div className="flex flex-col gap-3">
-                                    <label className="text-[10px] uppercase tracking-[0.4em] text-[#666666] font-bold">MESSAGE</label>
-                                    <textarea
-                                        required
-                                        rows={4}
-                                        className="bg-transparent border-b border-white/10 py-4 focus:border-primary outline-none transition-colors resize-none text-sm uppercase tracking-widest font-medium"
-                                        placeholder="HOW CAN WE HELP?"
-                                    />
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="w-full bg-primary text-black font-bold uppercase tracking-[0.4em] py-5 text-sm mt-4 hover:opacity-90 transition-all shadow-lg"
+                    {/* Right Column: Interactive Form */}
+                    <div className="relative">
+                        <AnimatePresence mode="wait">
+                            {!isSubmitted ? (
+                                <motion.form
+                                    key="form"
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.6 }}
+                                    onSubmit={handleSubmit}
+                                    className="flex flex-col gap-8 md:gap-12 w-full max-w-xl"
                                 >
-                                    SEND MESSAGE
-                                </button>
-                            </motion.form>
-                        ) : (
-                            <motion.div
-                                key="success"
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="h-full flex flex-col items-center justify-center text-center py-20 border border-primary/20 bg-black/40"
-                            >
-                                <h3 className="text-4xl font-serif italic font-bold mb-6 text-primary tracking-tight">VISION ACKNOWLEDGED</h3>
-                                <p className="text-[#999999] text-xs uppercase tracking-[0.3em] leading-loose max-w-xs">
-                                    Resonance expected within <br />
-                                    24 solar hours.
-                                </p>
-                                <button
-                                    onClick={() => setIsSubmitted(false)}
-                                    className="mt-12 text-[10px] uppercase tracking-[0.4em] font-bold border-b border-primary/40 pb-1 hover:border-primary transition-all"
+                                    <div className="flex flex-col">
+                                        <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
+                                        <input
+                                            required
+                                            type="text"
+                                            placeholder="John Doe"
+                                            className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Email Address</label>
+                                        <input
+                                            required
+                                            type="email"
+                                            placeholder="john@example.com"
+                                            className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
+                                        <select className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
+                                            <option className="bg-black">General Inquiry</option>
+                                            <option className="bg-black">Art Acquisition</option>
+                                            <option className="bg-black">Representation</option>
+                                            <option className="bg-black">Collaboration</option>
+                                        </select>
+                                    </div>
+                                    <div className="flex flex-col mb-4">
+                                        <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Message</label>
+                                        <textarea
+                                            required
+                                            rows={4}
+                                            placeholder="How can we help?"
+                                            className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#333]"
+                                        />
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-[#d8b511] text-black font-extrabold tracking-[0.2em] uppercase py-5 rounded-sm hover:bg-white transition-all duration-300 transform hover:scale-[1.01]"
+                                    >
+                                        Submit
+                                    </button>
+                                </motion.form>
+                            ) : (
+                                <motion.div
+                                    key="success"
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="h-full flex flex-col items-center justify-center text-center py-20 border border-white/5 bg-white/5 rounded-sm"
                                 >
-                                    SEND ANOTHER RESONANCE
-                                </button>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                                    <h3 className="text-3xl md:text-4xl font-serif italic font-bold mb-6 text-[#d8b511] tracking-tight">VISION ACKNOWLEDGED</h3>
+                                    <p className="text-[#e0e0e0] font-light text-sm tracking-[0.3em] leading-loose max-w-sm mb-12 uppercase">
+                                        Resonance expected within <br />
+                                        24 solar hours.
+                                    </p>
+                                    <button
+                                        onClick={() => setIsSubmitted(false)}
+                                        className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#d8b511] border-b border-[#d8b511]/40 pb-1 hover:border-[#d8b511] transition-all"
+                                    >
+                                        SEND ANOTHER RESONANCE
+                                    </button>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
                 </div>
             </div>
-
-            <style jsx>{`
-        .pt-32 { padding-top: 8rem; }
-        .mb-24 { margin-bottom: 6rem; }
-        .container { max-width: 1400px; margin: 0 auto; }
-      `}</style>
-        </div>
+        </main>
     );
 }

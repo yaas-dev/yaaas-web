@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const staticTalents = [
     { id: '1', src: '/images/talents/painting.png', name: 'Talent 1', x: -212, z: 250, r: 25 },
@@ -17,7 +18,8 @@ export default function TalentCarousel() {
             <div className="absolute top-1/2 left-1/2 w-full h-full" style={{ transformStyle: "preserve-3d", transform: "translate(-50%, -50%)" }}>
                 {staticTalents.map((item) => {
                     return (
-                        <div
+                        <Link
+                            href="/talents/eolia"
                             key={item.id}
                             className={`absolute top-1/2 left-1/2 w-[22%] max-w-[320px] aspect-[4/5] md:aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:brightness-110 cursor-pointer bg-black`}
                             style={{
@@ -38,7 +40,7 @@ export default function TalentCarousel() {
                                 {/* Overlay gradient for depth */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                             </div>
-                        </div>
+                        </Link>
                     );
                 })}
             </div>
