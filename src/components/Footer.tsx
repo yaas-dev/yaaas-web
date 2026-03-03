@@ -50,10 +50,11 @@ export default function Footer() {
                             <h4 className="text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase">LINKS</h4>
                             <ul className="flex flex-col gap-4 text-xs md:text-sm uppercase tracking-widest font-semibold text-gray-300">
                                 {[
-                                    { label: "PROJECTS", href: "/projects" },
-                                    { label: "ART CATALOGUE", href: "/art-catalogue" },
+                                    // { label: "PROJECTS", href: "/projects" },
+                                    { label: "CATALOGUE", href: "/catalogue" },
                                     { label: "ABOUT US", href: "/about" },
-                                    { label: "NEWS", href: "/news" },
+                                    // { label: "NEWS", href: "/news" },
+                                    { label: "CONTACT", href: "/contact" },
                                 ].map(({ label, href }) => (
                                     <li key={label}>
                                         <Link href={href} className="hover:text-[#B59431] transition-colors">{label}</Link>
