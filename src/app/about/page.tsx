@@ -1,12 +1,15 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Services from '@/components/home/Services';
 
 export default function AboutPage() {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     return (
         <main className="min-h-screen bg-black flex flex-col pt-24 font-sans text-white pb-10">
 
@@ -19,10 +22,34 @@ export default function AboutPage() {
 
             {/* Intro Text */}
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-20 relative z-20">
-                <div className="max-w-4xl flex flex-col gap-8 text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide">
-                    <p>Our agency is dedicated to promoting African art and culture by providing a platform for talented creatives to showcase their work to a wider audience. We believe that inclusivity and diversity should mirror the rich tapestry of human existence, and we are proud to be part of making a positive impact.</p>
-                    <p>Our team works with artists from all over the continent, from emerging talents to established names. We provide support and representation to help these creatives navigate the often-challenging art world. At The Yaaas Asantewaa (Yaaas) Agency, we are committed to discovering and promoting new talent globally. Our ultimate goal is to create a vibrant and sustainable ecosystem that supports African art and culture. We take pride in representing a diverse range of artists from painters and sculptors to photographers and fashion designers.</p>
-                    <p>We believe that art can inspire, educate and transform society, and our mission is to make it accessible to the world. We invite you to join us on our journey to celebrate African creativity and talent, and let's make a difference together!</p>
+                <div className="max-w-4xl flex flex-col gap-6 text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide">
+                    <p className="text-xl md:text-2xl font-bold text-[#d8b511] mb-2">About YAAAS Agency</p>
+                    <p>YAAAS (Yaa Asantewaa) Agency is a culture-forward creative bridge connecting visionary African talent to the world. Operating at the intersection of art, identity, and opportunity, we provide bespoke representation to a select group of multidisciplinary artists who are pushing boundaries, preserving heritage, and reimagining the future.</p>
+
+                    <AnimatePresence>
+                        {(isExpanded || (typeof window !== 'undefined' && window.innerWidth >= 768)) && (
+                            <motion.div
+                                initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { height: 0, opacity: 0 } : false}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                                className="flex flex-col gap-6 overflow-hidden"
+                            >
+                                <p>Rooted in the continent and reaching across the diaspora, we champion a curated roster; from emerging voices to established names. We believe the art world thrives on inclusivity; Our mission is to develop a sustainable ecosystem that champions African art and culture while positioning African creative talents for long-term global success.</p>
+                                <p>Art inspires. Culture transforms. Join us in celebrating the vanguard of African creativity.</p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <button
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        className="md:hidden text-[#d8b511] font-bold text-xs tracking-widest uppercase flex items-center gap-2 mt-4 self-start"
+                    >
+                        {isExpanded ? 'Show Less' : 'Show More'}
+                        <motion.span animate={{ rotate: isExpanded ? 180 : 0 }}>
+                            <ChevronRight size={14} className="rotate-90" />
+                        </motion.span>
+                    </button>
                 </div>
             </div>
 

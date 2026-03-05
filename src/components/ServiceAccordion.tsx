@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export interface Service {
     id: string;
     number: string;
     title: string;
     description: string;
-    image?: string;
+    image: string;
 }
 
 interface ServiceAccordionProps {
@@ -23,7 +24,7 @@ export default function ServiceAccordion({ services }: ServiceAccordionProps) {
     };
 
     return (
-        <div role="list">
+        <div className="flex flex-col gap-4 md:gap-6 w-full">
             {services.map((service) => {
                 const isOpen = openId === service.id;
                 const triggerId = `service-trigger-${service.id}`;
@@ -32,74 +33,38 @@ export default function ServiceAccordion({ services }: ServiceAccordionProps) {
                 return (
                     <div
                         key={service.id}
-                        role="listitem"
-                        style={{ borderBottom: "1px solid #1a1a1a" }}
+                        className="rounded-xl overflow-hidden bg-black flex flex-col"
                     >
-                        {/* Trigger row */}
+                        {/* Trigger Banner */}
                         <button
                             id={triggerId}
                             aria-expanded={isOpen}
                             aria-controls={panelId}
                             onClick={() => toggle(service.id)}
-                            style={{
-                                width: "100%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                padding: "2rem 0",
-                                background: "none",
-                                border: "none",
-                                cursor: "pointer",
-                                textAlign: "left",
-                                gap: "1.5rem",
-                            }}
+                            className="relative w-full h-[120px] md:h-[150px] flex items-center px-6 md:px-12 text-left group overflow-hidden cursor-pointer"
                         >
-                            {/* Left: number + title */}
-                            <div style={{ display: "flex", alignItems: "baseline", gap: "1.75rem", flex: 1 }}>
-                                <span style={{
-                                    fontSize: "10px",
-                                    fontWeight: 700,
-                                    letterSpacing: "0.3em",
-                                    color: "#B89C24",
-                                    fontFamily: "monospace",
-                                    flexShrink: 0,
-                                }}>
-                                    {service.number}
-                                </span>
-                                <span style={{
-                                    fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)",
-                                    fontWeight: 700,
-                                    letterSpacing: "0.12em",
-                                    textTransform: "uppercase",
-                                    color: isOpen ? "#B89C24" : "#ffffff",
-                                    transition: "color 0.25s ease",
-                                }}>
-                                    {service.title}
-                                </span>
-                            </div>
+                            <Image
+                                src={service.image}
+                                alt=""
+                                fill
+                                className="object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-80"
+                            />
+                            {/* Dark gradient overlay similar to screenshot */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-80" />
 
-                            {/* Right: +/× icon */}
-                            <motion.span
-                                animate={{ rotate: isOpen ? 45 : 0 }}
-                                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    width: 32,
-                                    height: 32,
-                                    border: "1px solid",
-                                    borderColor: isOpen ? "#B89C24" : "#333333",
-                                    color: isOpen ? "#B89C24" : "#888888",
-                                    fontSize: "1.25rem",
-                                    lineHeight: 1,
-                                    flexShrink: 0,
-                                    transition: "border-color 0.25s ease, color 0.25s ease",
-                                }}
-                                aria-hidden="true"
-                            >
-                                +
-                            </motion.span>
+                            {/* Text Content */}
+                            <h3 className="relative z-10 text-[#f6d353] font-bold text-[18px] sm:text-xl md:text-2xl lg:text-3xl uppercase max-w-2xl leading-tight md:leading-snug tracking-wider text-left transition-transform duration-500 group-hover:translate-x-1 font-sans">
+                                {service.title.includes('+') ? (
+                                    <>
+                                        {service.title.split('+')[0].trim()} +
+                                        <br className="hidden md:block" />
+                                        <span className="md:hidden"> </span>
+                                        {service.title.split('+').slice(1).join('+').trim()}
+                                    </>
+                                ) : (
+                                    service.title
+                                )}
+                            </h3>
                         </button>
 
                         {/* Expandable panel */}
@@ -112,52 +77,13 @@ export default function ServiceAccordion({ services }: ServiceAccordionProps) {
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: "auto", opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
-                                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                     style={{ overflow: "hidden" }}
                                 >
-                                    <div style={{
-                                        display: "grid",
-                                        gridTemplateColumns: service.image ? "1fr auto" : "1fr",
-                                        gap: "3rem",
-                                        alignItems: "center",
-                                        paddingBottom: "2.5rem",
-                                        paddingLeft: "calc(10px * 0.3 * 2.5 + 1.75rem + 10px)",
-                                    }}>
-                                        {/* Description text */}
-                                        <div>
-                                            <p style={{
-                                                color: "#999999",
-                                                fontSize: "0.85rem",
-                                                lineHeight: 1.9,
-                                                letterSpacing: "0.04em",
-                                                maxWidth: "640px",
-                                            }}>
-                                                {service.description}
-                                            </p>
-                                        </div>
-
-                                        {/* Optional image */}
-                                        {service.image && (
-                                            <div style={{
-                                                width: 180,
-                                                height: 140,
-                                                overflow: "hidden",
-                                                flexShrink: 0,
-                                                border: "1px solid #1a1a1a",
-                                            }}>
-                                                <img
-                                                    src={service.image}
-                                                    alt=""
-                                                    aria-hidden="true"
-                                                    style={{
-                                                        width: "100%",
-                                                        height: "100%",
-                                                        objectFit: "cover",
-                                                        filter: "grayscale(60%)",
-                                                    }}
-                                                />
-                                            </div>
-                                        )}
+                                    <div className="px-6 md:px-12 py-6 md:py-8 bg-[#111]">
+                                        <p className="text-gray-300 text-sm md:text-base leading-relaxed tracking-wide max-w-4xl font-light">
+                                            {service.description}
+                                        </p>
                                     </div>
                                 </motion.div>
                             )}

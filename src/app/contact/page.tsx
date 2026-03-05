@@ -24,7 +24,7 @@ export default function ContactPage() {
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
                 <div className="mb-16 md:mb-24">
                     <p className="text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide max-w-2xl">
-                        Interested in a collaboration, representation, or acquiring a piece from our catalogue? Reach out to our team. Let's make a difference together!
+                        Whether you are looking for representation, a new addition to your collection, or a creative partnership, we are here to connect. Reach out and let's start the conversation.
                     </p>
                 </div>
 
@@ -34,19 +34,10 @@ export default function ContactPage() {
                     <div>
                         <div className="space-y-12">
                             <div>
-                                <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">Address</span>
-                                <p className="text-white text-xl md:text-2xl font-light tracking-wide leading-relaxed">
-                                    12 Vanguard Square, <br /> London, EC1A 4JQ
-                                </p>
-                            </div>
-                            <div>
                                 <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">General Inquiries</span>
-                                <p className="text-white text-xl md:text-2xl font-light tracking-wide">hello@yaaas-agency.com</p>
+                                <p className="text-white text-xl md:text-2xl font-light tracking-wide">hello@yaaas.co</p>
                             </div>
-                            <div>
-                                <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">Artist Submissions</span>
-                                <p className="text-white text-xl md:text-2xl font-light tracking-wide">submissions@yaaas-agency.com</p>
-                            </div>
+
                         </div>
                     </div>
 

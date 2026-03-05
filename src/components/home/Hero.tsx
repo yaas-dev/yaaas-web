@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Hero() {
     return (
-        <section className="relative w-full h-[100vh] bg-black flex flex-col items-center justify-center text-center overflow-hidden">
+        <section className="relative w-full h-[100vh] max-h-[100vh] bg-black flex flex-col items-center justify-center text-center overflow-hidden">
 
             {/* Background Image Layer */}
             <motion.div

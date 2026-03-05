@@ -9,7 +9,7 @@ import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
     { name: "HOME", href: "/" },
-    { name: "CATALOGUE", href: "/art-catalogue" },
+    { name: "CATALOGUE", href: "/catalogue" },
     { name: "TALENT", href: "/talents" },
     { name: "SERVICES", href: "/services" },
     { name: "ABOUT US", href: "/about" },
@@ -23,6 +23,7 @@ const Header = () => {
         { name: 'HOME', href: '/' },
         { name: 'CATALOGUE', href: '/catalogue' },
         { name: 'TALENT', href: '/talents' },
+        { name: 'SERVICES', href: '/services' },
         { name: 'ABOUT US', href: '/about' },
     ];
 
@@ -32,7 +33,7 @@ const Header = () => {
     };
 
     return (
-        <nav className="absolute top-0 left-0 w-full pr-5 z-50 bg-black/80 md:bg-black/90 text-white py-4 border-b-2 border-[#B59431]/20">
+        <nav className="absolute top-0 left-0 w-full px-5 z-[100] bg-black/80 md:bg-black/90 text-white py-4 border-b-2 border-[#B59431]/20">
             <div className=" mx-auto flex items-center justify-between">
 
                 {/* Logo Section */}
@@ -80,7 +81,7 @@ const Header = () => {
 
             {/* Mobile Navigation Drawer */}
             <div
-                className={`fixed inset-0 z-50 bg-black transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed inset-0 z-[100] bg-black transform ${isOpen ? 'translate-x-0' : 'translate-x-full'
                     } transition-transform duration-300 ease-in-out md:hidden`}
             >
                 <div className="flex flex-col h-full p-8">

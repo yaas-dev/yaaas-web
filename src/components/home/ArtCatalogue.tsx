@@ -86,7 +86,7 @@ const ArtCatalogue = () => {
                                     )}
 
                                     {/* Button overlay shown only on center card */}
-                                    <AnimatePresence>
+                                    {/* <AnimatePresence>
                                         {isCenter && (
                                             <motion.div
                                                 initial={{ opacity: 0 }}
@@ -106,7 +106,7 @@ const ArtCatalogue = () => {
                                                 </button>
                                             </motion.div>
                                         )}
-                                    </AnimatePresence>
+                                    </AnimatePresence> */}
                                 </div>
                             </motion.div>
                         );
