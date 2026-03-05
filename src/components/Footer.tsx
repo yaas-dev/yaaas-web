@@ -2,9 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Instagram, Linkedin, Youtube } from "lucide-react";
 
 export default function Footer() {
+    const pathname = usePathname();
+
+    if (pathname?.startsWith('/admin')) return null;
+
     return (
         <footer className="bg-black border-t-4 border-[#B59431] pt-24 pb-12">
             <div className="max-w-7xl mx-auto px-6 md:px-12 text-white">

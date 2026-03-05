@@ -1,58 +1,16 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { use } from "react";
+import { notFound } from "next/navigation";
+import { getProjectById } from "@/actions/projectActions";
 
-// In a real app, this would be fetched from a database or CMS based on the ID.
-// For now, we use mock data to match the homepage carousel.
-const projectsData = [
-    {
-        id: "1",
-        title: "Neon Echoes Exhibition",
-        category: "Exhibition Curation",
-        date: "March 2026",
-        description: "An immersive exploration of light, sound, and space. Neon Echoes brought together 15 international artists to reimagine the boundaries of digital and physical art. The exhibition spanned 10,000 square feet and utilized proprietary projection mapping, generative audio landscapes, and reactive LED sculptures.",
-        details: [
-            "Curated 15 international artists",
-            "10,000 sq ft immersive layout",
-            "Over 45,000 attendees in 4 weeks",
-            "Featured in ArtForum & Wired"
-        ],
-        image: "/images/project.png",
-        gallery: [
-            "/images/project.png",
-            "/images/project.png",
-            "/images/project.png"
-        ]
-    },
-    {
-        id: "2",
-        title: "Sonic Landscapes Framework",
-        category: "Sound Design",
-        date: "January 2026",
-        description: "A comprehensive auditory identity developed for the new global headquarters of a leading technology firm, blending organic field recordings with synthetic textures. Our team spent six months recording ambient sounds across 12 countries to create a sonic library that dynamically adjusts to the time of day and office density.",
-        details: [
-            "6 months of global field recording",
-            "Dynamic, time-responsive audio states",
-            "Integrated across 40 floors",
-            "Winner of the 2026 Sonic Architecture Award"
-        ],
-        image: "/images/project.png",
-        gallery: [
-            "/images/project.png",
-            "/images/project.png",
-            "/images/project.png"
-        ]
+export default async function SingleProjectPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const project = await getProjectById(id);
+
+    if (!project) {
+        notFound();
     }
-];
-
-export default function SingleProjectPage({ params }: { params: Promise<{ id: string }> }) {
-    // Unwrap the generic params promise in NextJS 15+
-    const unwrappedParams = use(params);
-    const projectId = unwrappedParams.id;
-    const project = projectsData.find(p => p.id === projectId) || projectsData[0];
 
     return (
         <main className="min-h-screen bg-[#080807] text-white selection:bg-[#B59431] selection:text-black pb-24">
@@ -70,7 +28,7 @@ export default function SingleProjectPage({ params }: { params: Promise<{ id: st
             {/* Hero Image Section */}
             <section className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
                 <Image
-                    src={project.image}
+                    src={project.mainImage}
                     alt={project.title}
                     fill
                     className="object-cover"
@@ -84,11 +42,13 @@ export default function SingleProjectPage({ params }: { params: Promise<{ id: st
                         <span className="bg-[#B59431] text-black px-3 py-1 text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold">
                             {project.category}
                         </span>
-                        <span className="text-gray-300 text-xs md:text-sm uppercase tracking-widest font-medium">
-                            {project.date}
-                        </span>
+                        {project.date && (
+                            <span className="text-gray-300 text-xs md:text-sm uppercase tracking-widest font-medium">
+                                {project.date}
+                            </span>
+                        )}
                     </div>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-playfair font-bold text-white leading-tight">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-playfair font-bold text-white leading-tight uppercase tracking-wider">
                         {project.title}
                     </h1>
                 </div>
@@ -102,18 +62,19 @@ export default function SingleProjectPage({ params }: { params: Promise<{ id: st
                     <h2 className="text-2xl md:text-3xl font-bold tracking-wide mb-8 text-white/90">
                         Project Overview
                     </h2>
-                    <p className="text-gray-400 text-base md:text-lg tracking-wide leading-relaxed mb-12 font-light">
+                    <p className="text-gray-400 text-base md:text-lg tracking-wide leading-relaxed mb-12 font-light whitespace-pre-wrap">
                         {project.description}
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                        {project.gallery.slice(0, 2).map((img, idx) => (
+                        {project.galleryImages?.map((img: string, idx: number) => (
                             <div key={idx} className="relative aspect-[4/5] w-full rounded-xl overflow-hidden shadow-2xl border border-white/5">
                                 <Image
                                     src={img}
                                     alt={`${project.title} gallery image ${idx + 1}`}
                                     fill
                                     className="object-cover hover:scale-105 transition-transform duration-700"
+                                    sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                             </div>
                         ))}
@@ -126,16 +87,20 @@ export default function SingleProjectPage({ params }: { params: Promise<{ id: st
                         <h3 className="text-[#B59431] text-xs md:text-sm uppercase tracking-[0.2em] font-bold mb-6">
                             Key Details
                         </h3>
-                        <ul className="flex flex-col gap-6">
-                            {project.details.map((detail, idx) => (
-                                <li key={idx} className="flex items-start gap-4">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#B59431] mt-2 shrink-0" />
-                                    <span className="text-gray-300 text-sm md:text-base tracking-wide flex-1">
-                                        {detail}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
+                        {project.details && project.details.length > 0 && project.details[0] !== '' ? (
+                            <ul className="flex flex-col gap-6">
+                                {project.details.map((detail: string, idx: number) => (
+                                    <li key={idx} className="flex items-start gap-4">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#B59431] mt-2 shrink-0" />
+                                        <span className="text-gray-300 text-sm md:text-base tracking-wide flex-1">
+                                            {detail}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="text-gray-500 text-sm italic">No specific details listed.</p>
+                        )}
 
                         <div className="mt-12 pt-8 border-t border-white/10">
                             <h3 className="text-[#B59431] text-xs uppercase tracking-[0.2em] font-bold mb-4">

@@ -6,9 +6,11 @@ import Image from "next/image";
 import { Eye, Ear } from "lucide-react";
 import ArtCatalogue from "./ArtCatalogue";
 
+interface ArtCatalogueSectionProps {
+    artworks?: any[];
+}
 
-
-export default function ArtCatalogueSection() {
+export default function ArtCatalogueSection({ artworks = [] }: ArtCatalogueSectionProps) {
     return (
         <section id="catalogue-section" className="py-8 md:py-12 bg-black max-h-[100vh] overflow-hidden flex flex-col">
             <div className="flex flex-col h-full w-full mx-auto">
@@ -21,13 +23,18 @@ export default function ArtCatalogueSection() {
                     <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
-                <ArtCatalogue />
-                <div className="flex justify-center">
+                {/* We pass the dynamic artworks to the 3D rotating component */}
+                <ArtCatalogue initialArtworks={artworks} />
+
+                <div className="flex justify-center mt-8">
                     <Link href="/catalogue">
-                        <button className="bg-[#FFF] cursor-pointer uppercase text-black px-4 py-2 rounded-md">View Catalogue</button>
+                        <button className="bg-white hover:bg-[#B59431] transition-colors cursor-pointer uppercase text-black font-bold tracking-widest text-xs px-10 py-4 rounded-sm shadow-xl">
+                            View Full Collection
+                        </button>
                     </Link>
                 </div>
             </div>
         </section>
     );
 }
+

@@ -2,22 +2,48 @@
 
 import { useModal } from "@/components/Modal";
 import { useState } from "react";
+import { submitEnquiry } from "@/actions/enquiryActions";
 
 interface InquiryFormProps {
     artworkTitle: string;
+    artistName?: string;
+    artworkId?: string;
 }
 
-export default function InquiryForm({ artworkTitle }: InquiryFormProps) {
+export default function InquiryForm({ artworkTitle, artistName, artworkId }: InquiryFormProps) {
     const { closeModal } = useModal();
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Simulate validation and submission
-        setIsSubmitted(true);
-        setTimeout(() => {
-            closeModal();
-        }, 2000);
+        setIsLoading(true);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message'),
+            subject: `Inquiry: ${artworkTitle}`,
+            type: 'ENQUIRY',
+            metadata: {
+                artworkTitle,
+                artistName,
+                artworkId
+            }
+        };
+
+        const res = await submitEnquiry(data);
+        setIsLoading(false);
+
+        if (res.success) {
+            setIsSubmitted(true);
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        } else {
+            alert('Failed to send inquiry. Please try again.');
+        }
     };
 
     if (isSubmitted) {
@@ -46,6 +72,7 @@ export default function InquiryForm({ artworkTitle }: InquiryFormProps) {
                 <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Full Name</label>
                 <input
                     required
+                    name="name"
                     type="text"
                     className="bg-background border border-border p-3 focus:border-primary outline-none transition-colors text-sm"
                     placeholder="ALEX VANGUARD"
@@ -56,6 +83,7 @@ export default function InquiryForm({ artworkTitle }: InquiryFormProps) {
                 <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Email Address</label>
                 <input
                     required
+                    name="email"
                     type="email"
                     className="bg-background border border-border p-3 focus:border-primary outline-none transition-colors text-sm"
                     placeholder="ALEX@STANCE.COM"
@@ -66,6 +94,7 @@ export default function InquiryForm({ artworkTitle }: InquiryFormProps) {
                 <label className="text-[10px] uppercase tracking-widest text-muted font-bold">Message (Optional)</label>
                 <textarea
                     rows={4}
+                    name="message"
                     className="bg-background border border-border p-3 focus:border-primary outline-none transition-colors text-sm resize-none"
                     placeholder="TELL US ABOUT YOUR INTEREST..."
                 />
@@ -73,9 +102,10 @@ export default function InquiryForm({ artworkTitle }: InquiryFormProps) {
 
             <button
                 type="submit"
-                className="w-full bg-primary text-black font-bold uppercase tracking-widest py-4 text-sm hover:opacity-90 transition-opacity mt-2"
+                disabled={isLoading}
+                className="w-full bg-primary text-black font-bold uppercase tracking-widest py-4 text-sm hover:opacity-90 transition-opacity mt-2 disabled:opacity-50"
             >
-                Send Inquiry
+                {isLoading ? 'Sending...' : 'Send Inquiry'}
             </button>
 
             <style jsx>{`

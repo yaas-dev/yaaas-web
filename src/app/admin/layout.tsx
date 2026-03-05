@@ -1,0 +1,100 @@
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import {
+    Users,
+    Image as ImageIcon,
+    FileText,
+    Briefcase,
+    LayoutDashboard,
+    LogOut,
+    ChevronRight,
+    Handshake,
+    Mail
+} from 'lucide-react';
+import { signOut } from 'next-auth/react';
+
+const ADMIN_NAV = [
+    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { name: 'Talents', href: '/admin/talents', icon: Users },
+    { name: 'Catalogue', href: '/admin/catalogue', icon: ImageIcon },
+    { name: 'News', href: '/admin/news', icon: FileText },
+    { name: 'Projects', href: '/admin/projects', icon: Briefcase },
+    { name: 'Collaborations', href: '/admin/collaborations', icon: Handshake },
+    { name: 'Enquiries', href: '/admin/enquiries', icon: Mail },
+];
+
+export default function AdminLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const handleSignOut = async () => {
+        await signOut({ redirect: false });
+        router.push('/admin/login');
+    };
+
+    // Don't show layout on login page
+    if (pathname === '/admin/login') return children;
+
+    return (
+        <div className="min-h-screen bg-[#050505] flex text-white font-sans">
+
+            {/* Sidebar */}
+            <aside className="w-64 md:w-72 bg-[#0a0a0a] border-r border-[#B59431]/20 flex flex-col fixed inset-y-0 left-0 z-50">
+                <div className="p-8 border-b border-[#B59431]/10">
+                    <Link href="/" className="flex flex-col">
+                        <span className="text-xl font-bold text-[#B59431] tracking-widest">YAAAS</span>
+                        <span className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-bold">Admin Panel</span>
+                    </Link>
+                </div>
+
+                <nav className="flex-grow p-6 space-y-2">
+                    {ADMIN_NAV.map((item) => {
+                        const isActive = pathname === item.href;
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`flex items-center justify-between px-4 py-3 rounded-sm transition-all group ${isActive
+                                    ? 'bg-[#B59431] text-black shadow-lg shadow-[#B59431]/10'
+                                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                                    }`}
+                            >
+                                <div className="flex items-center gap-4">
+                                    <item.icon size={18} strokeWidth={isActive ? 2.5 : 2} />
+                                    <span className={`text-xs font-bold tracking-widest uppercase ${isActive ? 'opacity-100' : 'opacity-80'}`}>
+                                        {item.name}
+                                    </span>
+                                </div>
+                                {isActive && <ChevronRight size={14} />}
+                            </Link>
+                        );
+                    })}
+                </nav>
+
+                <div className="p-6 border-t border-[#B59431]/10">
+                    <button
+                        onClick={handleSignOut}
+                        className="flex items-center gap-4 px-4 py-3 w-full text-white/40 hover:text-red-500 transition-colors text-xs font-bold tracking-widest uppercase"
+                    >
+                        <LogOut size={18} />
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+            </aside>
+
+            {/* Main Content */}
+            <main className="flex-grow ml-64 md:ml-72 bg-[#050505] min-h-screen p-8 md:p-12">
+                <div className="max-w-[1400px] mx-auto">
+                    {children}
+                </div>
+            </main>
+        </div>
+    );
+}

@@ -1,8 +1,43 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
+import { submitEnquiry } from '@/actions/enquiryActions';
+import { CheckCircle } from 'lucide-react';
 
 export default function ContactSection() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message'),
+            type: 'CONTACT',
+            metadata: {
+                country: formData.get('country')
+            }
+        };
+
+        const res = await submitEnquiry(data);
+        setIsLoading(false);
+
+        if (res.success) {
+            setIsSubmitted(true);
+            e.currentTarget.reset();
+            setTimeout(() => {
+                setIsSubmitted(false);
+            }, 5000);
+        } else {
+            alert('Failed to send message. Please try again.');
+        }
+    };
+
     return (
         <section
             id="contact"
@@ -24,42 +59,58 @@ export default function ContactSection() {
                     <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
-                <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-md p-6 sm:p-8 md:p-12 rounded-2xl border border-white/5 shadow-2xl">
-                    <form className="grid grid-cols-2 gap-x-4 md:gap-x-12 gap-y-6 md:gap-y-10">
-                        {[
-                            { label: "FULL NAME", type: "text", placeholder: "NAME" },
-                            { label: "EMAIL ADDRESS", type: "email", placeholder: "EMAIL" },
-                            { label: "COUNTRY", type: "text", placeholder: "COUNTRY" },
-                            { label: "SUBJECT", type: "text", placeholder: "SUBJECT" },
-                        ].map(({ label, type, placeholder }) => (
-                            <div key={label} className="flex flex-col gap-2 md:gap-3">
-                                <label className="text-[9px] md:text-[11px] uppercase tracking-widest text-[#B59431] font-bold">{label}</label>
-                                <input
-                                    type={type}
-                                    placeholder={placeholder}
-                                    className="bg-transparent border-b border-white/20 py-2 md:py-3 outline-none focus:border-[#B59431] transition-colors text-[10px] sm:text-xs md:text-sm tracking-widest uppercase font-medium placeholder-gray-600 text-white"
+                <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-md p-6 sm:p-8 md:p-12 rounded-2xl border border-white/5 shadow-2xl min-h-[400px] flex flex-col justify-center">
+                    {isSubmitted ? (
+                        <div className="flex flex-col items-center justify-center text-center py-10">
+                            <CheckCircle size={64} className="text-[#B59431] mb-6" />
+                            <h3 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest mb-4">Message Received</h3>
+                            <p className="text-[#B59431] text-xs md:text-sm uppercase tracking-[0.2em] font-medium max-w-md">
+                                Thank you for reaching out to YAAAS Agency. <br className="hidden md:block" />
+                                We will be in touch shortly.
+                            </p>
+                        </div>
+                    ) : (
+                        <form className="grid grid-cols-2 gap-x-4 md:gap-x-12 gap-y-6 md:gap-y-10" onSubmit={handleSubmit}>
+                            {[
+                                { label: "FULL NAME", type: "text", placeholder: "NAME", name: "name" },
+                                { label: "EMAIL ADDRESS", type: "email", placeholder: "EMAIL", name: "email" },
+                                { label: "COUNTRY", type: "text", placeholder: "COUNTRY", name: "country" },
+                                { label: "SUBJECT", type: "text", placeholder: "SUBJECT", name: "subject" },
+                            ].map(({ label, type, placeholder, name }) => (
+                                <div key={label} className="flex flex-col gap-2 md:gap-3">
+                                    <label className="text-[9px] md:text-[11px] uppercase tracking-widest text-[#B59431] font-bold">{label}</label>
+                                    <input
+                                        required
+                                        name={name}
+                                        type={type}
+                                        placeholder={placeholder}
+                                        className="bg-transparent border-b border-white/20 py-2 md:py-3 outline-none focus:border-[#B59431] transition-colors text-[10px] sm:text-xs md:text-sm tracking-widest uppercase font-medium placeholder-gray-600 text-white"
+                                    />
+                                </div>
+                            ))}
+
+                            <div className="col-span-2 flex flex-col gap-2 md:gap-3">
+                                <label className="text-[9px] md:text-[11px] uppercase tracking-widest text-[#B59431] font-bold">MESSAGE</label>
+                                <textarea
+                                    required
+                                    name="message"
+                                    rows={4}
+                                    placeholder="YOUR MESSAGE HERE..."
+                                    className="bg-transparent border-b border-white/20 py-2 md:py-3 outline-none focus:border-[#B59431] transition-colors text-[10px] sm:text-xs md:text-sm tracking-widest uppercase font-medium resize-none placeholder-gray-600 text-white"
                                 />
                             </div>
-                        ))}
 
-                        <div className="col-span-2 flex flex-col gap-2 md:gap-3">
-                            <label className="text-[9px] md:text-[11px] uppercase tracking-widest text-[#B59431] font-bold">MESSAGE</label>
-                            <textarea
-                                rows={4}
-                                placeholder="YOUR MESSAGE HERE..."
-                                className="bg-transparent border-b border-white/20 py-2 md:py-3 outline-none focus:border-[#B59431] transition-colors text-[10px] sm:text-xs md:text-sm tracking-widest uppercase font-medium resize-none placeholder-gray-600 text-white"
-                            />
-                        </div>
-
-                        <div className="col-span-2 mt-4 md:mt-8 flex justify-center md:justify-start">
-                            <button
-                                type="submit"
-                                className="w-full md:w-auto bg-[#B59431] text-black font-extrabold uppercase tracking-[0.2em] px-12 py-3 md:py-4 text-xs md:text-sm hover:bg-[#d4ae3b] transition-all rounded shadow-lg"
-                            >
-                                SEND MESSAGE
-                            </button>
-                        </div>
-                    </form>
+                            <div className="col-span-2 mt-4 md:mt-8 flex justify-center md:justify-start">
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="w-full md:w-auto bg-[#B59431] text-black font-extrabold uppercase tracking-[0.2em] px-12 py-3 md:py-4 text-xs md:text-sm hover:bg-[#d4ae3b] transition-all rounded shadow-lg disabled:opacity-50"
+                                >
+                                    {isLoading ? 'SENDING...' : 'SEND MESSAGE'}
+                                </button>
+                            </div>
+                        </form>
+                    )}
                 </div>
             </div>
         </section>

@@ -32,6 +32,8 @@ const Header = () => {
         return pathname.startsWith(href);
     };
 
+    if (pathname?.startsWith('/admin')) return null;
+
     return (
         <nav className="absolute top-0 left-0 w-full px-5 z-[100] bg-black/80 md:bg-black/90 text-white py-4 border-b-2 border-[#B59431]/20">
             <div className=" mx-auto flex items-center justify-between">
