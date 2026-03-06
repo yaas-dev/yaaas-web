@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Instagram, Linkedin, Youtube } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
     const pathname = usePathname();
@@ -77,15 +77,22 @@ export default function Footer() {
 
                     {/* Socials */}
                     <div className="flex gap-6">
-                        {[Instagram, Linkedin, Youtube].map((Icon, i) => (
-                            <a
-                                key={i}
-                                href="#"
-                                className="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-[#B59431] hover:border-[#B59431] hover:bg-white/5 transition-all"
-                            >
-                                <Icon size={20} />
-                            </a>
-                        ))}
+                        <a
+                            href="https://www.instagram.com/yaaas.agency"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-[#B59431] hover:border-[#B59431] hover:bg-white/5 transition-all"
+                        >
+                            <Instagram size={20} />
+                        </a>
+                        <a
+                            href="https://ci.linkedin.com/company/yaaas-agency"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-[#B59431] hover:border-[#B59431] hover:bg-white/5 transition-all"
+                        >
+                            <Linkedin size={20} />
+                        </a>
                     </div>
 
                     <div className="text-center md:text-right text-[10px] md:text-xs uppercase tracking-[0.3em] text-gray-500 font-bold">
