@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function AdminLoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -77,14 +79,28 @@ export default function AdminLoginPage() {
 
                     <div className="flex flex-col gap-2">
                         <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Password</label>
-                        <input
-                            required
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="bg-black/50 border border-white/10 rounded-sm px-4 py-3 text-white outline-none focus:border-[#B59431] transition-colors text-sm"
-                            placeholder="Enter password"
-                        />
+                        <div className="relative">
+                            <input
+                                required
+                                type={showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full bg-black/50 border border-white/10 rounded-sm px-4 py-3 pr-12 text-white outline-none focus:border-[#B59431] transition-colors text-sm"
+                                placeholder="Enter password"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-[#B59431] transition-colors p-2"
+                                aria-label={showPassword ? "Hide password" : "Show password"}
+                            >
+                                {showPassword ? (
+                                    <EyeOff className="w-4 h-4" />
+                                ) : (
+                                    <Eye className="w-4 h-4" />
+                                )}
+                            </button>
+                        </div>
                     </div>
 
                     <button
