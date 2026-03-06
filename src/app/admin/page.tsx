@@ -31,7 +31,7 @@ export default async function AdminDashboard() {
 
             {/* Welcome Header */}
             <div className="flex flex-col gap-2">
-                <h1 className="text-4xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Dashboard</h1>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Dashboard</h1>
                 <p className="text-white/40 text-sm tracking-wide">Manage your agency&apos;s digital content and representation.</p>
             </div>
 

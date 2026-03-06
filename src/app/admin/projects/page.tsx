@@ -35,14 +35,14 @@ export default function ProjectsAdminPage() {
 
     return (
         <div className="flex flex-col gap-8">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Portfolio Projects</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Portfolio Projects</h1>
                     <p className="text-white/40 text-sm tracking-wide">Showcase major agency commissions and case studies.</p>
                 </div>
                 <Link
                     href="/admin/projects/new"
-                    className="bg-[#B59431] text-black px-6 py-3 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center gap-3"
+                    className="w-full sm:w-auto bg-[#B59431] text-black px-6 py-3 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-3"
                 >
                     <Plus size={16} />
                     New Project
@@ -60,8 +60,8 @@ export default function ProjectsAdminPage() {
                     </div>
                 ) : (
                     projects.map((item) => (
-                        <div key={item._id} className="bg-[#0a0a0a] border border-white/5 rounded-sm overflow-hidden flex flex-col md:flex-row group hover:border-[#B59431]/40 transition-all shadow-2xl h-fit md:h-56">
-                            <div className="relative w-full md:w-80 h-48 md:h-full bg-black flex-shrink-0">
+                        <div key={item._id} className="bg-[#0a0a0a] border border-white/5 rounded-sm overflow-hidden flex flex-col md:flex-row group hover:border-[#B59431]/40 transition-all shadow-2xl h-fit md:h-64">
+                            <div className="relative w-full md:w-64 lg:w-80 h-48 md:h-full bg-black flex-shrink-0">
                                 <Image
                                     src={item.mainImage}
                                     alt={item.title}
@@ -69,17 +69,17 @@ export default function ProjectsAdminPage() {
                                     className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                                 />
                             </div>
-                            <div className="p-8 flex flex-col justify-between flex-grow gap-6 bg-gradient-to-r from-black/20 to-transparent">
-                                <div className="flex flex-col gap-2">
+                            <div className="p-6 md:p-8 flex flex-col justify-between flex-grow gap-4 md:gap-6 bg-gradient-to-r from-black/20 to-transparent">
+                                <div className="flex flex-col gap-1 md:gap-2">
                                     <span className="text-[10px] text-[#B59431] font-bold uppercase tracking-[0.4em]">{item.category}</span>
-                                    <h3 className="text-xl font-bold tracking-widest text-white uppercase line-clamp-1">{item.title}</h3>
-                                    <p className="text-xs text-white/30 line-clamp-2 leading-relaxed">{item.description}</p>
+                                    <h3 className="text-lg md:text-xl font-bold tracking-widest text-white uppercase line-clamp-1">{item.title}</h3>
+                                    <p className="text-[11px] md:text-xs text-white/30 line-clamp-2 leading-relaxed">{item.description}</p>
                                 </div>
 
                                 <div className="flex items-center justify-between border-t border-white/5 pt-4">
                                     <div className="flex items-center gap-2 text-[8px] text-white/20 uppercase tracking-widest">
                                         <LayoutGrid size={12} />
-                                        {item.galleryImages?.length || 0} Gallery Images
+                                        {item.galleryImages?.length || 0} Gallery
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <Link

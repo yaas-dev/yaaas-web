@@ -21,7 +21,7 @@ export default async function SingleNewsPage({ params }: { params: Promise<{ id:
 
             {/* Top Back Navigation */}
             <div className="w-full max-w-[1000px] mx-auto px-6 md:px-12 pt-8 mb-6">
-                <Link href="/about" className="inline-flex items-center text-[#FDDA2F] font-bold tracking-widest text-xs uppercase hover:text-white transition-colors">
+                <Link href="/news" className="inline-flex items-center text-[#FDDA2F] font-bold tracking-widest text-xs uppercase hover:text-white transition-colors">
                     <ChevronLeft size={16} className="mr-2" />
                     Back to News
                 </Link>

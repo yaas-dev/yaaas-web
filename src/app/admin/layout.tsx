@@ -12,7 +12,9 @@ import {
     LogOut,
     ChevronRight,
     Handshake,
-    Mail
+    Mail,
+    Menu,
+    X
 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -35,6 +37,12 @@ export default function AdminLayout({
     const pathname = usePathname();
     const router = useRouter();
     const { data: session, status } = useSession();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+    // Close mobile menu when pathname changes
+    React.useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [pathname]);
 
     const handleSignOut = async () => {
         await signOut({ redirect: false });
@@ -49,18 +57,51 @@ export default function AdminLayout({
     if (status === 'loading' || !session) return null;
 
     return (
-        <div className="min-h-screen bg-[#050505] flex text-white font-sans">
+        <div className="min-h-screen bg-[#050505] flex text-white font-sans overflow-x-hidden">
+
+            {/* Mobile Header */}
+            <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0a0a0a] border-b border-[#B59431]/20 flex items-center justify-between px-6 z-[60]">
+                <Link href="/" className="flex flex-col">
+                    <span className="text-lg font-bold text-[#B59431] tracking-widest">YAAAS</span>
+                    <span className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-bold">Admin</span>
+                </Link>
+                <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="p-2 text-[#B59431] hover:bg-[#B59431]/10 rounded-sm transition-colors"
+                >
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+            </header>
+
+            {/* Sidebar Overlay (Mobile only) */}
+            {isMobileMenuOpen && (
+                <div
+                    className="lg:hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 transition-opacity"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
 
             {/* Sidebar */}
-            <aside className="w-64 md:w-72 bg-[#0a0a0a] border-r border-[#B59431]/20 flex flex-col fixed inset-y-0 left-0 z-50">
-                <div className="p-8 border-b border-[#B59431]/10">
+            <aside className={`
+                w-64 md:w-72 bg-[#0a0a0a] border-r border-[#B59431]/20 flex flex-col fixed inset-y-0 left-0 z-50 transition-transform duration-300 lg:translate-x-0
+                ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+            `}>
+                <div className="p-8 border-b border-[#B59431]/10 hidden lg:block">
                     <Link href="/" className="flex flex-col">
                         <span className="text-xl font-bold text-[#B59431] tracking-widest">YAAAS</span>
                         <span className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-bold">Admin Panel</span>
                     </Link>
                 </div>
 
-                <nav className="flex-grow p-6 space-y-2">
+                {/* Mobile version of sidebar header for spacing when menu is open */}
+                <div className="p-8 border-b border-[#B59431]/10 lg:hidden">
+                    <Link href="/" className="flex flex-col">
+                        <span className="text-xl font-bold text-[#B59431] tracking-widest">YAAAS</span>
+                        <span className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-bold">Admin Panel</span>
+                    </Link>
+                </div>
+
+                <nav className="flex-grow p-6 space-y-2 overflow-y-auto">
                     {ADMIN_NAV.map((item) => {
                         const isActive = pathname === item.href;
                         return (
@@ -96,7 +137,7 @@ export default function AdminLayout({
             </aside>
 
             {/* Main Content */}
-            <main className="flex-grow ml-64 md:ml-72 bg-[#050505] min-h-screen p-8 md:p-12">
+            <main className="flex-grow lg:ml-64 xl:ml-72 bg-[#050505] min-h-screen pt-24 pb-8 px-6 md:p-12 lg:pt-12 transition-all duration-300">
                 <div className="max-w-[1400px] mx-auto">
                     {children}
                 </div>

@@ -11,14 +11,14 @@ export default async function AdminCollaborationsPage() {
 
     return (
         <div className="flex flex-col gap-10">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Collaborations</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Collaborations</h1>
                     <p className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Manage agency partnerships and exhibitions</p>
                 </div>
                 <Link
                     href="/admin/collaborations/new"
-                    className="bg-[#B59431] text-black px-8 py-4 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center gap-2"
+                    className="w-full sm:w-auto bg-[#B59431] text-black px-6 md:px-8 py-3 md:py-4 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-2"
                 >
                     <Plus size={16} />
                     New Collaboration

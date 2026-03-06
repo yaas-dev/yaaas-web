@@ -35,14 +35,14 @@ export default function CatalogueAdminPage() {
 
     return (
         <div className="flex flex-col gap-8">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Art Catalogue</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Art Catalogue</h1>
                     <p className="text-white/40 text-sm tracking-wide">Manage individual pieces of art across the site.</p>
                 </div>
                 <Link
                     href="/admin/catalogue/new"
-                    className="bg-[#B59431] text-black px-6 py-3 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center gap-3"
+                    className="w-full sm:w-auto bg-[#B59431] text-black px-6 py-3 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-3"
                 >
                     <Plus size={16} />
                     Upload New Piece
