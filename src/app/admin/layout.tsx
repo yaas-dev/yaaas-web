@@ -14,7 +14,8 @@ import {
     Handshake,
     Mail
 } from 'lucide-react';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+
 
 const ADMIN_NAV = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -33,6 +34,7 @@ export default function AdminLayout({
 }) {
     const pathname = usePathname();
     const router = useRouter();
+    const { data: session, status } = useSession();
 
     const handleSignOut = async () => {
         await signOut({ redirect: false });
@@ -41,6 +43,10 @@ export default function AdminLayout({
 
     // Don't show layout on login page
     if (pathname === '/admin/login') return children;
+
+    // While session is loading or unauthenticated, render nothing
+    // (middleware will have already redirected, this just prevents a flash)
+    if (status === 'loading' || !session) return null;
 
     return (
         <div className="min-h-screen bg-[#050505] flex text-white font-sans">

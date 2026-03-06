@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ModalProvider } from "@/components/Modal";
 import PageTransition from "@/components/PageTransition";
+import Providers from "@/components/Providers";
+
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -29,14 +31,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.variable} ${playfair.variable}`}>
-        <ModalProvider>
-          <Header />
-          <PageTransition>
-            <main>{children}</main>
-          </PageTransition>
-          <Footer />
-        </ModalProvider>
+        <Providers>
+          <ModalProvider>
+            <Header />
+            <PageTransition>
+              <main>{children}</main>
+            </PageTransition>
+            <Footer />
+          </ModalProvider>
+        </Providers>
       </body>
     </html>
   );
 }
+
