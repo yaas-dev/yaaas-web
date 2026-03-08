@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ArtCatalogue from '@/components/home/ArtCatalogue';
 import EnquiryModal from '@/components/shared/EnquiryModal';
+import ContactSection from '../home/ContactSection';
 
 interface CatalogueClientProps {
     initialArtworks: any[];
@@ -21,12 +22,6 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                     Art Catalogue
                 </h1>
             </div>
-
-            {/* Rotating 3D Component */}
-            <ArtCatalogue initialArtworks={initialArtworks} />
-
-            {/* Second Gold Banner (Empty) */}
-            <div className="w-full bg-[#c1a03a] h-12 md:h-20 mt-10"></div>
 
             {/* Grid Section */}
             <div className="w-full bg-black py-16 px-4 md:px-12 flex justify-center">
@@ -80,6 +75,8 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                     <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                 </button>
             </div>
+
+            <ContactSection />
 
             {/* Shared Modal Overlay */}
             <EnquiryModal

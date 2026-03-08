@@ -23,7 +23,7 @@ export default function ContactPage() {
 
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
                 <div className="mb-16 md:mb-24">
-                    <p className="text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide max-w-2xl">
+                    <p className="text-[#e0e0e0] font-light text-sm md:text-[18px] leading-8 tracking-wide max-w-2xl">
                         Whether you are looking for representation, a new addition to your collection, or a creative partnership, we are here to connect. Reach out and let's start the conversation.
                     </p>
                 </div>

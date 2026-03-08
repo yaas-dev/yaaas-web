@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { submitEnquiry } from '@/actions/enquiryActions';
 import { CheckCircle } from 'lucide-react';
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ContactSection() {
     const [isLoading, setIsLoading] = useState(false);
@@ -59,58 +60,106 @@ export default function ContactSection() {
                     <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
-                <div className="max-w-4xl mx-auto bg-black/40 backdrop-blur-md p-6 sm:p-8 md:p-12 rounded-2xl border border-white/5 shadow-2xl min-h-[400px] flex flex-col justify-center">
-                    {isSubmitted ? (
-                        <div className="flex flex-col items-center justify-center text-center py-10">
-                            <CheckCircle size={64} className="text-[#B59431] mb-6" />
-                            <h3 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-widest mb-4">Message Received</h3>
-                            <p className="text-[#B59431] text-xs md:text-sm uppercase tracking-[0.2em] font-medium max-w-md">
-                                Thank you for reaching out to YAAAS Agency. <br className="hidden md:block" />
-                                We will be in touch shortly.
-                            </p>
-                        </div>
-                    ) : (
-                        <form className="grid grid-cols-2 gap-x-4 md:gap-x-12 gap-y-6 md:gap-y-10" onSubmit={handleSubmit}>
-                            {[
-                                { label: "FULL NAME", type: "text", placeholder: "NAME", name: "name" },
-                                { label: "EMAIL ADDRESS", type: "email", placeholder: "EMAIL", name: "email" },
-                                { label: "COUNTRY", type: "text", placeholder: "COUNTRY", name: "country" },
-                                { label: "SUBJECT", type: "text", placeholder: "SUBJECT", name: "subject" },
-                            ].map(({ label, type, placeholder, name }) => (
-                                <div key={label} className="flex flex-col gap-2 md:gap-3">
-                                    <label className="text-[9px] md:text-[11px] uppercase tracking-widest text-[#B59431] font-bold">{label}</label>
-                                    <input
-                                        required
-                                        name={name}
-                                        type={type}
-                                        placeholder={placeholder}
-                                        className="bg-transparent border-b border-white/20 py-2 md:py-3 outline-none focus:border-[#B59431] transition-colors text-[10px] sm:text-xs md:text-sm tracking-widest uppercase font-medium placeholder-gray-600 text-white"
-                                    />
+                <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
+                    <div className="mb-16 md:mb-24">
+                        <p className="text-[#e0e0e0] font-light text-sm md:text-[18px] leading-8 tracking-wide max-w-2xl">
+                            Whether you are looking for representation, a new addition to your collection, or a creative partnership, we are here to connect. Reach out and let's start the conversation.
+                        </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+
+                        {/* Left Column: Information */}
+                        <div>
+                            <div className="space-y-12">
+                                <div>
+                                    <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">General Inquiries</span>
+                                    <p className="text-white text-xl md:text-2xl font-light tracking-wide">hello@yaaas.co</p>
                                 </div>
-                            ))}
 
-                            <div className="col-span-2 flex flex-col gap-2 md:gap-3">
-                                <label className="text-[9px] md:text-[11px] uppercase tracking-widest text-[#B59431] font-bold">MESSAGE</label>
-                                <textarea
-                                    required
-                                    name="message"
-                                    rows={4}
-                                    placeholder="YOUR MESSAGE HERE..."
-                                    className="bg-transparent border-b border-white/20 py-2 md:py-3 outline-none focus:border-[#B59431] transition-colors text-[10px] sm:text-xs md:text-sm tracking-widest uppercase font-medium resize-none placeholder-gray-600 text-white"
-                                />
                             </div>
+                        </div>
 
-                            <div className="col-span-2 mt-4 md:mt-8 flex justify-center md:justify-start">
-                                <button
-                                    type="submit"
-                                    disabled={isLoading}
-                                    className="w-full md:w-auto bg-[#B59431] text-black font-extrabold uppercase tracking-[0.2em] px-12 py-3 md:py-4 text-xs md:text-sm hover:bg-[#d4ae3b] transition-all rounded shadow-lg disabled:opacity-50"
-                                >
-                                    {isLoading ? 'SENDING...' : 'SEND MESSAGE'}
-                                </button>
-                            </div>
-                        </form>
-                    )}
+                        {/* Right Column: Interactive Form */}
+                        <div className="relative">
+                            <AnimatePresence mode="wait">
+                                {!isSubmitted ? (
+                                    <motion.form
+                                        key="form"
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        transition={{ duration: 0.6 }}
+                                        onSubmit={handleSubmit}
+                                        className="flex flex-col gap-8 md:gap-12 w-full max-w-xl"
+                                    >
+                                        <div className="flex flex-col">
+                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
+                                            <input
+                                                required
+                                                type="text"
+                                                placeholder="John Doe"
+                                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Email Address</label>
+                                            <input
+                                                required
+                                                type="email"
+                                                placeholder="john@example.com"
+                                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
+                                            <select className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
+                                                <option className="bg-black">General Inquiry</option>
+                                                <option className="bg-black">Art Acquisition</option>
+                                                <option className="bg-black">Representation</option>
+                                                <option className="bg-black">Collaboration</option>
+                                            </select>
+                                        </div>
+                                        <div className="flex flex-col mb-4">
+                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Message</label>
+                                            <textarea
+                                                required
+                                                rows={4}
+                                                placeholder="How can we help?"
+                                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#333]"
+                                            />
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            className="w-full bg-[#d8b511] text-black font-extrabold tracking-[0.2em] uppercase py-5 rounded-sm hover:bg-white transition-all duration-300 transform hover:scale-[1.01]"
+                                        >
+                                            Submit
+                                        </button>
+                                    </motion.form>
+                                ) : (
+                                    <motion.div
+                                        key="success"
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="h-full flex flex-col items-center justify-center text-center py-20 border border-white/5 bg-white/5 rounded-sm"
+                                    >
+                                        <h3 className="text-3xl md:text-4xl font-serif italic font-bold mb-6 text-[#d8b511] tracking-tight">VISION ACKNOWLEDGED</h3>
+                                        <p className="text-[#e0e0e0] font-light text-sm tracking-[0.3em] leading-loose max-w-sm mb-12 uppercase">
+                                            Resonance expected within <br />
+                                            24 solar hours.
+                                        </p>
+                                        <button
+                                            onClick={() => setIsSubmitted(false)}
+                                            className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#d8b511] border-b border-[#d8b511]/40 pb-1 hover:border-[#d8b511] transition-all"
+                                        >
+                                            SEND ANOTHER RESONANCE
+                                        </button>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

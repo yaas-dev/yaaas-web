@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import Services from '@/components/home/Services';
 import { submitEnquiry } from '@/actions/enquiryActions';
+import ContactSection from '../home/ContactSection';
 
 interface AboutClientProps {
     newsPosts: any[];
@@ -62,17 +63,17 @@ export default function AboutClient({ newsPosts, collaborations }: AboutClientPr
         <main className="min-h-screen bg-black flex flex-col pt-24 font-sans text-white pb-10">
 
             {/* ABOUT US Banner */}
-            <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-2 shadow-2xl z-10">
+            <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-5 shadow-2xl z-10">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-                    <h1 className="text-white text-3xl md:text-5xl font-bold uppercase tracking-widest drop-shadow-lg">ABOUT US</h1>
+                    <h1 className="text-white text-3xl md:text-5xl uppercase tracking-widest drop-shadow-lg">ABOUT US</h1>
                 </div>
             </div>
 
             {/* Intro Text */}
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-20 relative z-20">
                 <div className="max-w-4xl flex flex-col gap-6 text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide">
-                    <p className="text-xl md:text-2xl font-bold text-[#d8b511] mb-2">About YAAAS Agency</p>
-                    <p>YAAAS (Yaa Asantewaa) Agency is a culture-forward creative bridge connecting visionary African talent to the world. Operating at the intersection of art, identity, and opportunity, we provide bespoke representation to a select group of multidisciplinary artists who are pushing boundaries, preserving heritage, and reimagining the future.</p>
+                    <p className="text-xl md:text-2xl text-[#d8b511] mb-2">About YAAAS Agency</p>
+                    <p className="md:text-[18px]">YAAAS (Yaa Asantewaa) Agency is a culture-forward creative bridge connecting visionary African talent to the world. Operating at the intersection of art, identity, and opportunity, we provide bespoke representation to a select group of multidisciplinary artists who are pushing boundaries, preserving heritage, and reimagining the future.</p>
 
                     <AnimatePresence>
                         {(isExpanded || (typeof window !== 'undefined' && window.innerWidth >= 768)) && (
@@ -81,7 +82,7 @@ export default function AboutClient({ newsPosts, collaborations }: AboutClientPr
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                                className="flex flex-col gap-6 overflow-hidden"
+                                className="flex flex-col md:text-[18px] gap-6 overflow-hidden"
                             >
                                 <p>Rooted in the continent and reaching across the diaspora, we champion a curated roster; from emerging voices to established names. We believe the art world thrives on inclusivity; Our mission is to develop a sustainable ecosystem that champions African art and culture while positioning African creative talents for long-term global success.</p>
                                 <p>Art inspires. Culture transforms. Join us in celebrating the vanguard of African creativity.</p>
@@ -333,73 +334,7 @@ export default function AboutClient({ newsPosts, collaborations }: AboutClientPr
             </div>
 
             {/* CONTACT US */}
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-20">
-                <div className="flex flex-col mb-16">
-                    <h2 className="text-white text-2xl md:text-4xl font-bold tracking-[0.15em] mb-4">
-                        CONTACT US
-                    </h2>
-                    <div className="h-1 w-[120px] md:w-[220px] bg-[#d8b511]"></div>
-                </div>
-
-                {isSubmitted ? (
-                    <div className="w-full max-w-4xl mx-auto py-20 bg-white/5 border border-[#d8b511]/20 rounded-sm flex flex-col items-center justify-center text-center">
-                        <CheckCircle size={48} className="text-[#d8b511] mb-6" />
-                        <h3 className="text-2xl font-bold text-white uppercase tracking-widest mb-4">Message Sent!</h3>
-                        <p className="text-white/40 text-sm uppercase tracking-widest max-w-md">Thank you for reaching out. We have received your message and will get back to you shortly.</p>
-                    </div>
-                ) : (
-                    <form className="w-full max-w-4xl mx-auto flex flex-col gap-8 md:gap-12" onSubmit={handleSubmit}>
-                        <div className="flex flex-col">
-                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Name</label>
-                            <input
-                                required
-                                name="name"
-                                type="text"
-                                placeholder="John Doe"
-                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Email</label>
-                            <input
-                                required
-                                name="email"
-                                type="email"
-                                placeholder="john@example.com"
-                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
-                            <input
-                                required
-                                name="subject"
-                                type="text"
-                                placeholder="General Enquiry"
-                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
-                            />
-                        </div>
-                        <div className="flex flex-col mb-4">
-                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Message</label>
-                            <textarea
-                                required
-                                name="message"
-                                placeholder="Hello, I would like to..."
-                                rows={4}
-                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#333]"
-                            ></textarea>
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={isLoading}
-                            className="w-full bg-[#d8b511] text-black font-extrabold tracking-[0.2em] uppercase py-5 rounded-sm hover:bg-white transition-all duration-300 transform hover:scale-[1.01] disabled:opacity-50"
-                        >
-                            {isLoading ? 'Sending...' : 'Submit'}
-                        </button>
-                    </form>
-                )}
-            </div>
+            <ContactSection />
         </main>
     );
 }

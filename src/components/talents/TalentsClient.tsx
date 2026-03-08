@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, Eye, Ear } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import TalentCarousel from '@/components/shared/TalentCarousel';
 import EnquiryModal from '@/components/shared/EnquiryModal';
+import ContactSection from '../home/ContactSection';
 
 interface TalentsClientProps {
     initialTalents: any[];
@@ -156,6 +157,8 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                     </button>
                 </div>
             </div>
+
+            <ContactSection />
 
             <EnquiryModal
                 isOpen={!!selectedArt}
