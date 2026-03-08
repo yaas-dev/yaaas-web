@@ -73,7 +73,7 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
                         return (
                             <motion.div
                                 key={`${item._id}-${index}`}
-                                className="absolute bg-white w-[160px] h-[240px] sm:w-[220px] sm:h-[320px] md:w-[280px] md:h-[400px] p-2 md:p-3 shadow-2xl border-[4px] cursor-pointer"
+                                className="absolute w-full h-[240px] sm:w-[220px] sm:h-[320px] md:w-[580px] md:h-[580px] shadow-2xl cursor-pointer"
                                 style={{ zIndex: layout.zIndex }}
                                 animate={{
                                     opacity: layout.opacity,
@@ -85,13 +85,13 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
                                 transition={{ duration: 0.8, ease: "easeInOut" }}
                                 onClick={() => setSelectedArt(item)}
                             >
-                                <div className={`w-full h-full border border-black/30 bg-black relative overflow-hidden backdrop-blur-sm`}>
+                                <div className={`w-full h-full bg-black relative overflow-hidden backdrop-blur-sm`}>
                                     <Image
                                         src={item.src}
                                         alt={item.title}
                                         fill
                                         className="object-cover"
-                                        sizes="(max-width: 768px) 50vw, 33vw"
+                                        sizes="(max-width: 968px) 50vw, 50vw"
                                     />
 
                                     {/* Side card dark overlay */}

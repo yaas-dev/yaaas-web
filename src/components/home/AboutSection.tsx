@@ -1,36 +1,47 @@
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const AboutSection = () => {
     return (
-        <section className="relative w-full min-h-[60vh] lg:min-h-[80vh] max-h-[100vh] bg-black text-white py-12 md:py-16 overflow-hidden flex flex-col items-center justify-center text-center">
-            {/* Background image container */}
-            <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center overflow-hidden">
-
+        <section className="relative w-full bg-black text-white py-20 lg:py-32 overflow-hidden flex items-center justify-center">
+            {/* Background pattern */}
+            <div className="absolute inset-0 z-0 opacity-15">
                 <Image
                     src="/images/hero_2.png"
-                    alt="About Background"
+                    alt="Current Background"
                     fill
-                    className="object-center -rotate-90 scale-[3.0] md:scale-[2.0] lg:scale-[2.5]"
+                    className="object-cover object-left md:object-center grayscale brightness-[0.4] sepia-[0.3] hue-rotate-[10deg] contrast-125"
                 />
-                {/* Black Overlay */}
-                <div className="absolute inset-0 bg-black/60 z-10" />
             </div>
 
-            {/* Content overlay */}
-            <div className="relative z-10 w-[75%] md:w-[60%] lg:w-[50%] h-full flex flex-col items-center justify-center">
-                {/* Black background extended fully horizontally */}
-                <div className="bg-black/90 w-full py-8 md:py-20 px-4 md:px-10 flex flex-col items-center justify-center border-y border-white/10 shadow-2xl">
-                    <div className="w-full text-center">
+            <div className="w-full relative z-10">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
+                    {/* Left Content Column */}
+                    <div className="w-full lg:w-[100%] flex flex-col items-start text-left">
+                        <div className="w-full relative pt-8 md:pt-12 mb-6 md:mb-8 z-50">
+                            <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[10%] md:ml-[15%]">
+                                WE ARE YAAAS
+                            </h2>
+                            <div className="w-[75%] md:w-[50%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
+                        </div>
 
-                        {/* <p className="text-sm md:text-lg lg:text-xl text-gray-300 leading-relaxed mb-6">
-                            Yaa Asantewaa, a fearless Ashanti queen, led her people in the Ashanti-British "War of Golden Stool" in 1900, showcasing her courage and dedication to defending her nation's sovereignty. Her leadership and bravery remain a symbol of African <span className='text-[#FDDA2F]'>resistance and empowerment.</span>
-                        </p> */}
-                        <p className="text-sm md:text-lg lg:text-xl text-gray-300 leading-relaxed mb-6">
-                            A culture-forward creative agency dedicated to unleashing African Creativity through tailored representation and strategic growth to a curated group of African Talents
+                        <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed font-normal max-w-2xl ml-[10%] md:ml-[20%] pr-6">
+                            Welcome to Yaaas, We are a culture-forward creative agency committed to amplifying African creativity through tailored representation and strategic growth for a curated roster of African talent.
                         </p>
+                    </div>
 
+                    {/* Right Image Column */}
+                    <div className="w-full lg:w-[45%] flex justify-center lg:justify-end px-6 lg:px-0">
+                        <div className="relative w-full max-w-[600px] h-auto aspect-square lg:h-[600px]">
+                            <Image
+                                src="/images/about2.png"
+                                alt="Golden Stool"
+                                width={1000}
+                                height={1000}
+                                className="object-contain drop-shadow-[0_0_50px_rgba(253,218,47,0.15)]"
+                                priority
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
