@@ -23,10 +23,14 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
     // We need exactly 7 items for the 3D rotating layout defined by cardLayouts.
     // If we have fewer than 7, we repeat items. If more, we take the first 7.
     const normalizedArtworks = useMemo(() => {
-        if (initialArtworks.length === 0) return [];
-        let items = [...initialArtworks];
+        const visualArtworks = initialArtworks.filter(art =>
+            ['painting', 'photography', 'sculpture'].includes(art.medium)
+        );
+
+        if (visualArtworks.length === 0) return [];
+        let items = [...visualArtworks];
         while (items.length < 7) {
-            items = [...items, ...initialArtworks];
+            items = [...items, ...visualArtworks];
         }
         return items.slice(0, 7);
     }, [initialArtworks]);

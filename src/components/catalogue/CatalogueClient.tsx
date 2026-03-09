@@ -21,7 +21,11 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
     const filters = ['all', 'painting', 'photography', 'sculpture'];
 
     const filteredArtworks = initialArtworks
-        .filter(art => activeFilter === 'all' || art.medium === activeFilter)
+        .filter(art => {
+            const isVisual = ['painting', 'photography', 'sculpture'].includes(art.medium);
+            if (activeFilter === 'all') return isVisual;
+            return art.medium === activeFilter;
+        })
         .sort((a, b) => {
             if (sortBy === 'newest') return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
             if (sortBy === 'oldest') return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();

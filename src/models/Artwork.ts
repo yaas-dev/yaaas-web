@@ -5,7 +5,7 @@ export interface IArtwork extends Document {
     artistName: string; // Redundant but helpful for quick display
     talentId: mongoose.Types.ObjectId;
     title: string;
-    medium: 'painting' | 'photography' | 'sculpture';
+    medium: 'painting' | 'photography' | 'sculpture' | 'release' | 'event';
 }
 
 const ArtworkSchema: Schema = new Schema({
@@ -15,10 +15,15 @@ const ArtworkSchema: Schema = new Schema({
     title: { type: String, required: true },
     medium: {
         type: String,
-        enum: ['painting', 'photography', 'sculpture'],
+        enum: ['painting', 'photography', 'sculpture', 'release', 'event'],
         required: true,
         default: 'painting'
     },
 }, { timestamps: true });
 
-export default mongoose.models.Artwork || mongoose.model<IArtwork>('Artwork', ArtworkSchema);
+// Check if the model exists and delete it to force reload with new schema in development
+if (mongoose.models && mongoose.models.Artwork) {
+    delete (mongoose as any).models.Artwork;
+}
+
+export default mongoose.model<IArtwork>('Artwork', ArtworkSchema);
