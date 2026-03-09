@@ -143,7 +143,7 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                 </div>
 
                 {/* Pagination Controls (Placeholder) */}
-                <div className="w-full flex justify-center items-center gap-4 pb-32">
+                {/* <div className="w-full flex justify-center items-center gap-4 pb-32">
                     <button className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#333] flex items-center justify-center text-white/60 hover:bg-[#FDDA2F] hover:text-black transition-colors">
                         <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
@@ -155,7 +155,7 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                     <button className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#333] flex items-center justify-center text-white/60 hover:bg-[#FDDA2F] hover:text-black transition-colors">
                         <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
-                </div>
+                </div> */}
             </div>
 
             <ContactSection />
