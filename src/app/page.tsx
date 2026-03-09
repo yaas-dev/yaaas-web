@@ -7,6 +7,7 @@ import AboutSection from "@/components/home/AboutSection";
 import ProjectGallery from "@/components/home/ProjectGallery";
 import ArtCatalogueSection from "@/components/home/ArtCatalogueSection";
 import LatestNews from "@/components/home/LatestNews";
+import WelcomePopup from "@/components/shared/WelcomePopup";
 import { getProjects } from "@/actions/projectActions";
 import { getArtworks } from "@/actions/catalogueActions";
 import { getNewsPosts } from "@/actions/newsActions";
@@ -31,6 +32,7 @@ export default async function Home() {
       <ArtCatalogueSection artworks={artworks} />
       {/* <LatestNews newsPosts={news} /> */}
       <ContactSection />
+      <WelcomePopup />
     </div>
   );
 }
