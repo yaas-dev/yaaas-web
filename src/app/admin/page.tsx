@@ -36,7 +36,7 @@ export default async function AdminDashboard() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {STATS.map((stat) => (
                     <Link key={stat.name} href={stat.href} className="bg-[#0a0a0a] border border-white/5 p-6 rounded-sm flex items-center justify-between shadow-xl hover:border-[#B59431]/30 transition-colors group">
                         <div className="flex flex-col gap-1">
