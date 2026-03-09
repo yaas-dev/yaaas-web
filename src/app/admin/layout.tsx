@@ -14,7 +14,8 @@ import {
     Handshake,
     Mail,
     Menu,
-    X
+    X,
+    Settings as SettingsIcon
 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -27,6 +28,7 @@ const ADMIN_NAV = [
     { name: 'Projects', href: '/admin/projects', icon: Briefcase },
     { name: 'Collaborations', href: '/admin/collaborations', icon: Handshake },
     { name: 'Enquiries', href: '/admin/enquiries', icon: Mail },
+    { name: 'Settings', href: '/admin/settings', icon: SettingsIcon },
 ];
 
 export default function AdminLayout({
