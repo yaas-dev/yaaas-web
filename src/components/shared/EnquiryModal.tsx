@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { submitEnquiry } from '@/actions/enquiryActions';
 
 export type Artwork = {
-    id: number | string;
+    id?: string | number;
+    _id?: string | number;
     src: string;
-    artist: string;
+    artist?: string;
+    artistName?: string;
     title: string;
 };
 
@@ -23,6 +25,9 @@ export default function EnquiryModal({ isOpen, onClose, artwork }: EnquiryModalP
 
     if (!isOpen || !artwork) return null;
 
+    const artistDisplayName = artwork.artistName || artwork.artist || 'Artist Name';
+    const artworkId = (artwork._id || artwork.id)?.toString();
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
@@ -36,8 +41,8 @@ export default function EnquiryModal({ isOpen, onClose, artwork }: EnquiryModalP
             type: 'ENQUIRY',
             metadata: {
                 artworkTitle: artwork.title,
-                artistName: artwork.artist,
-                artworkId: artwork.id?.toString()
+                artistName: artistDisplayName,
+                artworkId: artworkId
             }
         };
 
@@ -92,7 +97,7 @@ export default function EnquiryModal({ isOpen, onClose, artwork }: EnquiryModalP
 
                     {/* Right: Details & Form */}
                     <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                        <h2 className="text-[#d8b511] font-bold text-sm tracking-widest uppercase mb-1">{artwork.artist || 'Artist Name'}</h2>
+                        <h2 className="text-[#d8b511] font-bold text-sm tracking-widest uppercase mb-1">{artistDisplayName}</h2>
                         <h3 className="text-white text-3xl md:text-4xl font-light mb-6 uppercase tracking-widest leading-tight">{artwork.title || 'Title of Piece'}</h3>
 
                         <div className="h-[1px] w-full bg-white/10 mb-8"></div>
@@ -118,7 +123,7 @@ export default function EnquiryModal({ isOpen, onClose, artwork }: EnquiryModalP
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <label className="text-white/50 text-[10px] uppercase tracking-widest font-semibold">Message</label>
-                                        <textarea required name="message" defaultValue={`I would like to enquire about ${artwork.title || 'this piece'} by ${artwork.artist || 'the artist'}.`} className="bg-transparent border-b border-white/20 pb-2 text-white outline-none focus:border-[#c1a03a] transition-colors resize-none font-light text-sm h-20" />
+                                        <textarea required name="message" defaultValue={`I would like to enquire about ${artwork.title || 'this piece'} by ${artistDisplayName}.`} className="bg-transparent border-b border-white/20 pb-2 text-white outline-none focus:border-[#c1a03a] transition-colors resize-none font-light text-sm h-20" />
                                     </div>
                                     <button
                                         type="submit"

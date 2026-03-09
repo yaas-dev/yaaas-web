@@ -29,7 +29,7 @@ export default function ArtCatalogueSection({ artworks = [] }: ArtCatalogueSecti
                 <div className="flex justify-center mt-8">
                     <Link href="/catalogue">
                         <button className="bg-white hover:bg-[#B59431] transition-colors cursor-pointer uppercase text-black font-bold tracking-widest text-xs px-10 py-4 rounded-sm shadow-xl">
-                            View Full Collection
+                            View Catalogue
                         </button>
                     </Link>
                 </div>
