@@ -87,7 +87,7 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                                     exit={{ opacity: 0, scale: 0.8 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <Ear className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1} />
+                                    <Image src="/images/ear.png" alt="Ear" width={50} height={50} className="w-8 h-8 md:w-14 md:h-14" />
                                 </motion.div>
                             )}
                             {(activeFilter === 'ALL' || activeFilter === 'VISUAL') && (
@@ -98,7 +98,7 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                                     exit={{ opacity: 0, scale: 0.8 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <Eye className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1} />
+                                    <Image src="/images/eye.png" alt="Eye" width={50} height={50} className="w-8 h-8 md:w-14 md:h-14" />
                                 </motion.div>
                             )}
                         </AnimatePresence>

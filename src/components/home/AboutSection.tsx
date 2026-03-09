@@ -3,21 +3,21 @@ import Image from 'next/image';
 
 const AboutSection = () => {
     return (
-        <section className="relative w-full bg-black text-white min-h-screen overflow-hidden flex items-center justify-center">
+        <section className="relative w-full bg-black text-white lg:min-h-screen overflow-hidden flex items-center justify-center">
             {/* Background pattern */}
-            <div className="absolute inset-0 z-0 opacity-15">
+            <div className="absolute inset-y-0 left-0 w-full lg:w-1/2 z-0 opacity-15">
                 <Image
                     src="/images/hero_2.png"
                     alt="Current Background"
                     fill
-                    className="object-cover object-left md:object-center grayscale brightness-[0.4] sepia-[0.3] hue-rotate-[10deg] contrast-125"
+                    className="object-cover object-left rotate-90 md:object-center grayscale brightness-[0.9] sepia-[0.3] hue-rotate-[10deg] contrast-25"
                 />
             </div>
 
             <div className="w-full relative z-10">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-4">
                     {/* Left Content Column */}
-                    <div className="w-full lg:w-[100%] flex flex-col items-start text-left">
+                    <div className="w-full lg:w-[55%] flex flex-col items-start text-left">
                         <div className="w-full relative pt-8 md:pt-12 mb-6 md:mb-8 z-50">
                             <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[10%] md:ml-[15%]">
                                 WE ARE YAAAS

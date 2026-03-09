@@ -3,26 +3,26 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Eye, Ear } from "lucide-react";
+// import { Eye, Ear } from "lucide-react";
 
 const talents = [
     {
         title: "Visual Artists",
         image: "/images/talents/photography.png",
         href: "/talents",
-        icon: Eye
+        icon: '/images/eye.png'
     },
     {
         title: "Sonic Artists",
         image: "/images/talents/painting.png",
         href: "/talents",
-        icon: Ear
+        icon: '/images/ear.png'
     }
 ];
 
 export default function TalentsPreview() {
     return (
-        <section id="talents" className="min-h-screen bg-black overflow-hidden flex flex-col justify-center">
+        <section id="talents" className="lg:min-h-screen bg-black overflow-hidden flex flex-col justify-center">
             <div className="flex flex-col w-full mx-auto">
 
                 {/* Section Header */}
@@ -54,7 +54,7 @@ export default function TalentsPreview() {
 
                                 {/* Top Right Icon */}
                                 <div className="absolute top-4 right-4 md:top-8 md:right-8 z-20">
-                                    <Icon className="w-6 h-6 md:w-10 md:h-10 text-[#FDDA2F]" strokeWidth={1.5} />
+                                    <Image src={talent.icon} alt={talent.title} width={50} height={50} className="w-10 h-10 md:w-full md:h-20" />
                                 </div>
 
                                 {/* Category Text */}

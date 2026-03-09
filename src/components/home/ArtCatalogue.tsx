@@ -63,7 +63,7 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
         <section id="catalogue" className="bg-black py-4 overflow-hidden relative flex flex-col justify-center">
 
             {/* Stacked Gallery Container */}
-            <div className="relative w-full max-w-[1400px] mx-auto flex items-center justify-center mt-2 h-[450px] md:h-[600px]">
+            <div className="relative w-full md:max-w-[1400px] mx-auto flex items-center justify-center mt-2 h-[250px] md:h-[600px]">
 
                 <AnimatePresence>
                     {cards.map((item, index) => {
@@ -73,7 +73,7 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
                         return (
                             <motion.div
                                 key={`${item._id}-${index}`}
-                                className="absolute w-full h-[240px] sm:w-[220px] sm:h-[320px] md:w-[580px] md:h-[580px] shadow-2xl cursor-pointer"
+                                className="absolute w-[250px] h-[240px] sm:w-[220px] sm:h-[320px] md:w-[580px] md:h-[580px] shadow-2xl cursor-pointer"
                                 style={{ zIndex: layout.zIndex }}
                                 animate={{
                                     opacity: layout.opacity,

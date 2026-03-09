@@ -23,6 +23,7 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
         artistName: initialData?.artistName || '',
         talentId: initialData?.talentId || '',
         src: initialData?.src || '',
+        medium: initialData?.medium || 'painting',
     });
 
     useEffect(() => {
@@ -149,6 +150,22 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                                     You must create a Talent first before assigning artworks.
                                 </div>
                             )}
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Medium</label>
+                            <select
+                                required
+                                value={formData.medium}
+                                onChange={(e) => setFormData({ ...formData, medium: e.target.value })}
+                                className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors appearance-none"
+                            >
+                                <option value="painting">Painting</option>
+                                <option value="photography">Photography</option>
+                                <option value="sculpture">Sculpture</option>
+                                <option value="release">Release</option>
+                                <option value="event">Event</option>
+                            </select>
                         </div>
                     </div>
                 </div>

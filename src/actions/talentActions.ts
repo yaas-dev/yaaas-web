@@ -49,3 +49,18 @@ export async function getTalentBySlug(slug: string) {
         artworks
     }));
 }
+
+export async function getTalentWithArtworks(id: string) {
+    await dbConnect();
+    const talent = await Talent.findById(id);
+    if (!talent) return null;
+
+    // Find artworks for this talent
+    const Artwork = (await import("@/models/Artwork")).default;
+    const artworks = await Artwork.find({ talentId: talent._id }).sort({ createdAt: -1 });
+
+    return JSON.parse(JSON.stringify({
+        ...talent.toObject(),
+        artworks
+    }));
+}

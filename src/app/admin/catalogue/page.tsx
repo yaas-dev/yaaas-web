@@ -84,7 +84,10 @@ export default function CatalogueAdminPage() {
                                 </div>
                             </div>
                             <div className="p-5 flex flex-col gap-1">
-                                <span className="text-[10px] text-[#B59431] font-bold uppercase tracking-[0.2em]">{art.artistName}</span>
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="text-[10px] text-[#B59431] font-bold uppercase tracking-[0.2em]">{art.artistName}</span>
+                                    <span className="text-[8px] bg-white/5 text-white/40 px-2 py-0.5 rounded-full uppercase tracking-widest">{art.medium}</span>
+                                </div>
                                 <span className="text-sm font-bold tracking-widest text-white uppercase truncate">{art.title}</span>
                             </div>
                         </div>

@@ -8,13 +8,15 @@ import Link from 'next/link';
 import Services from '@/components/home/Services';
 import { submitEnquiry } from '@/actions/enquiryActions';
 import ContactSection from '../home/ContactSection';
+import ProjectGallery from '../home/ProjectGallery';
 
 interface AboutClientProps {
     newsPosts: any[];
     collaborations: any[];
+    projects: any[];
 }
 
-export default function AboutClient({ newsPosts, collaborations }: AboutClientProps) {
+export default function AboutClient({ newsPosts, collaborations, projects }: AboutClientProps) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [currentCollabIndex, setCurrentCollabIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -108,17 +110,17 @@ export default function AboutClient({ newsPosts, collaborations }: AboutClientPr
             </div>
 
             {/* YAAAS COLLABORATIONS Header */}
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-10">
+            {/* <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-10">
                 <div className="flex flex-col">
                     <h2 className="text-white text-2xl md:text-4xl font-bold tracking-[0.15em] mb-4">
                         YAAAS COLLABORATIONS
                     </h2>
                     <div className="h-1 w-[200px] md:w-[320px] bg-[#d8b511]"></div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Collage Masonry */}
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
+            {/* <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-16">
                 {currentCollab ? (
                     <AnimatePresence mode="wait">
                         <motion.div
@@ -237,55 +239,10 @@ export default function AboutClient({ newsPosts, collaborations }: AboutClientPr
                         No collaborations currently featured.
                     </div>
                 )}
-            </div>
+            </div> */}
+            <ProjectGallery projects={projects} />
 
-            {/* Current Collaboration Text */}
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-32">
-                {currentCollab && (
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={`text-${currentCollab._id}`}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: 20 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <h3 className="text-[#d8b511] font-bold text-lg md:text-xl tracking-[0.2em] mb-8 uppercase">
-                                {currentCollab.title}
-                            </h3>
-                            <div className="text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide space-y-6 max-w-5xl whitespace-pre-wrap">
-                                {currentCollab.description}
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-                )}
 
-                {/* Pagination Controls */}
-                {collaborations.length > 1 && (
-                    <div className="flex items-center gap-3 mt-10 justify-end max-w-5xl">
-                        <button
-                            onClick={prevCollab}
-                            className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#333] flex items-center justify-center text-white/60 hover:bg-[#FDDA2F] hover:text-black transition-all"
-                        >
-                            <ChevronLeft size={18} />
-                        </button>
-                        <div className="flex gap-2 mx-1">
-                            {collaborations.map((_, idx) => (
-                                <div
-                                    key={idx}
-                                    className={`w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-all ${idx === currentCollabIndex ? 'bg-[#d8b511]' : 'bg-[#333]'}`}
-                                />
-                            ))}
-                        </div>
-                        <button
-                            onClick={nextCollab}
-                            className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#333] flex items-center justify-center text-white/60 hover:bg-[#FDDA2F] hover:text-black transition-all"
-                        >
-                            <ChevronRight size={18} />
-                        </button>
-                    </div>
-                )}
-            </div>
 
             {/* LATEST NEWS Header */}
             <div className="w-full flex justify-center mb-10 border-t border-white/10 pt-16">

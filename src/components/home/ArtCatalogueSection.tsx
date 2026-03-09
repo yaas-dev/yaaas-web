@@ -12,7 +12,7 @@ interface ArtCatalogueSectionProps {
 
 export default function ArtCatalogueSection({ artworks = [] }: ArtCatalogueSectionProps) {
     return (
-        <section id="catalogue-section" className="min-h-screen bg-black overflow-hidden flex flex-col justify-center">
+        <section id="catalogue-section" className="lg:min-h-screen bg-black overflow-hidden pb-10 flex flex-col justify-center">
             <div className="flex flex-col h-full w-full mx-auto">
 
                 {/* Section Header */}

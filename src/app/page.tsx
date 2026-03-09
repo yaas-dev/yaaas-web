@@ -27,7 +27,7 @@ export default async function Home() {
       <TalentsPreview />
       <ProjectGallery projects={projects} />
       <ArtCatalogueSection artworks={artworks} />
-      <LatestNews newsPosts={news} />
+      {/* <LatestNews newsPosts={news} /> */}
       <ContactSection />
     </div>
   );

@@ -51,7 +51,7 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
     ));
 
     return (
-        <section id="projects" className="min-h-screen bg-black overflow-hidden flex flex-col justify-center">
+        <section id="projects" className="lg:min-h-screen bg-black overflow-hidden flex flex-col justify-center">
             <div className="flex flex-col h-full w-[100%] mx-auto">
 
                 {/* Section Header */}
