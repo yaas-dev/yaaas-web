@@ -18,7 +18,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
         <main className="min-h-screen bg-black flex flex-col pt-32 font-sans">
             {/* First Gold Banner */}
             <div className="w-full bg-[#c1a03a] py-5 px-8 md:px-[10%]">
-                <h1 className="text-white text-2xl md:text-3xl font-medium uppercase tracking-widest outline-none">
+                <h1 className="text-white text-2xl md:text-[64px] uppercase tracking-widest outline-none">
                     Art Catalogue
                 </h1>
             </div>

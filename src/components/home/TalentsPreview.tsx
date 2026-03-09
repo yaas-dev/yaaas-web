@@ -22,8 +22,8 @@ const talents = [
 
 export default function TalentsPreview() {
     return (
-        <section id="talents" className="py-8 md:py-12 bg-black max-h-[100vh] overflow-hidden flex flex-col">
-            <div className="flex flex-col h-full w-full mx-auto">
+        <section id="talents" className="min-h-screen bg-black overflow-hidden flex flex-col justify-center">
+            <div className="flex flex-col w-full mx-auto">
 
                 {/* Section Header */}
                 <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">

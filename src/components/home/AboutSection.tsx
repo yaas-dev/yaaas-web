@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const AboutSection = () => {
     return (
-        <section className="relative w-full bg-black text-white py-20 lg:py-32 overflow-hidden flex items-center justify-center">
+        <section className="relative w-full bg-black text-white min-h-screen overflow-hidden flex items-center justify-center">
             {/* Background pattern */}
             <div className="absolute inset-0 z-0 opacity-15">
                 <Image

@@ -35,7 +35,7 @@ export default function LatestNews({ newsPosts = [] }: LatestNewsProps) {
     ));
 
     return (
-        <section className="py-16 md:py-24 bg-black">
+        <section className="min-h-screen bg-black flex flex-col justify-center">
             <div className="max-w-[1400px] mx-auto px-4">
                 <div className="mb-10 md:mb-16 flex items-center justify-between">
                     <h2 className="text-xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white">

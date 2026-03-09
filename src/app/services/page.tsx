@@ -77,7 +77,7 @@ export default function ServicesPage() {
                     transition={{ duration: 0.8 }}
                     className="w-full flex-1 flex flex-col pt-0"
                 >
-                    <ServiceAccordion services={services} />
+                    <ServiceAccordion services={services} initialAllOpen={true} allowToggle={false} />
                 </motion.div>
             </div>
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 export interface Service {
     id: string;
@@ -14,34 +15,41 @@ export interface Service {
 
 interface ServiceAccordionProps {
     services: Service[];
+    initialAllOpen?: boolean;
+    allowToggle?: boolean;
+    isLinkOnly?: boolean;
 }
 
-export default function ServiceAccordion({ services }: ServiceAccordionProps) {
-    const [openId, setOpenId] = useState<string | null>(null);
+export default function ServiceAccordion({
+    services,
+    initialAllOpen = false,
+    allowToggle = true,
+    isLinkOnly = false
+}: ServiceAccordionProps) {
+    const [openId, setOpenId] = useState<string | null>(initialAllOpen ? null : null); // null if initialAllOpen is handled per-item
 
     const toggle = (id: string) => {
+        if (!allowToggle) return;
         setOpenId(prev => (prev === id ? null : id));
     };
 
     return (
         <div className="flex flex-col gap-4 md:gap-6 w-full">
             {services.map((service) => {
-                const isOpen = openId === service.id;
+                const isOpen = initialAllOpen || openId === service.id;
                 const triggerId = `service-trigger-${service.id}`;
                 const panelId = `service-panel-${service.id}`;
 
-                return (
-                    <div
-                        key={service.id}
-                        className="rounded-xl overflow-hidden bg-black flex flex-col"
-                    >
+                const Content = (
+                    <div className="rounded-xl overflow-hidden bg-black flex flex-col">
                         {/* Trigger Banner */}
-                        <button
+                        <div
                             id={triggerId}
-                            aria-expanded={isOpen}
-                            aria-controls={panelId}
+                            role={allowToggle ? "button" : undefined}
+                            aria-expanded={allowToggle ? isOpen : undefined}
+                            aria-controls={allowToggle ? panelId : undefined}
                             onClick={() => toggle(service.id)}
-                            className="relative w-full h-[120px] md:h-[150px] flex items-center px-6 md:px-12 text-left group overflow-hidden cursor-pointer"
+                            className={`relative w-full h-[120px] md:h-[150px] flex items-center px-6 md:px-12 text-left group overflow-hidden ${allowToggle ? 'cursor-pointer' : isLinkOnly ? 'cursor-pointer' : 'cursor-default'}`}
                         >
                             <Image
                                 src={service.image}
@@ -65,7 +73,7 @@ export default function ServiceAccordion({ services }: ServiceAccordionProps) {
                                     service.title
                                 )}
                             </h3>
-                        </button>
+                        </div>
 
                         {/* Expandable panel */}
                         <AnimatePresence initial={false}>
@@ -74,7 +82,7 @@ export default function ServiceAccordion({ services }: ServiceAccordionProps) {
                                     id={panelId}
                                     role="region"
                                     aria-labelledby={triggerId}
-                                    initial={{ height: 0, opacity: 0 }}
+                                    initial={initialAllOpen ? false : { height: 0, opacity: 0 }}
                                     animate={{ height: "auto", opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
                                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -90,6 +98,16 @@ export default function ServiceAccordion({ services }: ServiceAccordionProps) {
                         </AnimatePresence>
                     </div>
                 );
+
+                if (isLinkOnly) {
+                    return (
+                        <Link key={service.id} href="/services" className="block">
+                            {Content}
+                        </Link>
+                    );
+                }
+
+                return <div key={service.id}>{Content}</div>;
             })}
         </div>
     );

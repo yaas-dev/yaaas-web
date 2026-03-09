@@ -65,7 +65,7 @@ export default function AboutClient({ newsPosts, collaborations }: AboutClientPr
             {/* ABOUT US Banner */}
             <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-5 shadow-2xl z-10">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-                    <h1 className="text-white text-3xl md:text-5xl uppercase tracking-widest drop-shadow-lg">ABOUT US</h1>
+                    <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest">ABOUT US</h1>
                 </div>
             </div>
 

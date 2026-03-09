@@ -51,7 +51,7 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
     ));
 
     return (
-        <section id="projects" className="py-8 md:py-10 bg-black max-h-[100vh] overflow-hidden flex flex-col">
+        <section id="projects" className="min-h-screen bg-black overflow-hidden flex flex-col justify-center">
             <div className="flex flex-col h-full w-[100%] mx-auto">
 
                 {/* Section Header */}

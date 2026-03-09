@@ -40,7 +40,7 @@ export default function Footer() {
                                 {[
                                     { label: "HOME", href: "/" },
                                     { label: "CATALOGUE", href: "/catalogue" },
-                                    { label: "TALENT", href: "/talents" },
+                                    { label: "CREATIVES", href: "/talents" },
                                     { label: "SERVICES", href: "/services" },
                                     { label: "ABOUT US", href: "/about" },
                                     { label: "CONTACT", href: "/contact" },
@@ -53,14 +53,11 @@ export default function Footer() {
                         </div>
 
                         <div className="flex flex-col gap-6">
-                            <h4 className="text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase">LINKS</h4>
+                            <h4 className="text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase">SOCIALS</h4>
                             <ul className="flex flex-col gap-4 text-xs md:text-sm uppercase tracking-widest font-semibold text-gray-300">
                                 {[
-                                    // { label: "PROJECTS", href: "/projects" },
-                                    { label: "CATALOGUE", href: "/catalogue" },
-                                    { label: "ABOUT US", href: "/about" },
-                                    // { label: "NEWS", href: "/news" },
-                                    { label: "CONTACT", href: "/contact" },
+                                    { label: "INSTAGRAM", href: "https://www.instagram.com/yaaas.agency" },
+                                    { label: "LINKEDIN", href: "https://ci.linkedin.com/company/yaaas-agency" },
                                 ].map(({ label, href }) => (
                                     <li key={label}>
                                         <Link href={href} className="hover:text-[#B59431] transition-colors">{label}</Link>
@@ -74,27 +71,6 @@ export default function Footer() {
 
                 {/* Bottom Bar: Socials & Copyright */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-10 border-t border-white/10">
-
-                    {/* Socials */}
-                    <div className="flex gap-6">
-                        <a
-                            href="https://www.instagram.com/yaaas.agency"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-[#B59431] hover:border-[#B59431] hover:bg-white/5 transition-all"
-                        >
-                            <Instagram size={20} />
-                        </a>
-                        <a
-                            href="https://ci.linkedin.com/company/yaaas-agency"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-[#B59431] hover:border-[#B59431] hover:bg-white/5 transition-all"
-                        >
-                            <Linkedin size={20} />
-                        </a>
-                    </div>
-
                     <div className="text-center md:text-right text-[10px] md:text-xs uppercase tracking-[0.3em] text-gray-500 font-bold">
                         <p>© {new Date().getFullYear()} YAA ASANTEWAA AGENCY. ALL RIGHTS RESERVED.</p>
                     </div>
