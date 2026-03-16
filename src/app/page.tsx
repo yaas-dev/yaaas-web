@@ -6,7 +6,7 @@ import ContactSection from "@/components/home/ContactSection";
 import AboutSection from "@/components/home/AboutSection";
 import ProjectGallery from "@/components/home/ProjectGallery";
 import ArtCatalogueSection from "@/components/home/ArtCatalogueSection";
-import LatestNews from "@/components/home/LatestNews";
+import BlogSection from "@/components/home/BlogSection";
 import WelcomePopup from "@/components/shared/WelcomePopup";
 import { getProjects } from "@/actions/projectActions";
 import { getArtworks } from "@/actions/catalogueActions";
@@ -30,7 +30,7 @@ export default async function Home() {
       <TalentsPreview />
       <ProjectGallery projects={projects} />
       <ArtCatalogueSection artworks={artworks} />
-      {/* <LatestNews newsPosts={news} /> */}
+      <BlogSection newsPosts={news} />
       <ContactSection />
       <WelcomePopup />
     </div>

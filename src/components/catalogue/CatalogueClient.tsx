@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ArtCatalogue from '@/components/home/ArtCatalogue';
@@ -18,7 +18,14 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
     const [currentPage, setCurrentPage] = useState(1);
 
     const ITEMS_PER_PAGE = 9;
-    const filters = ['all', 'painting', 'photography', 'sculpture'];
+
+    // Dynamically derive categories from existing artworks
+    const categories = useMemo(() => {
+        const mediums = initialArtworks
+            .filter(art => ['painting', 'photography', 'sculpture'].includes(art.medium))
+            .map(art => art.medium);
+        return ['all', ...Array.from(new Set(mediums))];
+    }, [initialArtworks]);
 
     const filteredArtworks = initialArtworks
         .filter(art => {
@@ -74,7 +81,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
             {/* Filters Section */}
             <div className="w-full bg-black py-8 border-b border-white/5 flex justify-center px-4 overflow-x-auto">
                 <div className="flex gap-4 md:gap-8">
-                    {filters.map((filter) => (
+                    {categories.map((filter: string) => (
                         <button
                             key={filter}
                             onClick={() => setActiveFilter(filter)}
@@ -91,14 +98,16 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
 
             {/* Grid Section */}
             <div className="w-full bg-black py-16 px-4 md:px-12 flex justify-center">
-                <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-x-6 md:gap-x-10 lg:gap-x-16 gap-y-12 md:gap-y-20 max-w-[1200px] w-full items-start">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 md:gap-x-10 lg:gap-x-16 gap-y-12 md:gap-y-20 max-w-[1200px] w-full items-start">
                     {paginatedArtworks.map((art) => (
                         <div
                             key={art._id}
                             onClick={() => setSelectedArt(art)}
                             className="flex flex-col group cursor-pointer"
                         >
-                            <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-white/5 border border-white/5 group-hover:border-[#B59431]/40 transition-all shadow-2xl">
+
+
+                            <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-white/5 border border-white/5 group-hover:border-[#FDDA2F]/40 transition-all shadow-2xl">
                                 <Image
                                     src={art.src}
                                     alt={art.title}
@@ -111,17 +120,14 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
                                     <span className="text-white font-bold tracking-[0.3em] uppercase border border-white/50 px-8 py-3 text-xs text-center backdrop-blur-sm">Enquire</span>
                                 </div>
-
-                                {/* Medium Badge */}
-                                <div className="absolute top-4 left-4 z-10">
-                                    <span className="text-[8px] bg-black/60 backdrop-blur-md text-white/80 px-3 py-1 rounded-full uppercase tracking-widest border border-white/10">
-                                        {art.medium}
-                                    </span>
-                                </div>
+                            </div>
+                            <div className="flex flex-col items-center text-center px-2 mb-4 md:mb-3">
+                                <span className="text-[#FDDA2F] font-bold text-sm md:text-lg tracking-widest leading-tight uppercase group-hover:brightness-125 transition-all">{art.title}</span>
                             </div>
                             <div className="flex flex-col items-center text-center px-2">
-                                <span className="text-[#B59431] font-bold text-[10px] md:text-xs tracking-[0.2em] mb-2 leading-tight uppercase">{art.artistName}</span>
-                                <span className="text-white font-bold text-sm md:text-lg tracking-widest leading-tight uppercase group-hover:text-[#B59431] transition-colors">{art.title}</span>
+                                <span className="text-white/80 font-medium text-[10px] md:text-xs tracking-[0.2em] leading-tight uppercase">
+                                    {art.artistName} {art.year ? `(${art.year}, ${art.medium})` : `(${art.medium})`}
+                                </span>
                             </div>
                         </div>
                     ))}

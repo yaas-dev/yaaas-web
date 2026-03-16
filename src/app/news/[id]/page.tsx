@@ -17,13 +17,13 @@ export default async function SingleNewsPage({ params }: { params: Promise<{ id:
     const paragraphs = article.fullContent.split(/\n\s*\n/).filter((p: string) => p.trim() !== "");
 
     return (
-        <main className="min-h-screen bg-black flex flex-col pt-24 pb-32 font-sans text-white">
+        <main className="min-h-screen bg-black flex flex-col pt-40 pb-32 font-sans text-white">
 
             {/* Top Back Navigation */}
             <div className="w-full max-w-[1000px] mx-auto px-6 md:px-12 pt-8 mb-6">
-                <Link href="/news" className="inline-flex items-center text-[#FDDA2F] font-bold tracking-widest text-xs uppercase hover:text-white transition-colors">
+                <Link href="/blog" className="inline-flex items-center text-[#FDDA2F] font-bold tracking-widest text-xs uppercase hover:text-white transition-colors">
                     <ChevronLeft size={16} className="mr-2" />
-                    Back to News
+                    Back to Blog
                 </Link>
             </div>
 

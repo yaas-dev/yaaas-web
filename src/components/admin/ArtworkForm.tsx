@@ -23,6 +23,7 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
         artistName: initialData?.artistName || '',
         talentId: initialData?.talentId || '',
         src: initialData?.src || '',
+        year: initialData?.year || '',
         medium: initialData?.medium || 'painting',
     });
 
@@ -133,18 +134,29 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                             />
                         </div>
 
-                        <div className="flex flex-col gap-2">
-                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Assign to Artist</label>
-                            {talents.length > 0 ? (
-                                <select
-                                    value={formData.talentId}
-                                    onChange={handleTalentChange}
-                                    className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors appearance-none"
-                                >
-                                    {talents.map((t) => (
-                                        <option key={t._id} value={t._id}>{t.name}</option>
-                                    ))}
-                                </select>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Year</label>
+                                    <input
+                                        type="text"
+                                        value={formData.year}
+                                        onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+                                        className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors"
+                                        placeholder="e.g. 2024"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Assign to Artist</label>
+                                    {talents.length > 0 ? (
+                                        <select
+                                            value={formData.talentId}
+                                            onChange={handleTalentChange}
+                                            className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors appearance-none"
+                                        >
+                                            {talents.map((t) => (
+                                                <option key={t._id} value={t._id}>{t.name}</option>
+                                            ))}
+                                        </select>
                             ) : (
                                 <div className="p-4 bg-yellow-500/5 border border-yellow-500/20 text-yellow-500 text-[10px] uppercase tracking-widest font-bold">
                                     You must create a Talent first before assigning artworks.

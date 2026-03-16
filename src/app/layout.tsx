@@ -8,6 +8,8 @@ import PageTransition from "@/components/PageTransition";
 import Providers from "@/components/Providers";
 
 
+import { azonix, modernSans } from "./fonts";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -26,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans`}>
+      <body className={`${poppins.variable} ${azonix.variable} ${modernSans.variable} font-sans`}>
         <Providers>
           <ModalProvider>
             <Header />

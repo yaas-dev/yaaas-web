@@ -9,13 +9,13 @@ const talents = [
     {
         title: "Visual Artists",
         image: "/images/talents/photography.png",
-        href: "/talents",
+        href: "/talents?category=VISUAL",
         icon: '/images/eye.png'
     },
     {
         title: "Sonic Artists",
         image: "/images/talents/painting.png",
-        href: "/talents",
+        href: "/talents?category=SONIC",
         icon: '/images/ear.png'
     }
 ];
@@ -28,7 +28,7 @@ export default function TalentsPreview() {
                 {/* Section Header */}
                 <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
                     <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[10%]">
-                        THE YAAAS CREATIVES
+                        YAAAS CREATIVES
                     </h2>
                     <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
@@ -52,9 +52,16 @@ export default function TalentsPreview() {
                                 {/* Overlay to dim the image for text contrast */}
                                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
 
-                                {/* Top Right Icon */}
-                                <div className="absolute top-4 right-4 md:top-8 md:right-8 z-20">
-                                    <Image src={talent.icon} alt={talent.title} width={50} height={50} className="w-10 h-10 md:w-full md:h-20" />
+                                {/* Top Right Icon - Unified Container */}
+                                <div className="absolute top-4 right-4 md:top-8 md:right-8 z-30 p-3 md:p-4">
+                                    <div className="relative w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16">
+                                        <Image
+                                            src={talent.icon}
+                                            alt={talent.title}
+                                            fill
+                                            className="object-contain transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    </div>
                                 </div>
 
                                 {/* Category Text */}

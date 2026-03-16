@@ -34,7 +34,7 @@ const services: Service[] = [
 
 export default function ServicesPage() {
     return (
-        <div className="pt-40 md:pt-40 pb-16 px-6 md:px-12 mx-auto min-h-screen bg-[#080807] text-white flex flex-col"
+        <div className="pt-40 md:pt-40 pb-16 md:mb-40 px-6 md:px-12 mx-auto min-h-screen bg-[#080807] text-white flex flex-col"
 
         >
             {/* ── Page header ── */}
@@ -55,7 +55,7 @@ export default function ServicesPage() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-[#999999] text-xs md:text-sm uppercase tracking-[0.3em] font-medium max-w-2xl"
+                    className="text-[#e0e0e0] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full"
                     style={{ marginTop: "1rem" }}
                 >
                     A curated suite of capabilities built around the creative visionary.

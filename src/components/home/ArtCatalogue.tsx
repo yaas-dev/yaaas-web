@@ -64,7 +64,7 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
     }
 
     return (
-        <section id="catalogue" className="bg-black py-4 overflow-hidden relative flex flex-col justify-center">
+        <section id="catalogue" className="bg-black py-20 overflow-hidden relative flex flex-col justify-center">
 
             {/* Stacked Gallery Container */}
             <div className="relative w-full md:max-w-[1400px] mx-auto flex items-center justify-center mt-2 h-[250px] md:h-[600px]">
@@ -77,19 +77,19 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
                         return (
                             <motion.div
                                 key={`${item._id}-${index}`}
-                                className="absolute w-[250px] h-[240px] sm:w-[220px] sm:h-[320px] md:w-[580px] md:h-[580px] shadow-2xl cursor-pointer"
+                                className="absolute w-[250px] h-[240px] sm:w-[220px] sm:h-[320px] md:w-[580px] md:h-[580px] cursor-pointer"
                                 style={{ zIndex: layout.zIndex }}
                                 animate={{
                                     opacity: layout.opacity,
                                     x: layout.x,
                                     scale: layout.scale,
-                                    borderColor: isCenter ? "#FDDA2F" : "transparent",
-                                    boxShadow: isCenter ? "0 0 40px 10px rgba(253,218,47,0.3)" : "0 20px 25px -5px rgba(0,0,0,0.5)",
+                                    borderColor: isCenter ? "transparent" : "transparent",
+                                    // boxShadow: isCenter ? "0 0 40px 10px rgba(253,218,47,0.3)" : "0 20px 25px -5px rgba(0,0,0,0.5)",
                                 }}
                                 transition={{ duration: 0.8, ease: "easeInOut" }}
                                 onClick={() => setSelectedArt(item)}
                             >
-                                <div className={`w-full h-full bg-black relative overflow-hidden backdrop-blur-sm`}>
+                                <div className={`w-full h-full bg-black relative overflow-hidden `}>
                                     <Image
                                         src={item.src}
                                         alt={item.title}

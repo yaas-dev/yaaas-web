@@ -6,6 +6,7 @@ export interface IArtwork extends Document {
     talentId: mongoose.Types.ObjectId;
     title: string;
     medium: 'painting' | 'photography' | 'sculpture' | 'release' | 'event';
+    year: string;
 }
 
 const ArtworkSchema: Schema = new Schema({
@@ -13,6 +14,7 @@ const ArtworkSchema: Schema = new Schema({
     artistName: { type: String, required: true },
     talentId: { type: Schema.Types.ObjectId, ref: 'Talent', required: true },
     title: { type: String, required: true },
+    year: { type: String, default: '' },
     medium: {
         type: String,
         enum: ['painting', 'photography', 'sculpture', 'release', 'event'],

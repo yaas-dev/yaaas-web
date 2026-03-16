@@ -43,7 +43,7 @@ export default function Services() {
             {/* Header Section */}
             <div className="w-full relative mb-6 md:mb-8 z-50">
                 <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[10%]">
-                    THE YAAAS SERVICES
+                    YAAAS SERVICES
                 </h2>
                 <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
             </div>

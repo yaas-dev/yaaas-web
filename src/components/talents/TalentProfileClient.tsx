@@ -111,6 +111,10 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                     onClick={() => setSelectedArt(art)}
                                     className="flex flex-col group cursor-pointer"
                                 >
+                                    <div className="flex flex-col items-start px-1 mb-2 md:mb-4">
+                                        <span className="text-[#FDDA2F] font-bold text-[10px] sm:text-xs md:text-[15px] tracking-wide leading-tight md:leading-normal uppercase group-hover:brightness-125 transition-all">{art.title}</span>
+                                    </div>
+
                                     <div className="relative w-full aspect-[4/5] md:aspect-[4/3] rounded-sm overflow-hidden mb-2 md:mb-4 bg-white/5 border border-white/5 group-hover:border-[#FDDA2F]/30 transition-all">
                                         <Image
                                             src={art.src}
@@ -124,8 +128,9 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                         </div>
                                     </div>
                                     <div className="flex flex-col pl-1">
-                                        <span className="text-[#FDDA2F] font-bold text-[10px] sm:text-xs md:text-[15px] tracking-wide mb-0.5 md:mb-1 leading-tight md:leading-normal uppercase">{art.artistName}</span>
-                                        <span className="text-white font-medium text-[8px] sm:text-[10px] md:text-sm tracking-wide leading-tight md:leading-normal uppercase">{art.title}</span>
+                                        <span className="text-white font-medium text-[8px] sm:text-[10px] md:text-sm tracking-wide leading-tight md:leading-normal uppercase">
+                                            {art.artistName} {art.year ? `(${art.year}, ${art.medium})` : `(${art.medium})`}
+                                        </span>
                                     </div>
                                 </div>
                             ))}
@@ -193,20 +198,44 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                     </div>
 
                     <div className="w-full bg-black px-4 md:px-12 flex flex-col items-center gap-12 pb-32">
-                        <div className="max-w-[1000px] w-full flex flex-col gap-12">
+                        <div className="max-w-[1200px] w-full flex flex-col gap-12">
                             {events.map((art: any) => (
-                                <div key={art._id} className="w-full relative group">
-                                    {/* Horizontal Gold Bar Accent behind image */}
-                                    <div className="absolute top-1/2 -translate-y-1/2 -left-4 -right-4 h-24 bg-[#FDDA2F] opacity-20 z-0"></div>
-
-                                    <div className="relative z-10 w-full aspect-[21/9] rounded-sm overflow-hidden border border-white/10 shadow-2xl">
+                                <div key={art._id} className="w-full flex flex-col md:flex-row gap-6 lg:gap-12 items-center bg-[#0d0d0c] rounded-2xl overflow-hidden border border-white/5 relative group transition-all duration-500 hover:border-white/10">
+                                    {/* Image Side */}
+                                    <div className="w-full md:w-1/2 h-[250px] md:h-[400px] relative overflow-hidden">
                                         <Image
                                             src={art.src}
                                             alt={art.title}
                                             fill
-                                            className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                                            sizes="100vw"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 50vw"
                                         />
+                                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
+                                    </div>
+
+                                    {/* Content Side */}
+                                    <div className="w-full md:w-1/2 flex flex-col justify-center px-8 md:px-12 py-8 md:py-0 text-left h-full">
+                                        <div className="flex items-center gap-4 mb-4">
+                                            <span className="text-[#FDDA2F] text-[10px] sm:text-xs uppercase tracking-[0.3em] font-bold">Event</span>
+                                        </div>
+
+                                        <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-6 leading-tight uppercase tracking-[0.15em]">
+                                            {art.title}
+                                        </h3>
+
+                                        <p className="text-gray-400 text-sm md:text-base tracking-wide leading-relaxed mb-10 max-w-lg line-clamp-3">
+                                            {art.description || "An exclusive event showcasing the unique sound and performance art of our represented talent."}
+                                        </p>
+
+                                        <div
+                                            onClick={() => setSelectedArt(art)}
+                                            className="group/btn flex items-center gap-3 w-fit cursor-pointer"
+                                        >
+                                            <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover/btn:text-[#FDDA2F] transition-colors">
+                                                View Event
+                                            </span>
+                                            <div className="w-8 h-[1px] bg-white group-hover/btn:bg-[#FDDA2F] transition-colors" />
+                                        </div>
                                     </div>
                                 </div>
                             ))}

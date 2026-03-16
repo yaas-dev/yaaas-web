@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Eye, Ear } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSearchParams } from 'next/navigation';
 import TalentCarousel from '@/components/shared/TalentCarousel';
 import EnquiryModal from '@/components/shared/EnquiryModal';
 import ContactSection from '../home/ContactSection';
@@ -13,9 +14,17 @@ interface TalentsClientProps {
     initialTalents: any[];
 }
 
-export default function TalentsClient({ initialTalents }: TalentsClientProps) {
+function TalentsContent({ initialTalents }: TalentsClientProps) {
     const [selectedArt, setSelectedArt] = useState<any | null>(null);
     const [activeFilter, setActiveFilter] = useState('ALL');
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const category = searchParams.get('category');
+        if (category && ['VISUAL', 'SONIC'].includes(category.toUpperCase())) {
+            setActiveFilter(category.toUpperCase());
+        }
+    }, [searchParams]);
 
     const filteredTalents = useMemo(() => {
         if (activeFilter === 'ALL') return initialTalents;
@@ -47,7 +56,7 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                 {/* Heading */}
                 <div className="flex flex-col mb-12">
                     <h1 className="text-white text-3xl md:text-5xl font-bold uppercase tracking-[0.15em] mb-4">
-                        THE YAAAS CREATIVES
+                        YAAAS CREATIVES
                     </h1>
                     <div className="h-1.5 w-[200px] md:w-[350px] bg-[#B59431]"></div>
                 </div>
@@ -62,18 +71,22 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                         >
                             All
                         </button>
-                        <button
-                            onClick={() => setActiveFilter('VISUAL')}
-                            className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'VISUAL' ? 'bg-[#FDDA2F] text-black border border-[#FDDA2F]' : 'bg-transparent text-white border border-white/30 hover:border-[#FDDA2F]'}`}
-                        >
-                            Visual
-                        </button>
-                        <button
-                            onClick={() => setActiveFilter('SONIC')}
-                            className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'SONIC' ? 'bg-[#FDDA2F] text-black border border-[#FDDA2F]' : 'bg-transparent text-white border border-white/30 hover:border-[#FDDA2F]'}`}
-                        >
-                            Sonic
-                        </button>
+                        {initialTalents.some(t => t.category === 'VISUAL') && (
+                            <button
+                                onClick={() => setActiveFilter('VISUAL')}
+                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'VISUAL' ? 'bg-[#FDDA2F] text-black border border-[#FDDA2F]' : 'bg-transparent text-white border border-white/30 hover:border-[#FDDA2F]'}`}
+                            >
+                                Visual
+                            </button>
+                        )}
+                        {initialTalents.some(t => t.category === 'SONIC') && (
+                            <button
+                                onClick={() => setActiveFilter('SONIC')}
+                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'SONIC' ? 'bg-[#FDDA2F] text-black border border-[#FDDA2F]' : 'bg-transparent text-white border border-white/30 hover:border-[#FDDA2F]'}`}
+                            >
+                                Sonic
+                            </button>
+                        )}
                     </div>
 
                     {/* Icons Section matching the design screenshot */}
@@ -87,7 +100,15 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                                     exit={{ opacity: 0, scale: 0.8 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <Image src="/images/ear.png" alt="Ear" width={50} height={50} className="w-8 h-8 md:w-14 md:h-14" />
+                                    <div className="relative w-8 h-8 md:w-14 md:h-14">
+                                        <Image
+                                            src="/images/ear.png"
+                                            alt="Ear"
+                                            fill
+                                            className="object-contain"
+                                            sizes="(max-width: 768px) 32px, 56px"
+                                        />
+                                    </div>
                                 </motion.div>
                             )}
                             {(activeFilter === 'ALL' || activeFilter === 'VISUAL') && (
@@ -98,7 +119,15 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                                     exit={{ opacity: 0, scale: 0.8 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <Image src="/images/eye.png" alt="Eye" width={50} height={50} className="w-8 h-8 md:w-14 md:h-14" />
+                                    <div className="relative w-8 h-8 md:w-14 md:h-14">
+                                        <Image
+                                            src="/images/eye.png"
+                                            alt="Eye"
+                                            fill
+                                            className="object-contain"
+                                            sizes="(max-width: 768px) 32px, 56px"
+                                        />
+                                    </div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -151,5 +180,17 @@ export default function TalentsClient({ initialTalents }: TalentsClientProps) {
                 artwork={selectedArt}
             />
         </main>
+    );
+}
+
+export default function TalentsClient({ initialTalents }: TalentsClientProps) {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="w-12 h-12 border-4 border-[#B59431] border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        }>
+            <TalentsContent initialTalents={initialTalents} />
+        </Suspense>
     );
 }
