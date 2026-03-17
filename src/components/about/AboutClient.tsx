@@ -109,7 +109,7 @@ export default function AboutClient({ newsPosts, collaborations, projects }: Abo
                     <div className="w-full flex justify-center lg:justify-end px-4 lg:px-0 relative z-10 group">
                         {/* Decorative background element */}
                         <div className="absolute inset-0 bg-[#d8b511]/5 rounded-sm -rotate-3 transition-transform duration-700 group-hover:rotate-0 scale-95 border border-white/5"></div>
-                        
+
                         <div className="relative w-full max-w-[550px] aspect-square lg:h-[550px] rounded-sm overflow-hidden flex items-center justify-center">
                             <Image
                                 src="/images/about2.png"
@@ -125,51 +125,6 @@ export default function AboutClient({ newsPosts, collaborations, projects }: Abo
             </div>
 
             <ProjectGallery projects={projects} />
-
-
-
-            {/* LATEST NEWS Header */}
-            <div className="w-full flex justify-center mb-10 border-t border-white/10 pt-16">
-                <div className="max-w-[1400px] w-full px-6 md:px-12 flex flex-col md:flex-row justify-between items-end gap-6">
-                    <div className="flex flex-col">
-                        <h2 className="text-white text-2xl md:text-3xl font-bold tracking-[0.15em] mb-4 uppercase">
-                            Latest from the Blog
-                        </h2>
-                        <div className="h-1 w-[100px] md:w-[150px] bg-[#d8b511]"></div>
-                    </div>
-                    
-                    <Link href="/blog" className="group flex items-center gap-3 text-[#d8b511] hover:text-white transition-colors">
-                        <span className="text-xs font-bold tracking-[0.2em] uppercase">View All Stories</span>
-                        <div className="w-8 h-[1px] bg-[#d8b511] group-hover:bg-white transition-all group-hover:w-12"></div>
-                    </Link>
-                </div>
-            </div>
-
-            {/* News Section */}
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-32">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                    {newsPosts.slice(0, 3).map((post) => (
-                        <Link href={`/news/${post._id}`} key={post._id} className="flex flex-col group cursor-pointer w-full max-w-[400px] mx-auto">
-                            <span className="text-white/40 text-[10px] md:text-xs tracking-widest uppercase mb-4">{post.category || 'NEWS'}</span>
-                            <h4 className="text-[#d8b511] font-bold text-sm md:text-base tracking-wide leading-snug mb-6 h-[48px] overflow-hidden uppercase">
-                                {post.title}
-                            </h4>
-                            <div className="relative w-full aspect-[4/3] overflow-hidden rounded-sm mb-6 grayscale group-hover:grayscale-0 transition-all duration-500 border border-white/5 opacity-80 group-hover:opacity-100">
-                                <Image src={post.image} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
-                            </div>
-                            <p className="text-white/70 font-light text-xs md:text-sm tracking-wide leading-relaxed line-clamp-3">
-                                {post.contentBlurb}
-                            </p>
-                        </Link>
-                    ))}
-                </div>
-
-                {newsPosts.length === 0 && (
-                    <div className="text-center py-20 text-white/20 italic tracking-widest uppercase">
-                        No recent stories found.
-                    </div>
-                )}
-            </div>
 
             {/* CONTACT US */}
             <ContactSection />

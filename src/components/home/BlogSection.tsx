@@ -16,14 +16,14 @@ export default function BlogSection({ newsPosts }: BlogSectionProps) {
 
     return (
         <section className="w-full bg-black py-24 md:py-32">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+            <div className=" mx-auto px-6 md:px-12">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-                    <div className="flex flex-col">
-                        <h2 className="text-white text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase mb-4">
+                    <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
+                        <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[20%]">
                             BLOG
                         </h2>
-                        <div className="h-[2px] w-[100px] md:w-[150px] bg-[#d8b511]"></div>
+                        <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                     </div>
 
                     <Link href="/blog" className="group flex items-center gap-3 text-[#d8b511] hover:text-white transition-colors">

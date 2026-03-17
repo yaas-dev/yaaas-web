@@ -9,6 +9,7 @@ import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
     { name: "HOME", href: "/" },
+    { name: "PROJECTS", href: "/projects" },
     { name: "CATALOGUE", href: "/catalogue" },
     { name: "CREATIVES", href: "/talents" },
     { name: "SERVICES", href: "/services" },
@@ -24,6 +25,7 @@ const Header = () => {
         { name: 'CATALOGUE', href: '/catalogue' },
         { name: 'CREATIVES', href: '/talents' },
         { name: 'SERVICES', href: '/services' },
+        { name: 'PROJECTS', href: '/projects' },
         { name: 'ABOUT US', href: '/about' },
     ];
 
