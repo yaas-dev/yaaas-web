@@ -35,7 +35,6 @@ export default function Footer() {
                     <div className="grid grid-cols-2 gap-16 md:gap-24 md:w-2/3 justify-start md:justify-end">
 
                         <div className="flex flex-col gap-6">
-                            <h4 className="text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase">NAV</h4>
                             <ul className="flex flex-col gap-4 text-xs md:text-sm uppercase tracking-widest font-semibold text-gray-300">
                                 {[
                                     { label: "HOME", href: "/" },
@@ -45,9 +44,17 @@ export default function Footer() {
                                     { label: "ABOUT US", href: "/about" },
                                     { label: "PROJECTS", href: "/projects" },
                                     { label: "CONTACT", href: "/contact" },
-                                ].map(({ label, href }) => (
+                                ].map(({ label, href }, index) => (
                                     <li key={label}>
-                                        <Link href={href} className="hover:text-[#B59431] transition-colors">{label}</Link>
+                                        <Link
+                                            href={href}
+                                            className={`${index === 0
+                                                ? "text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase"
+                                                : "hover:text-[#B59431] transition-colors"
+                                                }`}
+                                        >
+                                            {label}
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>

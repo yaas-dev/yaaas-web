@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export interface Service {
+    _id?: string;
     id: string;
     number: string;
     title: string;
@@ -34,22 +35,23 @@ export default function ServiceAccordion({
     };
 
     return (
-        <div className="flex flex-col gap-4 md:gap-6 w-full">
+        <div className="flex flex-col gap-4 md:gap-6 w-full px-4">
             {services.map((service) => {
-                const isOpen = initialAllOpen || openId === service.id;
-                const triggerId = `service-trigger-${service.id}`;
-                const panelId = `service-panel-${service.id}`;
+                const serviceId = service._id || service.id;
+                const isOpen = initialAllOpen || openId === serviceId;
+                const triggerId = `service-trigger-${serviceId}`;
+                const panelId = `service-panel-${serviceId}`;
 
                 const Content = (
-                    <div className="rounded-xl overflow-hidden bg-black flex flex-col">
+                    <div className="overflow-hidden bg-black flex flex-col border-b border-white/10 last:border-b-0">
                         {/* Trigger Banner */}
                         <div
                             id={triggerId}
                             role={allowToggle ? "button" : undefined}
                             aria-expanded={allowToggle ? isOpen : undefined}
                             aria-controls={allowToggle ? panelId : undefined}
-                            onClick={() => toggle(service.id)}
-                            className={`relative w-full h-[120px] md:h-[150px] flex items-center px-6 md:px-12 text-left group overflow-hidden ${allowToggle ? 'cursor-pointer' : isLinkOnly ? 'cursor-pointer' : 'cursor-default'}`}
+                            onClick={() => toggle(serviceId)}
+                            className={`relative w-full h-[120px] md:h-[200px] rounded-lg flex items-center px-6 md:px-12 text-left group overflow-hidden ${allowToggle ? 'cursor-pointer' : isLinkOnly ? 'cursor-pointer' : 'cursor-default'}`}
                         >
                             <Image
                                 src={service.image}
@@ -61,7 +63,7 @@ export default function ServiceAccordion({
                             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent transition-opacity duration-500 group-hover:opacity-80" />
 
                             {/* Text Content */}
-                            <h3 className="relative z-10 text-[#f6d353] font-bold text-[18px] sm:text-xl md:text-2xl lg:text-3xl uppercase max-w-2xl leading-tight md:leading-snug tracking-wider text-left transition-transform duration-500 group-hover:translate-x-1 font-sans">
+                            <h3 className="relative z-10 text-[#f6d353] font-bold text-[20px] sm:text-xl md:text-4xl lg:text-5xl uppercase max-w-2xl leading-tight md:leading-snug tracking-wider text-left transition-transform duration-500 group-hover:translate-x-1 font-sans">
                                 {service.title.includes('+') ? (
                                     <>
                                         {service.title.split('+')[0].trim()} +

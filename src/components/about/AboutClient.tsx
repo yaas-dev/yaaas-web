@@ -124,7 +124,7 @@ export default function AboutClient({ newsPosts, collaborations, projects }: Abo
                 </div>
             </div>
 
-            <ProjectGallery projects={projects} />
+            {/* <ProjectGallery projects={projects} /> */}
 
             {/* CONTACT US */}
             <ContactSection />

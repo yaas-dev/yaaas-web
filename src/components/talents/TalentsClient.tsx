@@ -34,35 +34,17 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
     return (
         <main className="min-h-screen bg-black flex flex-col pt-24 font-sans">
 
-            {/* Top Carousel Section with Curved Pattern Background */}
-            <div className="w-full relative overflow-hidden py-16" style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='curved-pattern' x='0' y='0' width='100' height='100' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 50 Q 25 25 50 50 T 100 50' fill='none' stroke='%233a3015' stroke-width='2' opacity='0.5'/%3E%3Cpath d='M0 70 Q 25 45 50 70 T 100 70' fill='none' stroke='%233a3015' stroke-width='2' opacity='0.5'/%3E%3Cpath d='M0 30 Q 25 5 50 30 T 100 30' fill='none' stroke='%233a3015' stroke-width='2' opacity='0.5'/%3E%3Cpath d='M0 90 Q 25 65 50 90 T 100 90' fill='none' stroke='%233a3015' stroke-width='2' opacity='0.5'/%3E%3Cpath d='M0 10 Q 25 -15 50 10 T 100 10' fill='none' stroke='%233a3015' stroke-width='2' opacity='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23curved-pattern)' /%3E%3C/svg%3E")`,
-                backgroundSize: '300px 300px',
-                backgroundPosition: 'center',
-            }}>
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black z-0"></div>
-                <div className="absolute inset-0 bg-black/40 z-0"></div>
-
-                <div className="relative z-10">
-                    <TalentCarousel />
+            <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-5 shadow-2xl z-10">
+                <div className="px-6 md:px-32">
+                    <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest">YAAAS CREATIVES</h1>
                 </div>
-
-                <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-black to-transparent z-10"></div>
             </div>
 
             {/* Main Content Area */}
-            <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 relative z-20 -mt-8">
-
-                {/* Heading */}
-                <div className="flex flex-col mb-12">
-                    <h1 className="text-white text-3xl md:text-5xl font-bold uppercase tracking-[0.15em] mb-4">
-                        YAAAS CREATIVES
-                    </h1>
-                    <div className="h-1.5 w-[200px] md:w-[350px] bg-[#B59431]"></div>
-                </div>
+            <div className="w-full md:mx-16 px-6 md:px-12 relative z-20 -mt-8">
 
                 {/* Filters Row */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16 border-b border-white/10 pb-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 my-16 md:mr-20 border-b border-white/10 pb-8">
                     {/* Filter Buttons */}
                     <div className="flex flex-wrap gap-4">
                         <button
@@ -135,7 +117,7 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
                 </div>
 
                 {/* Grid Section */}
-                <div className="grid grid-cols-3 gap-x-3 sm:gap-x-6 md:gap-x-12 lg:gap-x-16 gap-y-8 md:gap-y-16 w-full mb-16 min-h-[400px]">
+                <div className="grid grid-cols-3 md:grid-cols-4 gap-x-3 sm:gap-x-6 md:gap-x-12 lg:gap-x-16 gap-y-8 md:gap-y-16 w-full mb-16 min-h-[400px]">
                     {filteredTalents.map((talent) => (
                         <Link
                             href={`/talents/${talent.slug}`}

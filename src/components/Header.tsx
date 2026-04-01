@@ -55,11 +55,14 @@ const Header = () => {
 
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center space-x-8 lg:space-x-12">
-                    {navLinks.map((link) => (
+                    {navLinks.map((link, index) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className={`text-[13px] font-bold tracking-[0.15em] transition-colors hover:text-[#B59431] ${isActive(link.href) ? 'text-[#B59431]' : 'text-[#e0e0e0]'}`}
+                            className={`${index === 0
+                                    ? "text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase"
+                                    : `text-[13px] font-bold tracking-[0.15em] transition-colors hover:text-[#B59431] ${isActive(link.href) ? 'text-[#B59431]' : 'text-[#e0e0e0]'}`
+                                }`}
                         >
                             {link.name}
                         </Link>

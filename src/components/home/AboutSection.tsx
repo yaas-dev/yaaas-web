@@ -7,23 +7,49 @@ const AboutSection = () => {
             <div className="w-full relative z-10">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-4">
                     {/* Left Content Column */}
-                    <div className="w-full lg:w-[55%] flex flex-col items-start text-left relative py-8 px-4 md:px-0">
+                    <div className="w-full lg:w-[55%] md:h-[60vh] flex flex-col items-start justify-center text-left relative py-8 px-4 md:px-0">
                         {/* Background pattern - Strictly behind text area only */}
-                        <div 
-                            className="absolute inset-0 z-0 opacity-[0.08] lg:-left-[15%] lg:w-[130%]"
-                            style={{
-                                backgroundImage: 'url("/images/hero_2.png")',
-                                backgroundSize: 'auto 200px',
-                                backgroundRepeat: 'repeat-x',
-                                backgroundPosition: 'left center',
-                                filter: 'grayscale(1) brightness(0.8) contrast(1.2)'
-                            }}
-                        />
+                        {/* Background pattern - Sitting on each other vertically with no spacing */}
+                        <div className="absolute inset-0 z-0 flex flex-col pointer-events-none opacity-[0.09]">
+                            <div
+                                className="w-full flex-1"
+                                style={{
+                                    backgroundImage: 'url("/images/hero_2.png")',
+                                    backgroundSize: '50% 200px',
+                                    backgroundRepeat: 'repeat-x',
+                                    backgroundPosition: 'left bottom',
+                                    filter: 'grayscale(.1) brightness(1) contrast(1.2)',
+                                    transform: 'rotate(180deg)',
+                                }}
+                            />
+                            <div
+                                className="w-full flex-1"
+                                style={{
+                                    backgroundImage: 'url("/images/hero_2.png")',
+                                    backgroundSize: '50% 200px',
+                                    backgroundRepeat: 'repeat-x',
+                                    backgroundPosition: 'left bottom',
+                                    filter: 'grayscale(.1) brightness(1) contrast(1.2)',
+                                    transform: 'rotate(180deg)',
+                                }}
+                            />
+                            <div
+                                className="w-full hidden lg:block flex-1"
+                                style={{
+                                    backgroundImage: 'url("/images/hero_2.png")',
+                                    backgroundSize: '50% 200px',
+                                    backgroundRepeat: 'repeat-x',
+                                    backgroundPosition: 'left top',
+                                    filter: 'grayscale(.1) brightness(1) contrast(1.2)',
+                                    transform: 'rotate(180deg)',
+                                }}
+                            />
+                        </div>
 
                         {/* Text Content */}
                         <div className="relative z-10 w-full">
-                            <div className="w-full relative pt-8 md:pt-12 mb-6 md:mb-8 z-50">
-                                <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[10%] md:ml-[15%]">
+                            <div className="w-full relative mb-6 md:mb-8 z-50">
+                                <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-white mb-2 ml-[10%] md:ml-[15%]">
                                     WE ARE YAAAS
                                 </h2>
                                 <div className="w-[75%] md:w-[50%] h-[4px] md:h-[6px] bg-[#B59431]"></div>

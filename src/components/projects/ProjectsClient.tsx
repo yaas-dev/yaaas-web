@@ -40,9 +40,9 @@ export default function ProjectsClient({ initialProjects, initialBlogs }: Projec
     return (
         <main className="min-h-screen bg-black flex flex-col pt-32 font-sans text-white pb-20">
             {/* Gold Header Banner */}
-            <div className="w-full bg-[#c1a03a] py-8 md:py-12 mb-12 shadow-2xl">
+            <div className="w-full bg-[#c1a03a] py-8 md:py-8 mb-12 shadow-2xl">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest font-bold">PROJECTS</h1>
+                    <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest font-normal">PROJECTS</h1>
 
                     {/* Search Bar */}
                     <div className="relative w-full md:w-[401px]">
@@ -92,7 +92,7 @@ export default function ProjectsClient({ initialProjects, initialBlogs }: Projec
                                         <h2 className="text-2xl font-bold uppercase tracking-[0.4em] text-[#FDDA2F]">Case Studies</h2>
                                         <div className="flex-grow h-[1px] bg-white/10"></div>
                                     </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                                         {filteredProjects.map((project, index) => (
                                             <Link href={`/projects/${project._id}`} key={project._id}>
                                                 <motion.div
@@ -100,25 +100,26 @@ export default function ProjectsClient({ initialProjects, initialBlogs }: Projec
                                                     whileInView={{ opacity: 1, y: 0 }}
                                                     viewport={{ once: true }}
                                                     transition={{ duration: 0.8, delay: index * 0.1 }}
-                                                    className="group relative"
+                                                    className="group flex flex-col h-full bg-white/[0.02] border border-white/5 p-6 hover:bg-white/[0.05] transition-all rounded-sm"
                                                 >
-                                                    <div className="relative aspect-[16/9] overflow-hidden bg-white/5 rounded-sm">
-                                                        <img
+                                                    <div className="relative aspect-[4/3] overflow-hidden mb-6 grayscale group-hover:grayscale-0 transition-all duration-700 rounded-sm">
+                                                        <Image
                                                             src={project.mainImage}
                                                             alt={project.title}
-                                                            className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110"
+                                                            fill
+                                                            className="object-cover"
                                                         />
-                                                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                                                            <span className="px-8 py-4 border border-white text-white uppercase tracking-[0.3em] text-[10px] font-bold bg-white/10 backdrop-blur-md transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                                                                View Full Case
-                                                            </span>
-                                                        </div>
                                                     </div>
-                                                    <div className="mt-8">
-                                                        <p className="text-[#FDDA2F] text-[10px] uppercase tracking-[0.3em] font-bold mb-3">{project.category}</p>
-                                                        <h3 className="text-3xl font-bold uppercase tracking-wider text-white group-hover:text-[#FDDA2F] transition-colors leading-tight italic font-serif">
-                                                            {project.title}
-                                                        </h3>
+                                                    <p className="text-white/40 text-[10px] tracking-[0.2em] uppercase mb-4">{project.category}</p>
+                                                    <h4 className="text-xl font-bold text-[#FDDA2F] tracking-wide mb-6 uppercase group-hover:brightness-125 transition-all line-clamp-2">
+                                                        {project.title}
+                                                    </h4>
+                                                    <p className="text-white/70 text-sm tracking-wide leading-relaxed line-clamp-3 mb-8">
+                                                        {project.description}
+                                                    </p>
+                                                    <div className="mt-auto pt-6 border-t border-white/5 flex items-center gap-3">
+                                                        <span className="text-[#FDDA2F] text-[10px] uppercase tracking-[0.2em] font-bold">EXPLORE PROJECT</span>
+                                                        <div className="w-6 h-[1px] bg-[#FDDA2F] group-hover:w-12 transition-all"></div>
                                                     </div>
                                                 </motion.div>
                                             </Link>

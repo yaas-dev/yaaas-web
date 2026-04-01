@@ -31,7 +31,7 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                 <div className="mb-8">
                     <Link href="/talents" className="inline-flex items-center text-[#FDDA2F] font-bold tracking-widest text-xs uppercase hover:text-white transition-colors">
                         <ChevronLeft size={16} className="mr-2" />
-                        Back to Talents
+                        Back to Creatives
                     </Link>
                 </div>
 

@@ -1,0 +1,102 @@
+"use client";
+
+import React, { useEffect, useState } from 'react';
+import { getServices, deleteService } from '@/actions/serviceActions';
+import { Plus, Edit2, Trash2, LayoutGrid } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+export default function ServicesAdminPage() {
+    const [services, setServices] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        loadServices();
+    }, []);
+
+    async function loadServices() {
+        setIsLoading(true);
+        try {
+            const data = await getServices();
+            setServices(data);
+        } catch (error) {
+            console.error("Failed to load services:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function handleDelete(id: string) {
+        if (confirm("Are you sure you want to delete this service?")) {
+            await deleteService(id);
+            loadServices();
+        }
+    }
+
+    return (
+        <div className="flex flex-col gap-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex flex-col gap-2">
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Agency Services</h1>
+                    <p className="text-white/40 text-sm tracking-wide">Manage the core capabilities and offerings shown to clients.</p>
+                </div>
+                <Link
+                    href="/admin/services/new"
+                    className="w-full sm:w-auto bg-[#B59431] text-black px-6 py-3 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-3"
+                >
+                    <Plus size={16} />
+                    New Service
+                </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {isLoading ? (
+                    <div className="col-span-full p-24 text-center text-white/20 text-xs italic tracking-widest uppercase">
+                        Loading services...
+                    </div>
+                ) : services.length === 0 ? (
+                    <div className="col-span-full p-24 text-center text-white/20 text-xs italic tracking-widest uppercase">
+                        No services added yet.
+                    </div>
+                ) : (
+                    services.map((item) => (
+                        <div key={item._id} className="bg-[#0a0a0a] border border-white/5 rounded-sm overflow-hidden flex flex-col md:flex-row group hover:border-[#B59431]/40 transition-all shadow-2xl h-fit md:h-64">
+                            <div className="relative w-full md:w-64 lg:w-80 h-48 md:h-full bg-black flex-shrink-0">
+                                <Image
+                                    src={item.image}
+                                    alt={item.title}
+                                    fill
+                                    className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                />
+                            </div>
+                            <div className="p-6 md:p-8 flex flex-col justify-between flex-grow gap-4 md:gap-6 bg-gradient-to-r from-black/20 to-transparent">
+                                <div className="flex flex-col gap-1 md:gap-2">
+                                    <span className="text-[10px] text-[#B59431] font-bold uppercase tracking-[0.4em]">{item.number}</span>
+                                    <h3 className="text-lg md:text-xl font-bold tracking-widest text-white uppercase line-clamp-1">{item.title}</h3>
+                                    <p className="text-[11px] md:text-xs text-white/30 line-clamp-2 leading-relaxed">{item.description}</p>
+                                </div>
+
+                                <div className="flex items-center justify-between border-t border-white/5 pt-4">
+                                    <div className="flex items-center gap-4 ml-auto">
+                                        <Link
+                                            href={`/admin/services/${item._id}/edit`}
+                                            className="text-[10px] text-white/30 hover:text-[#B59431] uppercase tracking-[0.2em] font-bold transition-colors"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDelete(item._id)}
+                                            className="text-[10px] text-white/20 hover:text-red-500 uppercase tracking-[0.2em] font-bold transition-colors"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+        </div>
+    );
+}

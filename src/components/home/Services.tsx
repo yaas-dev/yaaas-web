@@ -4,31 +4,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import ServiceAccordion, { Service } from "@/components/ServiceAccordion";
 
-const servicesList: Service[] = [
-    {
-        id: "branding-creative-strategy",
-        number: "01",
-        title: "CREATIVE DIRECTION + STRATEGY",
-        image: "/images/service_1.png",
-        description: "We craft intentional creative strategies rooted in culture, insight, and long‑term vision. From concept development to execution oversight, we align storytelling with clear objectives to ensure meaningful and measurable impact."
-    },
-    {
-        id: "talent-development-representation",
-        number: "02",
-        title: "TALENTS DEVELOPMENT + REPRESENTATION",
-        image: "/images/service_2.png",
-        description: "We nurture and represent multidisciplinary creatives, providing strategic guidance, institutional access, and partnership opportunities that support sustainable growth and global positioning."
-    },
-    {
-        id: "experiential-cultural-programming",
-        number: "03",
-        title: "EXPERIENTIAL + CULTURAL PROGRAMMING",
-        image: "/images/service_3.png",
-        description: "We design and produce immersive cultural experiences that connect audiences to art in powerful ways — from exhibitions and residencies to live activations and interdisciplinary collaborations."
-    }
-];
+interface ServicesProps {
+    services: Service[];
+}
 
-export default function Services() {
+export default function Services({ services }: ServicesProps) {
+    const displayServices = services?.length > 0 ? services : [];
     return (
         <section
             id="services"
@@ -42,14 +23,14 @@ export default function Services() {
         >
             {/* Header Section */}
             <div className="w-full relative mb-6 md:mb-8 z-50">
-                <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[10%]">
+                <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-white mb-2 ml-[10%]">
                     YAAAS SERVICES
                 </h2>
                 <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
             </div>
 
-            {/* Accordion List */}
-            <div className="relative z-10 md:mt-10 w-full max-w-5xl mx-auto px-6 md:px-12 pb-8">
+            {/* Accordion List - Full Width */}
+            <div className="relative z-10 md:mt-10 w-full pb-8">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -57,9 +38,9 @@ export default function Services() {
                     transition={{ duration: 0.8 }}
                     className="w-full pt-0"
                 >
-                    <ServiceAccordion services={servicesList} allowToggle={false} isLinkOnly={true} />
+                    <ServiceAccordion services={displayServices} allowToggle={false} isLinkOnly={true} />
 
-                    <div className="mt-8 flex justify-end">
+                    <div className="mt-8 mx-4 flex justify-end">
                         <Link
                             href="/services"
                             className="text-[#B59431] text-[10px] md:text-sm font-bold tracking-[0.2em] uppercase hover:text-white transition-colors flex items-center gap-2 group"

@@ -97,8 +97,8 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
             </div>
 
             {/* Grid Section */}
-            <div className="w-full bg-black py-16 px-4 md:px-12 flex justify-center">
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 md:gap-x-10 lg:gap-x-16 gap-y-12 md:gap-y-20 max-w-[1200px] w-full items-start">
+            <div className="w-full bg-black py-16 px-4 md:px-16 flex justify-center">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 md:gap-x-10 lg:gap-x-16 gap-y-12 md:gap-y-20 w-full items-start">
                     {paginatedArtworks.map((art) => (
                         <div
                             key={art._id}

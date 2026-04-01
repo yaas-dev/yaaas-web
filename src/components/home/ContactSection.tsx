@@ -42,7 +42,7 @@ export default function ContactSection() {
     return (
         <section
             id="contact"
-            className="relative min-h-screen w-full overflow-hidden flex flex-col justify-center pb-10"
+            className="relative min-h-[50vh] w-full overflow-hidden flex flex-col justify-center pb-10"
             style={{
                 backgroundColor: "#080807",
                 backgroundImage: `
@@ -63,7 +63,7 @@ export default function ContactSection() {
                     <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
-                <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
+                <div className="w-full px-6 md:px-12 relative z-20">
                     <div className="mb-16 md:mb-24">
                         <p className="text-[#e0e0e0] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full">
                             Whether you are looking for representation, a new addition to your collection, or a creative partnership, we are here to connect. Reach out and let's start the conversation.
@@ -94,7 +94,7 @@ export default function ContactSection() {
                                         exit={{ opacity: 0, x: -20 }}
                                         transition={{ duration: 0.6 }}
                                         onSubmit={handleSubmit}
-                                        className="flex flex-col gap-8 md:gap-12 w-full max-w-xl"
+                                        className="flex flex-col gap-4 md:gap-12 w-full max-w-xl"
                                     >
                                         <div className="flex flex-col">
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
