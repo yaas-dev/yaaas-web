@@ -24,7 +24,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                     className="text-[#e0e0e0] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full"
-                    style={{ marginTop: "1rem" }}
+                    style={{ marginTop: "2.5rem" }}
                 >
                     A curated suite of capabilities built around the creative visionary.
                     Every offering is rooted in craft, intention, and the pursuit of cultural relevance.

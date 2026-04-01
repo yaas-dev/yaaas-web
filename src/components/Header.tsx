@@ -59,10 +59,7 @@ const Header = () => {
                         <Link
                             key={link.name}
                             href={link.href}
-                            className={`${index === 0
-                                    ? "text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase"
-                                    : `text-[13px] font-bold tracking-[0.15em] transition-colors hover:text-[#B59431] ${isActive(link.href) ? 'text-[#B59431]' : 'text-[#e0e0e0]'}`
-                                }`}
+                            className={`text-[13px] font-bold tracking-[0.15em] transition-colors hover:text-[#B59431] ${isActive(link.href) ? 'text-[#B59431]' : 'text-[#e0e0e0]'}`}
                         >
                             {link.name}
                         </Link>
