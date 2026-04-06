@@ -14,6 +14,7 @@ interface CatalogueClientProps {
 export default function CatalogueClient({ initialArtworks }: CatalogueClientProps) {
     const [selectedArt, setSelectedArt] = useState<any | null>(null);
     const [activeFilter, setActiveFilter] = useState<string>('all');
+    const [selectedArtist, setSelectedArtist] = useState<string>('all');
     const [sortBy, setSortBy] = useState<string>('newest');
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -27,11 +28,25 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
         return ['all', ...Array.from(new Set(mediums))];
     }, [initialArtworks]);
 
+    // Dynamically derive unique artists from existing artworks
+    const artists = useMemo(() => {
+        const uniqueArtists = Array.from(new Set(initialArtworks.map(art => art.artistName)))
+            .filter(Boolean)
+            .sort((a, b) => a.localeCompare(b));
+        return ['all', ...uniqueArtists];
+    }, [initialArtworks]);
+
     const filteredArtworks = initialArtworks
         .filter(art => {
             const isVisual = ['painting', 'photography', 'sculpture'].includes(art.medium);
-            if (activeFilter === 'all') return isVisual;
-            return art.medium === activeFilter;
+            
+            // Filter by medium (activeFilter)
+            const matchesMedium = activeFilter === 'all' ? isVisual : art.medium === activeFilter;
+            
+            // Filter by artist (selectedArtist)
+            const matchesArtist = selectedArtist === 'all' || art.artistName === selectedArtist;
+
+            return matchesMedium && matchesArtist;
         })
         .sort((a, b) => {
             if (sortBy === 'newest') return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
@@ -50,7 +65,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
     // Reset to page 1 when filter or sort changes
     React.useEffect(() => {
         setCurrentPage(1);
-    }, [activeFilter, sortBy]);
+    }, [activeFilter, selectedArtist, sortBy]);
 
     const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
     const handleNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
@@ -63,18 +78,36 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                     Art Catalogue
                 </h1>
 
-                <div className="flex flex-col gap-2 w-full md:w-auto">
-                    <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">Sort By</label>
-                    <select
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value)}
-                        className="bg-black/20 border border-white/20 text-white text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
-                    >
-                        <option value="newest">Newest First</option>
-                        <option value="oldest">Oldest First</option>
-                        <option value="title-asc">Title A-Z</option>
-                        <option value="title-desc">Title Z-A</option>
-                    </select>
+                <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                    {/* Artist Filter */}
+                    <div className="flex flex-col gap-2 w-full md:w-auto min-w-[140px]">
+                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">Artist</label>
+                        <select
+                            value={selectedArtist}
+                            onChange={(e) => setSelectedArtist(e.target.value)}
+                            className="bg-black/20 border border-white/20 text-white text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
+                        >
+                            <option value="all">All Artists</option>
+                            {artists.filter(artist => artist !== 'all').map(artist => (
+                                <option key={artist} value={artist}>{artist}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Sort By Filter */}
+                    <div className="flex flex-col gap-2 w-full md:w-auto min-w-[140px]">
+                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">Sort By</label>
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="bg-black/20 border border-white/20 text-white text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
+                        >
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="title-asc">Title A-Z</option>
+                            <option value="title-desc">Title Z-A</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -134,7 +167,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
 
                     {paginatedArtworks.length === 0 && (
                         <div className="col-span-full py-40 text-center text-white/20 italic text-xs tracking-[0.3em] uppercase">
-                            No pieces found in the {activeFilter !== 'all' ? activeFilter : 'collection'}.
+                            No pieces found {selectedArtist !== 'all' ? `by ${selectedArtist}` : ''} in the {activeFilter !== 'all' ? activeFilter : 'collection'}.
                         </div>
                     )}
                 </div>
