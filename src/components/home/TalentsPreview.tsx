@@ -3,24 +3,35 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useMemo } from "react";
 // import { Eye, Ear } from "lucide-react";
 
-const talents = [
-    {
-        title: "Visual Artists",
-        image: "/images/talents/photography.png",
-        href: "/talents?category=VISUAL",
-        icon: '/images/eye.png'
-    },
-    {
-        title: "Sonic Artists",
-        image: "/images/talents/painting.png",
-        href: "/talents?category=SONIC",
-        icon: '/images/ear.png'
-    }
-];
+interface TalentsPreviewProps {
+    initialTalents?: any[];
+}
 
-export default function TalentsPreview() {
+export default function TalentsPreview({ initialTalents = [] }: TalentsPreviewProps) {
+    const talents = useMemo(() => {
+        // Find latest talent for each category
+        const latestVisual = initialTalents.find(t => t.category === 'VISUAL');
+        const latestSonic = initialTalents.find(t => t.category === 'SONIC');
+
+        return [
+            {
+                title: "Visual Artists",
+                image: latestVisual?.headshot || "/images/talents/photography.png",
+                href: "/talents?category=VISUAL",
+                icon: '/images/eye.png'
+            },
+            {
+                title: "Sonic Artists",
+                image: latestSonic?.headshot || "/images/talents/painting.png",
+                href: "/talents?category=SONIC",
+                icon: '/images/ear.png'
+            }
+        ];
+    }, [initialTalents]);
+
     return (
         <section id="talents" className="lg:min-h-screen bg-black overflow-hidden flex flex-col justify-center">
             <div className="flex flex-col w-full mx-auto">

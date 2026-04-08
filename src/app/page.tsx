@@ -13,15 +13,17 @@ import { getArtworks } from "@/actions/catalogueActions";
 import { getNewsPosts } from "@/actions/newsActions";
 import { getSettings } from "@/actions/settingsActions";
 import { getServices } from "@/actions/serviceActions";
+import { getTalents } from "@/actions/talentActions";
 
 export default async function Home() {
   // Fetch live data from MongoDB
-  const [projects, artworks, news, settings, services] = await Promise.all([
+  const [projects, artworks, news, settings, services, talents] = await Promise.all([
     getProjects(),
     getArtworks(),
     getNewsPosts(),
     getSettings(),
-    getServices()
+    getServices(),
+    getTalents()
   ]);
 
   return (
@@ -29,7 +31,7 @@ export default async function Home() {
       <Hero settings={settings} />
       <AboutSection />
       <Services services={services} />
-      <TalentsPreview />
+      <TalentsPreview initialTalents={talents} />
       <ProjectGallery projects={projects} />
       <ArtCatalogueSection artworks={artworks} />
       <BlogSection newsPosts={news} />
