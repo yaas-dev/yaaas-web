@@ -74,7 +74,7 @@ export default function Hero({ settings }: { settings?: any }) {
                     transition={{ duration: 1.2, delay: 0.6 }}
                     className="text-[#fff] text-xs md:text-sm lg:text-base font-light tracking-[0.4em] lowercase font-modernsans"
                 >
-                    /iah asantiwah/
+                    /jɑː ɑːˈsæn.teɪ.wɑː/
                 </motion.p>
             </div>
 
