@@ -12,6 +12,7 @@ export async function getTalents() {
 
 export async function createTalent(formData: any) {
     await dbConnect();
+    console.log("Creating talent with data:", JSON.stringify(formData, null, 2));
     const talent = await Talent.create(formData);
     revalidatePath("/admin/talents");
     revalidatePath("/talents");
@@ -20,7 +21,13 @@ export async function createTalent(formData: any) {
 
 export async function updateTalent(id: string, formData: any) {
     await dbConnect();
+    console.log(`Updating talent ${id} with data:`, JSON.stringify(formData, null, 2));
     const talent = await Talent.findByIdAndUpdate(id, formData, { new: true });
+    
+    if (!talent) {
+        throw new Error("Talent not found");
+    }
+
     revalidatePath("/admin/talents");
     revalidatePath(`/talents/${talent.slug}`);
     revalidatePath("/talents");
@@ -30,8 +37,13 @@ export async function updateTalent(id: string, formData: any) {
 export async function deleteTalent(id: string) {
     await dbConnect();
     const talent = await Talent.findByIdAndDelete(id);
-    revalidatePath("/admin/talents");
-    revalidatePath("/talents");
+    
+    if (talent) {
+        revalidatePath("/admin/talents");
+        revalidatePath(`/talents/${talent.slug}`);
+        revalidatePath("/talents");
+    }
+    
     return { success: true };
 }
 

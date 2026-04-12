@@ -25,6 +25,7 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
         src: initialData?.src || '',
         year: initialData?.year || '',
         medium: initialData?.medium || 'painting',
+        externalLink: initialData?.externalLink || '',
     });
 
     useEffect(() => {
@@ -178,6 +179,18 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                                 <option value="release">Release</option>
                                 <option value="event">Event</option>
                             </select>
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">External Work Link</label>
+                            <input
+                                type="url"
+                                value={formData.externalLink}
+                                onChange={(e) => setFormData({ ...formData, externalLink: e.target.value })}
+                                className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors"
+                                placeholder="e.g. https://spotify.com/track/..."
+                            />
+                            <p className="text-[10px] text-white/30 italic">Links the release or event card directly to the external platform.</p>
                         </div>
                     </div>
                 </div>

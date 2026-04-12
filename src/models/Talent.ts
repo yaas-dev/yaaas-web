@@ -13,6 +13,10 @@ export interface ITalent extends Document {
         linkedin?: string;
         website?: string;
     };
+    musicLinks?: {
+        platform: string;
+        url: string;
+    }[];
 }
 
 const TalentSchema: Schema = new Schema({
@@ -28,6 +32,15 @@ const TalentSchema: Schema = new Schema({
         linkedin: { type: String },
         website: { type: String },
     },
+    musicLinks: [{
+        platform: { type: String },
+        url: { type: String }
+    }],
 }, { timestamps: true });
 
-export default mongoose.models.Talent || mongoose.model<ITalent>('Talent', TalentSchema);
+// Check if the model exists and delete it to force reload with new schema in development
+if (mongoose.models && mongoose.models.Talent) {
+    delete (mongoose as any).models.Talent;
+}
+
+export default mongoose.model<ITalent>('Talent', TalentSchema);

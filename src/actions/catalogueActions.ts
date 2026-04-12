@@ -13,6 +13,7 @@ export async function getArtworks() {
 
 export async function createArtwork(formData: any) {
     await dbConnect();
+    console.log("Creating artwork with data:", JSON.stringify(formData, null, 2));
     const artwork = await Artwork.create(formData);
     revalidatePath("/admin/catalogue");
     revalidatePath("/catalogue");
@@ -22,6 +23,7 @@ export async function createArtwork(formData: any) {
 
 export async function updateArtwork(id: string, formData: any) {
     await dbConnect();
+    console.log(`Updating artwork ${id} with data:`, JSON.stringify(formData, null, 2));
     const artwork = await Artwork.findByIdAndUpdate(id, formData, { new: true });
     revalidatePath("/admin/catalogue");
     revalidatePath("/catalogue");

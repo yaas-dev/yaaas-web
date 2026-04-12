@@ -28,7 +28,8 @@ export default function TalentForm({ initialData }: TalentFormProps) {
             instagram: initialData?.socials?.instagram || '',
             linkedin: initialData?.socials?.linkedin || '',
             website: initialData?.socials?.website || '',
-        }
+        },
+        musicLinks: initialData?.musicLinks || []
     });
 
     const handleBioChange = (index: number, value: string) => {
@@ -45,6 +46,21 @@ export default function TalentForm({ initialData }: TalentFormProps) {
         if (formData.bio.length === 1) return;
         const newBio = formData.bio.filter((_: string, i: number) => i !== index);
         setFormData({ ...formData, bio: newBio });
+    };
+
+    const handleMusicLinkChange = (index: number, field: 'platform' | 'url', value: string) => {
+        const newLinks = [...formData.musicLinks];
+        newLinks[index] = { ...newLinks[index], [field]: value };
+        setFormData({ ...formData, musicLinks: newLinks });
+    };
+
+    const addMusicLink = () => {
+        setFormData({ ...formData, musicLinks: [...formData.musicLinks, { platform: '', url: '' }] });
+    };
+
+    const removeMusicLink = (index: number) => {
+        const newLinks = formData.musicLinks.filter((_: any, i: number) => i !== index);
+        setFormData({ ...formData, musicLinks: newLinks });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -156,6 +172,59 @@ export default function TalentForm({ initialData }: TalentFormProps) {
                                     placeholder="https://..."
                                 />
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Music Works Section (Visible always, but highlighted for Sonic) */}
+                    <div className={`bg-[#0a0a0a] border ${formData.category === 'SONIC' ? 'border-[#B59431]/30' : 'border-white/5'} p-8 rounded-sm flex flex-col gap-6`}>
+                        <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                            <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#B59431]">Stream & Work Links</h3>
+                            <button
+                                type="button"
+                                onClick={addMusicLink}
+                                className="text-[8px] uppercase tracking-widest font-bold bg-[#B59431]/10 text-[#B59431] px-3 py-1 hover:bg-[#B59431] hover:text-black transition-all"
+                            >
+                                + Add Link
+                            </button>
+                        </div>
+
+                        <div className="flex flex-col gap-6">
+                            {formData.musicLinks.map((link: any, index: number) => (
+                                <div key={index} className="flex flex-col gap-3 p-4 bg-black/40 border border-white/5 relative group">
+                                    <button
+                                        type="button"
+                                        onClick={() => removeMusicLink(index)}
+                                        className="absolute -top-2 -right-2 bg-red-900/80 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 z-10"
+                                    >
+                                        <X size={10} />
+                                    </button>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-white/40 text-[8px] uppercase tracking-widest font-bold">Platform / Label</label>
+                                        <input
+                                            type="text"
+                                            value={link.platform}
+                                            onChange={(e) => handleMusicLinkChange(index, 'platform', e.target.value)}
+                                            className="bg-black border border-white/10 p-2 text-xs text-white outline-none focus:border-[#B59431] transition-colors"
+                                            placeholder="e.g. Spotify, SoundCloud, etc."
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-white/40 text-[8px] uppercase tracking-widest font-bold">URL</label>
+                                        <input
+                                            type="url"
+                                            value={link.url}
+                                            onChange={(e) => handleMusicLinkChange(index, 'url', e.target.value)}
+                                            className="bg-black border border-white/10 p-2 text-xs text-white outline-none focus:border-[#B59431] transition-colors"
+                                            placeholder="https://..."
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                            {formData.musicLinks.length === 0 && (
+                                <p className="text-white/20 text-[8px] italic uppercase tracking-widest text-center py-4">
+                                    No work links added yet.
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ export interface IArtwork extends Document {
     title: string;
     medium: 'painting' | 'photography' | 'sculpture' | 'release' | 'event';
     year: string;
+    externalLink?: string;
 }
 
 const ArtworkSchema: Schema = new Schema({
@@ -21,6 +22,7 @@ const ArtworkSchema: Schema = new Schema({
         required: true,
         default: 'painting'
     },
+    externalLink: { type: String, default: '' },
 }, { timestamps: true });
 
 // Check if the model exists and delete it to force reload with new schema in development

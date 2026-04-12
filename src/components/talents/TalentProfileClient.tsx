@@ -86,6 +86,24 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                 </a>
                             )}
                         </div>
+
+                        {/* Music Work Links (Sonic Specific) */}
+                        {isSonic && artist.musicLinks && artist.musicLinks.length > 0 && (
+                            <div className="flex flex-wrap gap-3 mt-8">
+                                {artist.musicLinks.map((link: any, index: number) => (
+                                    <a
+                                        key={index}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="bg-[#FDDA2F] text-black px-6 py-3 rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-white transition-all flex items-center gap-2"
+                                    >
+                                        <div className="w-2 h-2 rounded-full bg-black animate-pulse" />
+                                        {link.platform}
+                                    </a>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -161,7 +179,13 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                             {releases.map((art: any) => (
                                 <div
                                     key={art._id}
-                                    onClick={() => setSelectedArt(art)}
+                                    onClick={() => {
+                                        if (art.externalLink) {
+                                            window.open(art.externalLink, '_blank');
+                                        } else {
+                                            setSelectedArt(art);
+                                        }
+                                    }}
                                     className="flex flex-col group cursor-pointer items-start"
                                 >
                                     <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-white/5 border border-white/10 shadow-2xl">
@@ -172,6 +196,11 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                                             sizes="50vw"
                                         />
+                                        {art.externalLink && (
+                                            <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-all">
+                                                <Globe size={14} className="text-[#FDDA2F]" />
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-[#FDDA2F] font-bold text-xs md:text-sm tracking-widest mb-1 uppercase">{art.artistName}</span>
@@ -228,11 +257,17 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                         </p>
 
                                         <div
-                                            onClick={() => setSelectedArt(art)}
+                                            onClick={() => {
+                                                if (art.externalLink) {
+                                                    window.open(art.externalLink, '_blank');
+                                                } else {
+                                                    setSelectedArt(art);
+                                                }
+                                            }}
                                             className="group/btn flex items-center gap-3 w-fit cursor-pointer"
                                         >
                                             <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover/btn:text-[#FDDA2F] transition-colors">
-                                                View Event
+                                                {art.externalLink ? 'Listen / View' : 'View Event'}
                                             </span>
                                             <div className="w-8 h-[1px] bg-white group-hover/btn:bg-[#FDDA2F] transition-colors" />
                                         </div>
