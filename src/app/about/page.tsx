@@ -4,11 +4,11 @@ import { getProjects } from "@/actions/projectActions";
 import AboutClient from "@/components/about/AboutClient";
 
 export default async function AboutPage() {
-    const [newsPosts, collaborations, projects] = await Promise.all([
+    const [newsPosts, collaborations, contents] = await Promise.all([
         getNewsPosts(),
         getCollaborations(),
         getProjects()
     ]);
 
-    return <AboutClient newsPosts={newsPosts} collaborations={collaborations} projects={projects} />;
+    return <AboutClient newsPosts={newsPosts} collaborations={collaborations} contents={contents} />;
 }

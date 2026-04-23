@@ -6,6 +6,7 @@ import { createNews, updateNews } from '@/actions/newsActions';
 import ImageUpload from './ImageUpload';
 import { Save, ArrowLeft, X } from 'lucide-react';
 import Link from 'next/link';
+import RichTextEditor from './RichTextEditor';
 
 interface NewsFormProps {
     initialData?: any;
@@ -136,12 +137,9 @@ export default function NewsForm({ initialData }: NewsFormProps) {
 
                         <div className="flex flex-col gap-2">
                             <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Full Article Content</label>
-                            <textarea
-                                required
-                                rows={12}
+                            <RichTextEditor
                                 value={formData.fullContent}
-                                onChange={(e) => setFormData({ ...formData, fullContent: e.target.value })}
-                                className="bg-black border border-white/10 p-4 text-sm text-white/80 outline-none focus:border-[#B59431] transition-colors leading-relaxed"
+                                onChange={(content) => setFormData({ ...formData, fullContent: content })}
                                 placeholder="Write the full story..."
                             />
                         </div>

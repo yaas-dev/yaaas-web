@@ -17,7 +17,8 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
         heroBackground: {
             type: initialData?.heroBackground?.type || 'image',
             src: initialData?.heroBackground?.src || '/images/hero.png',
-        }
+        },
+        servicesHeaderImage: initialData?.servicesHeaderImage || '',
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -118,7 +119,22 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-12">
+                    <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-8 h-fit">
+                        <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#B59431] border-b border-white/5 pb-4">Services Page Header</h3>
+                        <MediaUpload
+                            label="Services Header Image"
+                            type="image"
+                            value={formData.servicesHeaderImage}
+                            onChange={(url) => setFormData({
+                                ...formData,
+                                servicesHeaderImage: url
+                            })}
+                            folder="settings"
+                        />
+                        <p className="text-[10px] text-white/20 italic">This image will appear as the background for the "YAAAS SERVICES" header title.</p>
+                    </div>
+
                     <div className="bg-[#B59431]/5 border border-[#B59431]/20 p-8 rounded-sm">
                         <h4 className="text-[#B59431] text-[10px] uppercase tracking-widest font-bold mb-4">Implementation Note</h4>
                         <p className="text-white/60 text-xs leading-relaxed">

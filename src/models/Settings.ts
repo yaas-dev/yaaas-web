@@ -5,6 +5,7 @@ export interface ISettings extends Document {
         type: 'image' | 'video';
         src: string;
     };
+    servicesHeaderImage?: string;
 }
 
 const SettingsSchema: Schema = new Schema({
@@ -18,6 +19,10 @@ const SettingsSchema: Schema = new Schema({
             type: String,
             default: '/images/hero.png'
         }
+    },
+    servicesHeaderImage: {
+        type: String,
+        default: ''
     }
 }, { timestamps: true });
 

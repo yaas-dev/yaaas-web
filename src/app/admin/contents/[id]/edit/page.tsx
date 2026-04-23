@@ -1,23 +1,23 @@
 import React, { use } from 'react';
-import ProjectForm from '@/components/admin/ProjectForm';
+import ContentForm from '@/components/admin/ContentForm';
 import dbConnect from '@/lib/mongodb';
 import Project from '@/models/Project';
 import { notFound } from 'next/navigation';
 
-async function getProject(id: string) {
+async function getContent(id: string) {
     await dbConnect();
     const project = await Project.findById(id);
     if (!project) return null;
     return JSON.parse(JSON.stringify(project));
 }
 
-export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
+export default function EditContentPage({ params }: { params: Promise<{ id: string }> }) {
     const unwrappedParams = use(params);
-    const project = use(getProject(unwrappedParams.id));
+    const project = use(getContent(unwrappedParams.id));
 
     if (!project) {
         notFound();
     }
 
-    return <ProjectForm initialData={project} />;
+    return <ContentForm initialData={project} />;
 }

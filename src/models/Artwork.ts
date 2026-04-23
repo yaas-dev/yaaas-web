@@ -7,6 +7,7 @@ export interface IArtwork extends Document {
     title: string;
     medium: 'painting' | 'photography' | 'sculpture' | 'release' | 'event';
     year: string;
+    date?: Date;
     externalLink?: string;
 }
 
@@ -16,6 +17,7 @@ const ArtworkSchema: Schema = new Schema({
     talentId: { type: Schema.Types.ObjectId, ref: 'Talent', required: true },
     title: { type: String, required: true },
     year: { type: String, default: '' },
+    date: { type: Date },
     medium: {
         type: String,
         enum: ['painting', 'photography', 'sculpture', 'release', 'event'],

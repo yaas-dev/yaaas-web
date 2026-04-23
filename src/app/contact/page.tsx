@@ -2,13 +2,37 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { submitEnquiry } from "@/actions/enquiryActions";
 
 export default function ContactPage() {
+    const [isLoading, setIsLoading] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setIsSubmitted(true);
+        setIsLoading(true);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message'),
+            type: 'CONTACT'
+        };
+
+        const res = await submitEnquiry(data);
+        setIsLoading(false);
+
+        if (res.success) {
+            setIsSubmitted(true);
+            e.currentTarget.reset();
+            setTimeout(() => {
+                setIsSubmitted(false);
+            }, 5000);
+        } else {
+            alert('Failed to send message. Please try again.');
+        }
     };
 
     return (
@@ -58,6 +82,7 @@ export default function ContactPage() {
                                         <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
                                         <input
                                             required
+                                            name="name"
                                             type="text"
                                             placeholder="John Doe"
                                             className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
@@ -67,6 +92,7 @@ export default function ContactPage() {
                                         <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Email Address</label>
                                         <input
                                             required
+                                            name="email"
                                             type="email"
                                             placeholder="john@example.com"
                                             className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
@@ -74,7 +100,7 @@ export default function ContactPage() {
                                     </div>
                                     <div className="flex flex-col">
                                         <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
-                                        <select className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
+                                        <select name="subject" className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
                                             <option className="bg-black">General Inquiry</option>
                                             <option className="bg-black">Art Acquisition</option>
                                             <option className="bg-black">Representation</option>
@@ -85,6 +111,7 @@ export default function ContactPage() {
                                         <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Message</label>
                                         <textarea
                                             required
+                                            name="message"
                                             rows={4}
                                             placeholder="How can we help?"
                                             className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#333]"
@@ -93,9 +120,10 @@ export default function ContactPage() {
 
                                     <button
                                         type="submit"
-                                        className="w-full bg-[#d8b511] text-black font-extrabold tracking-[0.2em] uppercase py-5 rounded-sm hover:bg-white transition-all duration-300 transform hover:scale-[1.01]"
+                                        disabled={isLoading}
+                                        className="w-full bg-[#d8b511] text-black font-extrabold tracking-[0.2em] uppercase py-5 rounded-sm hover:bg-white transition-all duration-300 transform hover:scale-[1.01] disabled:opacity-50"
                                     >
-                                        Submit
+                                        {isLoading ? 'Sending...' : 'Submit'}
                                     </button>
                                 </motion.form>
                             ) : (

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import EnquiryModal from '@/components/shared/EnquiryModal';
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const cardLayouts = [
     { x: "-200%", scale: 0.5, zIndex: 0, opacity: 0 },
@@ -38,6 +39,24 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
     const [cards, setCards] = useState(normalizedArtworks);
     const [selectedArt, setSelectedArt] = useState<any | null>(null);
 
+    const slideNext = () => {
+        setCards((prevItems) => {
+            const newItems = [...prevItems];
+            const firstItem = newItems.shift();
+            if (firstItem) newItems.push(firstItem);
+            return newItems;
+        });
+    };
+
+    const slidePrev = () => {
+        setCards((prevItems) => {
+            const newItems = [...prevItems];
+            const lastItem = newItems.pop();
+            if (lastItem) newItems.unshift(lastItem);
+            return newItems;
+        });
+    };
+
     // Synchronize local state with props when they change
     useEffect(() => {
         setCards(normalizedArtworks);
@@ -47,14 +66,7 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
         // Pause carousel when modal is open or if no cards
         if (selectedArt || cards.length === 0) return;
 
-        const interval = setInterval(() => {
-            setCards((prevItems) => {
-                const newItems = [...prevItems];
-                const firstItem = newItems.shift();
-                if (firstItem) newItems.push(firstItem);
-                return newItems;
-            });
-        }, 2500); // 2.5s interval
+        const interval = setInterval(slideNext, 2500); // 2.5s interval
 
         return () => clearInterval(interval);
     }, [selectedArt, cards.length]);
@@ -64,10 +76,23 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
     }
 
     return (
-        <div className="bg-black overflow-hidden relative flex flex-col justify-center w-full h-[520px]">
+        <div className="bg-black overflow-hidden relative flex flex-col justify-center w-full h-[520px] group">
 
             {/* Stacked Gallery Container */}
             <div className="relative w-full md:max-w-[1200px] mx-auto flex items-center justify-center h-[280px] md:h-[520px]">
+                {/* Navigation Arrows */}
+                <button
+                    onClick={(e) => { e.stopPropagation(); slidePrev(); }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-[60] p-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+                >
+                    <ChevronLeft size={24} />
+                </button>
+                <button
+                    onClick={(e) => { e.stopPropagation(); slideNext(); }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-[60] p-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+                >
+                    <ChevronRight size={24} />
+                </button>
 
                 <AnimatePresence>
                     {cards.map((item, index) => {

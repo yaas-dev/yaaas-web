@@ -8,15 +8,15 @@ import Link from 'next/link';
 import Services from '@/components/home/Services';
 import { submitEnquiry } from '@/actions/enquiryActions';
 import ContactSection from '../home/ContactSection';
-import ProjectGallery from '../home/ProjectGallery';
+import ContentGallery from '../home/ContentGallery';
 
 interface AboutClientProps {
     newsPosts: any[];
     collaborations: any[];
-    projects: any[];
+    contents: any[];
 }
 
-export default function AboutClient({ newsPosts, collaborations, projects }: AboutClientProps) {
+export default function AboutClient({ newsPosts, collaborations, contents }: AboutClientProps) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [currentCollabIndex, setCurrentCollabIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +124,7 @@ export default function AboutClient({ newsPosts, collaborations, projects }: Abo
                 </div>
             </div>
 
-            {/* <ProjectGallery projects={projects} /> */}
+            {/* <ContentGallery contents={contents} /> */}
 
             {/* CONTACT US */}
             <ContactSection />

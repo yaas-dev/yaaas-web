@@ -12,6 +12,7 @@ export interface Service {
     title: string;
     description: string;
     image: string;
+    backgroundImage?: string;
 }
 
 interface ServiceAccordionProps {
@@ -90,8 +91,19 @@ export default function ServiceAccordion({
                                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                     style={{ overflow: "hidden" }}
                                 >
-                                    <div className="px-6 md:px-12 py-6 md:py-8 bg-[#111]">
-                                        <p className="text-gray-300 text-sm md:text-base leading-relaxed tracking-wide max-w-4xl font-light">
+                                    <div className="px-6 md:px-12 py-6 md:py-8 bg-[#111] relative overflow-hidden">
+                                        {service.backgroundImage && (
+                                            <div className="absolute inset-0 z-0">
+                                                <Image
+                                                    src={service.backgroundImage}
+                                                    alt=""
+                                                    fill
+                                                    className="object-cover opacity-20 grayscale"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-b from-[#111] via-transparent to-[#111]" />
+                                            </div>
+                                        )}
+                                        <p className="relative z-10 text-gray-300 text-sm md:text-base leading-relaxed tracking-wide max-w-4xl font-light">
                                             {service.description}
                                         </p>
                                     </div>

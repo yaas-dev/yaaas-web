@@ -100,6 +100,7 @@ export default function ContactSection() {
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
                                             <input
                                                 required
+                                                name="name"
                                                 type="text"
                                                 placeholder="John Doe"
                                                 className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
@@ -109,6 +110,7 @@ export default function ContactSection() {
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Email Address</label>
                                             <input
                                                 required
+                                                name="email"
                                                 type="email"
                                                 placeholder="john@example.com"
                                                 className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
@@ -116,7 +118,7 @@ export default function ContactSection() {
                                         </div>
                                         <div className="flex flex-col">
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
-                                            <select className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
+                                            <select name="subject" className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
                                                 <option className="bg-black">General Inquiry</option>
                                                 <option className="bg-black">Art Acquisition</option>
                                                 <option className="bg-black">Representation</option>
@@ -127,6 +129,7 @@ export default function ContactSection() {
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Message</label>
                                             <textarea
                                                 required
+                                                name="message"
                                                 rows={4}
                                                 placeholder="How can we help?"
                                                 className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#333]"

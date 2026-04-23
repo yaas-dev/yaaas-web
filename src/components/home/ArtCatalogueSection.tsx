@@ -28,13 +28,15 @@ export default function ArtCatalogueSection({ artworks = [] }: ArtCatalogueSecti
                     <ArtCatalogue initialArtworks={artworks} />
                 </div>
 
-                <div className="flex justify-center mt-0 mb-4">
-                    <Link href="/catalogue">
-                        <button className="bg-white hover:bg-[#B59431] transition-colors cursor-pointer uppercase text-black font-bold tracking-widest text-xs px-10 py-4 rounded-sm shadow-xl">
-                            View Catalogue
-                        </button>
-                    </Link>
-                </div>
+                <Link
+                    href={`/catalogue`}
+                    className="group flex items-center bg-white hover:bg-[#B59431] transition-colors p-4 rounded-md justify-center gap-3 mx-auto mb-4"
+                >
+                    <span className="text-black text-xs uppercase tracking-[0.2em] font-bold group-hover:text-white transition-colors">
+                        Explore Catalogue
+                    </span>
+
+                </Link>
             </div>
         </section>
     );

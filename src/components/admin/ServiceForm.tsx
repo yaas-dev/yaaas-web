@@ -20,6 +20,7 @@ export default function ServiceForm({ initialData }: ServiceFormProps) {
         title: initialData?.title || '',
         description: initialData?.description || '',
         image: initialData?.image || '',
+        backgroundImage: initialData?.backgroundImage || '',
         number: initialData?.number || '',
     });
 
@@ -80,6 +81,12 @@ export default function ServiceForm({ initialData }: ServiceFormProps) {
                         folder="services"
                         value={formData.image}
                         onChange={(url) => setFormData({ ...formData, image: url })}
+                    />
+                    <ImageUpload
+                        label="Content Background Image (Optional)"
+                        folder="services"
+                        value={formData.backgroundImage}
+                        onChange={(url) => setFormData({ ...formData, backgroundImage: url })}
                     />
                 </div>
 

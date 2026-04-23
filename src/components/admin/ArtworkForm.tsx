@@ -24,6 +24,7 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
         talentId: initialData?.talentId || '',
         src: initialData?.src || '',
         year: initialData?.year || '',
+        date: initialData?.date ? new Date(initialData.date).toISOString().split('T')[0] : '',
         medium: initialData?.medium || 'painting',
         externalLink: initialData?.externalLink || '',
     });
@@ -136,7 +137,7 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                         </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Year</label>
+                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Creation Year</label>
                                     <input
                                         type="text"
                                         value={formData.year}
@@ -144,6 +145,17 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                                         className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors"
                                         placeholder="e.g. 2024"
                                     />
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Catalogue Date (for sorting)</label>
+                                    <input
+                                        type="date"
+                                        value={formData.date}
+                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                        className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors"
+                                    />
+                                    <p className="text-[10px] text-white/30 italic">Used for \"Newest First\" sorting. If not set, upload date is used.</p>
                                 </div>
 
                                 <div className="flex flex-col gap-2">

@@ -13,7 +13,8 @@ export async function getSettings() {
             heroBackground: {
                 type: 'image',
                 src: '/images/hero.png'
-            }
+            },
+            servicesHeaderImage: ''
         });
     }
     return JSON.parse(JSON.stringify(settings));

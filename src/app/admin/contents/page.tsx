@@ -6,30 +6,30 @@ import { Plus, Edit2, Trash2, Briefcase, LayoutGrid } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function ProjectsAdminPage() {
-    const [projects, setProjects] = useState<any[]>([]);
+export default function ContentsAdminPage() {
+    const [contents, setContents] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        loadProjects();
+        loadContents();
     }, []);
 
-    async function loadProjects() {
+    async function loadContents() {
         setIsLoading(true);
         try {
             const data = await getProjects();
-            setProjects(data);
+            setContents(data);
         } catch (error) {
-            console.error("Failed to load projects:", error);
+            console.error("Failed to load contents:", error);
         } finally {
             setIsLoading(false);
         }
     }
 
     async function handleDelete(id: string) {
-        if (confirm("Are you sure you want to delete this project?")) {
+        if (confirm("Are you sure you want to delete this content?")) {
             await deleteProject(id);
-            loadProjects();
+            loadContents();
         }
     }
 
@@ -37,15 +37,15 @@ export default function ProjectsAdminPage() {
         <div className="flex flex-col gap-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Portfolio Projects</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Agency Contents</h1>
                     <p className="text-white/40 text-sm tracking-wide">Showcase major agency commissions and case studies.</p>
                 </div>
                 <Link
-                    href="/admin/projects/new"
+                    href="/admin/contents/new"
                     className="w-full sm:w-auto bg-[#B59431] text-black px-6 py-3 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-3"
                 >
                     <Plus size={16} />
-                    New Project
+                    New Content
                 </Link>
             </div>
 
@@ -54,12 +54,12 @@ export default function ProjectsAdminPage() {
                     <div className="col-span-full p-24 text-center text-white/20 text-xs italic tracking-widest uppercase">
                         Loading portfolio...
                     </div>
-                ) : projects.length === 0 ? (
+                ) : contents.length === 0 ? (
                     <div className="col-span-full p-24 text-center text-white/20 text-xs italic tracking-widest uppercase">
-                        No projects added yet.
+                        No contents added yet.
                     </div>
                 ) : (
-                    projects.map((item) => (
+                    contents.map((item) => (
                         <div key={item._id} className="bg-[#0a0a0a] border border-white/5 rounded-sm overflow-hidden flex flex-col md:flex-row group hover:border-[#B59431]/40 transition-all shadow-2xl h-fit md:h-64">
                             <div className="relative w-full md:w-64 lg:w-80 h-48 md:h-full bg-black flex-shrink-0">
                                 <Image
@@ -83,7 +83,7 @@ export default function ProjectsAdminPage() {
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <Link
-                                            href={`/admin/projects/${item._id}/edit`}
+                                            href={`/admin/contents/${item._id}/edit`}
                                             className="text-[10px] text-white/30 hover:text-[#B59431] uppercase tracking-[0.2em] font-bold transition-colors"
                                         >
                                             Edit

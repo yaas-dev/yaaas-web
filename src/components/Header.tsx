@@ -9,7 +9,7 @@ import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
     { name: "HOME", href: "/" },
-    { name: "PROJECTS", href: "/projects" },
+    { name: "CONTENTS", href: "/contents" },
     { name: "CATALOGUE", href: "/catalogue" },
     { name: "CREATIVES", href: "/talents" },
     { name: "SERVICES", href: "/services" },
@@ -25,7 +25,7 @@ const Header = () => {
         { name: 'CATALOGUE', href: '/catalogue' },
         { name: 'CREATIVES', href: '/talents' },
         { name: 'SERVICES', href: '/services' },
-        { name: 'PROJECTS', href: '/projects' },
+        { name: 'CONTENTS', href: '/contents' },
         { name: 'ABOUT US', href: '/about' },
     ];
 
@@ -42,7 +42,7 @@ const Header = () => {
 
                 {/* Logo Section */}
                 <div className="flex items-center space-x-2">
-                    <div className="relative w-24 h-16 md:w-32 md:h-20 lg:w-40 lg:h-24">
+                    <Link href="/" className="relative w-24 h-16 md:w-32 md:h-20 lg:w-40 lg:h-24">
                         <Image
                             src="/images/logo.png"
                             alt="YAA ASANTEWAA AGENCY"
@@ -50,7 +50,7 @@ const Header = () => {
                             className="object-contain object-left"
                             priority
                         />
-                    </div>
+                    </Link>
                 </div>
 
                 {/* Desktop Navigation */}

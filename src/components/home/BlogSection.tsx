@@ -13,7 +13,7 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
     if (!newsPosts || newsPosts.length === 0) return null;
 
     const blogSlides = newsPosts.slice(0, 5).map((post) => (
-        <div key={post._id} className="w-full h-full flex flex-col md:flex-row gap-6 lg:gap-12 items-center bg-[#0d0d0c] rounded-2xl overflow-hidden border border-white/5">
+        <Link href={`/news/${post._id}`} key={post._id} className="w-full h-full flex flex-col md:flex-row gap-6 lg:gap-12 items-center bg-[#0d0d0c] rounded-2xl overflow-hidden border border-white/5">
             {/* Image Side */}
             <div className="w-full md:w-1/2 h-[250px] md:h-full relative overflow-hidden group">
                 <Image
@@ -41,18 +41,8 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
                 <p className="text-gray-400 text-sm md:text-base tracking-wide leading-relaxed mb-10 max-w-lg line-clamp-3">
                     {post.contentBlurb}
                 </p>
-
-                <Link
-                    href={`/news/${post._id}`}
-                    className="group flex items-center gap-3 w-fit"
-                >
-                    <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">
-                        Read Full Article
-                    </span>
-                    <div className="w-8 h-[1px] bg-white group-hover:bg-[#B59431] transition-colors" />
-                </Link>
             </div>
-        </div>
+        </Link>
     ));
 
     return (
@@ -82,6 +72,15 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
                         </div>
                     )}
                 </div>
+                <Link
+                    href={`/blog`}
+                    className="group flex items-center justify-end gap-3 mr-4 mt-4"
+                >
+                    <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">
+                        View All Blogs
+                    </span>
+                    <span className="group-hover:translate-x-1 transition-transform text-white text-xs uppercase tracking-[0.2em] font-bold">→</span>
+                </Link>
             </div>
         </section>
     );

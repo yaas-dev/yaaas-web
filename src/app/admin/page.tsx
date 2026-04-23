@@ -20,8 +20,8 @@ export default async function AdminDashboard() {
     const STATS = [
         { name: 'Total Talents', value: stats.talents, icon: Users, color: 'text-blue-400', href: '/admin/talents' },
         { name: 'Artworks', value: stats.artworks, icon: ImageIcon, color: 'text-[#B59431]', href: '/admin/catalogue' },
-        { name: 'Projects', value: stats.projects, icon: Briefcase, color: 'text-green-400', href: '/admin/projects' },
-        { name: 'Collaborations', value: stats.collaborations, icon: Handshake, color: 'text-orange-400', href: '/admin/collaborations' },
+        { name: 'Contents', value: stats.projects, icon: Briefcase, color: 'text-green-400', href: '/admin/contents' },
+        // { name: 'Collaborations', value: stats.collaborations, icon: Handshake, color: 'text-orange-400', href: '/admin/collaborations' },
         { name: 'News Posts', value: stats.news, icon: FileText, color: 'text-purple-400', href: '/admin/news' },
         { name: 'Enquiries', value: stats.enquiries, icon: Mail, color: 'text-pink-400', href: '/admin/enquiries', badge: stats.newEnquiries > 0 ? stats.newEnquiries : null },
     ];
@@ -100,8 +100,8 @@ export default async function AdminDashboard() {
                         <Link href="/admin/news/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20">
                             <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Post News</span>
                         </Link>
-                        <Link href="/admin/projects/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">New Project</span>
+                        <Link href="/admin/contents/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">New Content</span>
                         </Link>
                         <Link href="/admin/collaborations/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20">
                             <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">New Collab</span>

@@ -4,7 +4,7 @@ import TalentsPreview from "@/components/home/TalentsPreview";
 import UpcomingEvents from "@/components/home/UpcomingEvents";
 import ContactSection from "@/components/home/ContactSection";
 import AboutSection from "@/components/home/AboutSection";
-import ProjectGallery from "@/components/home/ProjectGallery";
+import ContentGallery from "@/components/home/ContentGallery";
 import ArtCatalogueSection from "@/components/home/ArtCatalogueSection";
 import BlogSection from "@/components/home/BlogSection";
 import WelcomePopup from "@/components/shared/WelcomePopup";
@@ -17,7 +17,7 @@ import { getTalents } from "@/actions/talentActions";
 
 export default async function Home() {
   // Fetch live data from MongoDB
-  const [projects, artworks, news, settings, services, talents] = await Promise.all([
+  const [contents, artworks, news, settings, services, talents] = await Promise.all([
     getProjects(),
     getArtworks(),
     getNewsPosts(),
@@ -32,11 +32,11 @@ export default async function Home() {
       <AboutSection />
       <Services services={services} />
       <TalentsPreview initialTalents={talents} />
-      <ProjectGallery projects={projects} />
+      <ContentGallery contents={contents} />
       <ArtCatalogueSection artworks={artworks} />
       <BlogSection newsPosts={news} />
       <ContactSection />
-      <WelcomePopup />
+      {/* <WelcomePopup /> */}
     </div>
   );
 }

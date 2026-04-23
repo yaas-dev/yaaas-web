@@ -4,16 +4,28 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import ServiceAccordion, { Service } from "@/components/ServiceAccordion";
 import ContactSection from "@/components/home/ContactSection";
+import Image from "next/image";
 
 interface ServicesClientProps {
     services: Service[];
+    settings?: any;
 }
 
-export default function ServicesClient({ services }: ServicesClientProps) {
+export default function ServicesClient({ services, settings }: ServicesClientProps) {
+    const headerBg = settings?.servicesHeaderImage;
+
     return (
         <div className="pt-40 md:pt-24 pb-16 md:mb-40 bg-[#080807] text-white flex flex-col">
-            <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-5 shadow-2xl z-10">
-                <div className="px-6 md:px-32">
+            <div className={`w-full ${headerBg ? 'relative overflow-hidden min-h-[120px] md:min-h-[200px]' : 'bg-[#c1a03a]'} py-6 md:py-8 mt-5 shadow-2xl z-10 flex items-center`}>
+                {headerBg && (
+                    <Image
+                        src={headerBg}
+                        alt="Services Header"
+                        fill
+                        className="object-cover opacity-60 grayscale brightness-50"
+                    />
+                )}
+                <div className="px-6 md:px-32 relative z-10">
                     <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest">YAAAS SERVICES</h1>
                 </div>
             </div>
@@ -53,7 +65,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                 className="w-full max-w-5xl mx-auto flex justify-end flex-shrink-0 mt-8"
             >
                 <Link
-                    href="/projects"
+                    href="/contents"
                     style={{
                         display: "inline-block",
                         background: "#B59431",
@@ -69,7 +81,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                     onMouseEnter={e => (e.currentTarget.style.background = "#d4ae3b")}
                     onMouseLeave={e => (e.currentTarget.style.background = "#B59431")}
                 >
-                    Explore Projects
+                    Explore Contents
                 </Link>
             </motion.div>
 

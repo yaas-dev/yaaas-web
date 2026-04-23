@@ -18,7 +18,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
     const [sortBy, setSortBy] = useState<string>('newest');
     const [currentPage, setCurrentPage] = useState(1);
 
-    const ITEMS_PER_PAGE = 9;
+    const ITEMS_PER_PAGE = 12;
 
     // Dynamically derive categories from existing artworks
     const categories = useMemo(() => {
@@ -49,8 +49,11 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
             return matchesMedium && matchesArtist;
         })
         .sort((a, b) => {
-            if (sortBy === 'newest') return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-            if (sortBy === 'oldest') return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+            const dateA = a.date ? new Date(a.date).getTime() : new Date(a.createdAt).getTime();
+            const dateB = b.date ? new Date(b.date).getTime() : new Date(b.createdAt).getTime();
+
+            if (sortBy === 'newest') return dateB - dateA;
+            if (sortBy === 'oldest') return dateA - dateB;
             if (sortBy === 'title-asc') return a.title.localeCompare(b.title);
             if (sortBy === 'title-desc') return b.title.localeCompare(a.title);
             return 0;

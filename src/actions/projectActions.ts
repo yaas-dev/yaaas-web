@@ -13,28 +13,28 @@ export async function getProjects() {
 export async function createProject(formData: any) {
     await dbConnect();
     const project = await Project.create(formData);
-    revalidatePath("/admin/projects");
+    revalidatePath("/admin/contents");
     revalidatePath("/");
-    revalidatePath("/projects");
+    revalidatePath("/contents");
     return JSON.parse(JSON.stringify(project));
 }
 
 export async function updateProject(id: string, formData: any) {
     await dbConnect();
     const project = await Project.findByIdAndUpdate(id, formData, { new: true });
-    revalidatePath("/admin/projects");
-    revalidatePath(`/projects/${id}`);
+    revalidatePath("/admin/contents");
+    revalidatePath(`/contents/${id}`);
     revalidatePath("/");
-    revalidatePath("/projects");
+    revalidatePath("/contents");
     return JSON.parse(JSON.stringify(project));
 }
 
 export async function deleteProject(id: string) {
     await dbConnect();
     await Project.findByIdAndDelete(id);
-    revalidatePath("/admin/projects");
+    revalidatePath("/admin/contents");
     revalidatePath("/");
-    revalidatePath("/projects");
+    revalidatePath("/contents");
     return { success: true };
 }
 export async function getProjectById(id: string) {

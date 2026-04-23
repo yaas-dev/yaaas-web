@@ -83,13 +83,13 @@ export default function Carousel({
                 <>
                     <button
                         onClick={slidePrev}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 glass opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 glass opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
                     >
                         <ChevronLeft size={24} />
                     </button>
                     <button
                         onClick={slideNext}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 glass opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 glass opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
                     >
                         <ChevronRight size={24} />
                     </button>
