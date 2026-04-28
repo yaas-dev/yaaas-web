@@ -6,6 +6,8 @@ export interface ISettings extends Document {
         src: string;
     };
     servicesHeaderImage?: string;
+    creativesVisualImage?: string;
+    creativesSonicImage?: string;
 }
 
 const SettingsSchema: Schema = new Schema({
@@ -21,6 +23,14 @@ const SettingsSchema: Schema = new Schema({
         }
     },
     servicesHeaderImage: {
+        type: String,
+        default: ''
+    },
+    creativesVisualImage: {
+        type: String,
+        default: ''
+    },
+    creativesSonicImage: {
         type: String,
         default: ''
     }

@@ -8,9 +8,10 @@ import { useMemo } from "react";
 
 interface TalentsPreviewProps {
     initialTalents?: any[];
+    settings?: any;
 }
 
-export default function TalentsPreview({ initialTalents = [] }: TalentsPreviewProps) {
+export default function TalentsPreview({ initialTalents = [], settings }: TalentsPreviewProps) {
     const talents = useMemo(() => {
         // Find latest talent for each category
         const latestVisual = initialTalents.find(t => t.category === 'VISUAL');
@@ -19,18 +20,18 @@ export default function TalentsPreview({ initialTalents = [] }: TalentsPreviewPr
         return [
             {
                 title: "Visual Artists",
-                image: latestVisual?.headshot || "/images/talents/photography.png",
+                image: settings?.creativesVisualImage || latestVisual?.headshot || "/images/talents/photography.png",
                 href: "/talents?category=VISUAL",
                 icon: '/images/eye.png'
             },
             {
                 title: "Sonic Artists",
-                image: latestSonic?.headshot || "/images/talents/painting.png",
+                image: settings?.creativesSonicImage || latestSonic?.headshot || "/images/talents/painting.png",
                 href: "/talents?category=SONIC",
                 icon: '/images/ear.png'
             }
         ];
-    }, [initialTalents]);
+    }, [initialTalents, settings]);
 
     return (
         <section id="talents" className="lg:min-h-screen bg-black overflow-hidden flex flex-col justify-center">

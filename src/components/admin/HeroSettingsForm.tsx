@@ -19,6 +19,8 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
             src: initialData?.heroBackground?.src || '/images/hero.png',
         },
         servicesHeaderImage: initialData?.servicesHeaderImage || '',
+        creativesVisualImage: initialData?.creativesVisualImage || '',
+        creativesSonicImage: initialData?.creativesSonicImage || '',
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -133,6 +135,33 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
                             folder="settings"
                         />
                         <p className="text-[10px] text-white/20 italic">This image will appear as the background for the "YAAAS SERVICES" header title.</p>
+                    </div>
+
+                    <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-8 h-fit">
+                        <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#B59431] border-b border-white/5 pb-4">YAAAS Creatives Section</h3>
+                        
+                        <MediaUpload
+                            label="Visual Artists Image"
+                            type="image"
+                            value={formData.creativesVisualImage}
+                            onChange={(url) => setFormData({
+                                ...formData,
+                                creativesVisualImage: url
+                            })}
+                            folder="settings"
+                        />
+                        
+                        <MediaUpload
+                            label="Sonic Artists Image"
+                            type="image"
+                            value={formData.creativesSonicImage}
+                            onChange={(url) => setFormData({
+                                ...formData,
+                                creativesSonicImage: url
+                            })}
+                            folder="settings"
+                        />
+                        <p className="text-[10px] text-white/20 italic">These images will replace the latest talent headshots in the homepage creatives grid.</p>
                     </div>
 
                     <div className="bg-[#B59431]/5 border border-[#B59431]/20 p-8 rounded-sm">

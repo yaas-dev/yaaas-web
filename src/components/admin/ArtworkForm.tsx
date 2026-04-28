@@ -24,7 +24,7 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
         talentId: initialData?.talentId || '',
         src: initialData?.src || '',
         year: initialData?.year || '',
-        date: initialData?.date ? new Date(initialData.date).toISOString().split('T')[0] : '',
+        date: initialData?.date ? new Date(initialData.date).getUTCFullYear().toString() : '',
         medium: initialData?.medium || 'painting',
         externalLink: initialData?.externalLink || '',
     });
@@ -65,10 +65,16 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
 
         setIsLoading(true);
         try {
+            const submissionData = {
+                ...formData,
+                date: formData.date && /^\d{4}$/.test(formData.date) 
+                    ? `${formData.date}-01-01T00:00:00.000Z` 
+                    : formData.date
+            };
             if (isEditing) {
-                await updateArtwork(initialData._id, formData);
+                await updateArtwork(initialData._id, submissionData);
             } else {
-                await createArtwork(formData);
+                await createArtwork(submissionData);
             }
             router.push('/admin/catalogue');
             router.refresh();
@@ -148,14 +154,15 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Catalogue Date (for sorting)</label>
+                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Catalogue Year (for sorting)</label>
                                     <input
-                                        type="date"
+                                        type="text"
+                                        placeholder="e.g. 2026"
                                         value={formData.date}
                                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                         className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors"
                                     />
-                                    <p className="text-[10px] text-white/30 italic">Used for \"Newest First\" sorting. If not set, upload date is used.</p>
+                                    <p className="text-[10px] text-white/30 italic">Used for "Newest First" sorting. Only the year is required.</p>
                                 </div>
 
                                 <div className="flex flex-col gap-2">

@@ -31,7 +31,7 @@ export default async function Home() {
       <Hero settings={settings} />
       <AboutSection />
       <Services services={services} />
-      <TalentsPreview initialTalents={talents} />
+      <TalentsPreview initialTalents={talents} settings={settings} />
       <ContentGallery contents={contents} />
       <ArtCatalogueSection artworks={artworks} />
       <BlogSection newsPosts={news} />
