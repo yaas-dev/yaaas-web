@@ -28,7 +28,7 @@ export default function NewsContent({ content }: NewsContentProps) {
                 .rich-text-content,
                 .rich-text-content * {
                     max-width: 100% !important;
-                    white-space: normal !important;
+                    white-space: pre-wrap !important;
                     box-sizing: border-box;
                     word-break: normal !important;
                     overflow-wrap: break-word !important;
