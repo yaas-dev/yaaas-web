@@ -87,8 +87,8 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                             )}
                         </div>
 
-                        {/* Music Work Links (Sonic Specific) */}
-                        {isSonic && artist.musicLinks && artist.musicLinks.length > 0 && (
+                        {/* Stream & Work Links */}
+                        {artist.musicLinks && artist.musicLinks.length > 0 && (
                             <div className="flex flex-wrap gap-3 mt-8">
                                 {artist.musicLinks.map((link: any, index: number) => (
                                     <a
@@ -126,7 +126,13 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                             {visualArtworks.map((art: any) => (
                                 <div
                                     key={art._id}
-                                    onClick={() => setSelectedArt(art)}
+                                    onClick={() => {
+                                        if (art.externalLink) {
+                                            window.open(art.externalLink, '_blank');
+                                        } else {
+                                            setSelectedArt(art);
+                                        }
+                                    }}
                                     className="flex flex-col group cursor-pointer"
                                 >
                                     <div className="flex flex-col items-start px-1 mb-2 md:mb-4">
@@ -141,8 +147,15 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                                             sizes="33vw"
                                         />
+                                        {art.externalLink && (
+                                            <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md p-2 rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-all z-10">
+                                                <Globe size={14} className="text-[#FDDA2F]" />
+                                            </div>
+                                        )}
                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-1 md:p-2">
-                                            <span className="text-white font-bold tracking-widest uppercase border border-white/50 px-2 py-1 md:px-6 md:py-2 text-[8px] sm:text-[10px] md:text-sm text-center">Enquire</span>
+                                            <span className="text-white font-bold tracking-widest uppercase border border-white/50 px-2 py-1 md:px-6 md:py-2 text-[8px] sm:text-[10px] md:text-sm text-center">
+                                                {art.externalLink ? 'View' : 'Enquire'}
+                                            </span>
                                         </div>
                                     </div>
                                     <div className="flex flex-col pl-1">

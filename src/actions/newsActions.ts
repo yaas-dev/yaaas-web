@@ -19,26 +19,29 @@ export async function getNewsPostById(id: string) {
 export async function createNews(formData: any) {
     await dbConnect();
     const post = await News.create(formData);
-    revalidatePath("/admin/news");
-    revalidatePath("/");
-    revalidatePath("/news");
+    revalidatePath("/admin/news", "layout");
+    revalidatePath("/", "layout");
+    revalidatePath("/news", "layout");
+    revalidatePath("/blog", "layout");
     return JSON.parse(JSON.stringify(post));
 }
 
 export async function updateNews(id: string, formData: any) {
     await dbConnect();
     const post = await News.findByIdAndUpdate(id, formData, { new: true });
-    revalidatePath("/admin/news");
-    revalidatePath("/");
-    revalidatePath("/news");
+    revalidatePath("/admin/news", "layout");
+    revalidatePath("/", "layout");
+    revalidatePath("/news", "layout");
+    revalidatePath("/blog", "layout");
     return JSON.parse(JSON.stringify(post));
 }
 
 export async function deleteNews(id: string) {
     await dbConnect();
     await News.findByIdAndDelete(id);
-    revalidatePath("/admin/news");
-    revalidatePath("/");
-    revalidatePath("/news");
+    revalidatePath("/admin/news", "layout");
+    revalidatePath("/", "layout");
+    revalidatePath("/news", "layout");
+    revalidatePath("/blog", "layout");
     return { success: true };
 }

@@ -6,15 +6,33 @@ interface NewsContentProps {
     content: string;
 }
 
+function sanitizeContent(html: string): string {
+    if (!html) return '';
+    // Strip all inline style attributes completely to prevent pasted styles from overriding layout
+    return html
+        .replace(/\s+style\s*=\s*(["'])(?:(?!\1).)*\1/gi, '')
+        .replace(/\s+style\s*=\s*[^>\s]+/gi, '');
+}
+
 export default function NewsContent({ content }: NewsContentProps) {
+    const sanitized = sanitizeContent(content);
+
     return (
         <>
             <div
                 className="rich-text-content flex flex-col text-[#e0e0e0] font-light text-base md:text-lg leading-loose tracking-wide max-w-3xl mx-auto w-full"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: sanitized }}
             />
 
             <style jsx global>{`
+                .rich-text-content,
+                .rich-text-content * {
+                    max-width: 100% !important;
+                    white-space: normal !important;
+                    box-sizing: border-box;
+                    word-break: normal !important;
+                    overflow-wrap: break-word !important;
+                }
                 .rich-text-content p {
                     margin-bottom: 2rem;
                 }
@@ -50,6 +68,7 @@ export default function NewsContent({ content }: NewsContentProps) {
                     color: #FDDA2F;
                     text-decoration: underline;
                     text-underline-offset: 4px;
+                    overflow-wrap: anywhere;
                 }
                 .rich-text-content a:hover { color: white; }
                 
