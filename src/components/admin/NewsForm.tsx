@@ -136,7 +136,10 @@ export default function NewsForm({ initialData }: NewsFormProps) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Full Article Content</label>
+                            <div className="flex items-center justify-between">
+                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Full Article Content</label>
+                                <span className="text-white/20 text-[10px] uppercase tracking-widest">Use the image icon in the toolbar to add photos within the post</span>
+                            </div>
                             <RichTextEditor
                                 value={formData.fullContent}
                                 onChange={(content) => setFormData({ ...formData, fullContent: content })}

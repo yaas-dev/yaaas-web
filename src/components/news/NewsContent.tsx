@@ -79,6 +79,15 @@ export default function NewsContent({ content }: NewsContentProps) {
                     margin: 3rem 0;
                     color: white;
                 }
+
+                .rich-text-content img {
+                    display: block;
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 4px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    margin: 3rem auto;
+                }
             `}</style>
         </>
     );
