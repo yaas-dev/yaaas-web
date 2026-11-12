@@ -67,7 +67,7 @@ export default function ContactSection() {
                         <div>
                             <div className="space-y-12">
                                 <div>
-                                    <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">General Inquiries</span>
+                                    <span className="text-[#B59431] text-xs font-bold tracking-widest uppercase mb-3 block">General Inquiries</span>
                                     <p className="text-[#171717] text-xl md:text-2xl font-light tracking-wide">hello@yaaas.co</p>
                                 </div>
 
@@ -88,28 +88,28 @@ export default function ContactSection() {
                                         className="flex flex-col gap-5 md:gap-7 w-full max-w-xl"
                                     >
                                         <div className="flex flex-col">
-                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
+                                            <label className="text-[#B59431] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
                                             <input
                                                 required
                                                 name="name"
                                                 type="text"
                                                 placeholder="John Doe"
-                                                className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#999]"
+                                                className="w-full bg-transparent border-b border-black/20 text-[#171717] py-3 focus:outline-none focus:border-[#B59431] transition-colors placeholder:text-[#999]"
                                             />
                                         </div>
                                         <div className="flex flex-col">
-                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Email Address</label>
+                                            <label className="text-[#B59431] text-xs font-bold tracking-widest uppercase mb-2">Email Address</label>
                                             <input
                                                 required
                                                 name="email"
                                                 type="email"
                                                 placeholder="john@example.com"
-                                                className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#999]"
+                                                className="w-full bg-transparent border-b border-black/20 text-[#171717] py-3 focus:outline-none focus:border-[#B59431] transition-colors placeholder:text-[#999]"
                                             />
                                         </div>
                                         <div className="flex flex-col">
-                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
-                                            <select name="subject" className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
+                                            <label className="text-[#B59431] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
+                                            <select name="subject" className="w-full bg-transparent border-b border-black/20 text-[#171717] py-3 focus:outline-none focus:border-[#B59431] transition-colors appearance-none cursor-pointer">
                                                 <option className="bg-[#F7F6F1] text-[#171717]">General Inquiry</option>
                                                 <option className="bg-[#F7F6F1] text-[#171717]">Art Acquisition</option>
                                                 <option className="bg-[#F7F6F1] text-[#171717]">Representation</option>
@@ -117,19 +117,19 @@ export default function ContactSection() {
                                             </select>
                                         </div>
                                         <div className="flex flex-col mb-4">
-                                            <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Message</label>
+                                            <label className="text-[#B59431] text-xs font-bold tracking-widest uppercase mb-2">Message</label>
                                             <textarea
                                                 required
                                                 name="message"
                                                 rows={4}
                                                 placeholder="How can we help?"
-                                                className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#999]"
+                                                className="w-full bg-transparent border-b border-black/20 text-[#171717] py-3 focus:outline-none focus:border-[#B59431] transition-colors resize-none placeholder:text-[#999]"
                                             />
                                         </div>
 
                                         <button
                                             type="submit"
-                                            className="w-full bg-[#d8b511] text-black font-extrabold tracking-[0.2em] uppercase py-5 rounded-sm hover:bg-white transition-all duration-300 transform hover:scale-[1.01]"
+                                            className="w-full bg-[#B59431] text-black font-extrabold tracking-[0.2em] uppercase py-5 rounded-sm hover:bg-white transition-all duration-300 transform hover:scale-[1.01]"
                                         >
                                             Submit
                                         </button>
@@ -141,14 +141,14 @@ export default function ContactSection() {
                                         animate={{ opacity: 1, scale: 1 }}
                                         className="h-full flex flex-col items-center justify-center text-center py-20 border border-black/10 bg-white/60 rounded-sm"
                                     >
-                                        <h3 className="text-3xl md:text-4xl font-serif italic font-bold mb-6 text-[#d8b511] tracking-tight">VISION ACKNOWLEDGED</h3>
+                                        <h3 className="text-3xl md:text-4xl font-serif italic font-bold mb-6 text-[#B59431] tracking-tight">VISION ACKNOWLEDGED</h3>
                                         <p className="text-[#55534E] font-light text-sm tracking-[0.3em] leading-loose max-w-sm mb-12 uppercase">
                                             Resonance expected within <br />
                                             24 solar hours.
                                         </p>
                                         <button
                                             onClick={() => setIsSubmitted(false)}
-                                            className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#d8b511] border-b border-[#d8b511]/40 pb-1 hover:border-[#d8b511] transition-all"
+                                            className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#B59431] border-b border-[#B59431]/40 pb-1 hover:border-[#B59431] transition-all"
                                         >
                                             SEND ANOTHER RESONANCE
                                         </button>
@@ -157,7 +157,6 @@ export default function ContactSection() {
                             </AnimatePresence>
                         </div>
                     </div>
-                </div>
             </div>
         </section>
     );
