@@ -20,7 +20,7 @@ export default function NewsContent({ content }: NewsContentProps) {
     return (
         <>
             <div
-                className="rich-text-content flex flex-col text-[#e0e0e0] font-light text-base md:text-lg leading-loose tracking-wide max-w-3xl mx-auto w-full"
+                className="rich-text-content flex flex-col text-[#55534E] font-light text-base md:text-lg leading-loose tracking-wide max-w-3xl mx-auto w-full"
                 dangerouslySetInnerHTML={{ __html: sanitized }}
             />
 
