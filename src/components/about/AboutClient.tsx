@@ -62,12 +62,12 @@ export default function AboutClient({ newsPosts, collaborations, contents }: Abo
     };
 
     return (
-        <main className="min-h-screen bg-black flex flex-col pt-24 font-sans text-white pb-10">
+        <main className="min-h-screen bg-[#F1EFE8] flex flex-col pt-24 font-sans text-[#171717] pb-10">
 
             {/* ABOUT US Banner */}
-            <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-5 shadow-2xl z-10">
+            <div className="w-full bg-transparent py-6 md:py-8 mt-5 z-10">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-                    <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest">ABOUT US</h1>
+                    <h1 className="text-[#171717] text-3xl md:text-[64px] uppercase tracking-widest">ABOUT US</h1>
                 </div>
             </div>
 
@@ -75,8 +75,8 @@ export default function AboutClient({ newsPosts, collaborations, contents }: Abo
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-20 relative z-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                     {/* Left Column: Text Content */}
-                    <div className="flex flex-col gap-6 text-[#e0e0e0] font-light text-sm md:text-[15px] leading-8 tracking-wide">
-                        <p className="text-xl md:text-2xl text-[#d8b511] mb-2 font-bold tracking-widest uppercase">About YAAAS Agency</p>
+                    <div className="flex flex-col gap-6 text-[#55534E] font-light text-sm md:text-[15px] leading-8 tracking-wide">
+                        <p className="text-xl md:text-2xl text-[#B59431] mb-2 font-bold tracking-widest uppercase">About YAAAS Agency</p>
                         <p className="md:text-[18px] text-justify leading-relaxed">YAAAS (Yaa Asantewaa) Agency is a culture-forward creative bridge connecting visionary African talent to the world. Operating at the intersection of art, identity, and opportunity, we provide bespoke representation to a select group of multidisciplinary artists who are pushing boundaries, preserving heritage, and reimagining the future.</p>
 
                         <AnimatePresence>
@@ -96,7 +96,7 @@ export default function AboutClient({ newsPosts, collaborations, contents }: Abo
 
                         <button
                             onClick={() => setIsExpanded(!isExpanded)}
-                            className="md:hidden text-[#d8b511] font-bold text-xs tracking-widest uppercase flex items-center gap-2 mt-4 self-start"
+                            className="md:hidden text-[#B59431] font-bold text-xs tracking-widest uppercase flex items-center gap-2 mt-4 self-start"
                         >
                             {isExpanded ? 'Show Less' : 'Show More'}
                             <motion.span animate={{ rotate: isExpanded ? 180 : 0 }} className="flex items-center">
@@ -108,7 +108,7 @@ export default function AboutClient({ newsPosts, collaborations, contents }: Abo
                     {/* Right Column: Branded Image */}
                     <div className="w-full flex justify-center lg:justify-end px-4 lg:px-0 relative z-10 group">
                         {/* Decorative background element */}
-                        <div className="absolute inset-0 bg-[#d8b511]/5 rounded-sm -rotate-3 transition-transform duration-700 group-hover:rotate-0 scale-95 border border-white/5"></div>
+                        <div className="absolute inset-0 bg-[#B59431]/5 rounded-sm -rotate-3 transition-transform duration-700 group-hover:rotate-0 scale-95 border border-black/10"></div>
 
                         <div className="relative w-full max-w-[550px] aspect-square lg:h-[550px] rounded-sm overflow-hidden flex items-center justify-center">
                             <Image
