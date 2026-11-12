@@ -32,11 +32,11 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
     }, [activeFilter, initialTalents]);
 
     return (
-        <main className="min-h-screen bg-black flex flex-col pt-24 font-sans">
+        <main className="min-h-screen bg-[#F1EFE8] flex flex-col pt-24 font-sans text-[#171717]">
 
-            <div className="w-full bg-[#c1a03a] py-6 md:py-8 mt-5 shadow-2xl z-10">
+            <div className="w-full bg-transparent py-6 md:py-8 mt-5 z-10">
                 <div className="px-6 md:px-32">
-                    <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest">YAAAS CREATIVES</h1>
+                    <h1 className="text-[#171717] text-3xl md:text-[64px] uppercase tracking-widest">YAAAS CREATIVES</h1>
                 </div>
             </div>
 
@@ -44,19 +44,19 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
             <div className="w-full md:mx-16 px-6 md:px-12 relative z-20 -mt-8">
 
                 {/* Filters Row */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 my-16 md:mr-20 border-b border-white/10 pb-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 my-16 md:mr-20 border-b border-black/10 pb-8">
                     {/* Filter Buttons */}
                     <div className="flex flex-wrap gap-4">
                         <button
                             onClick={() => setActiveFilter('ALL')}
-                            className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'ALL' ? 'bg-[#FDDA2F] text-black border border-[#FDDA2F]' : 'bg-transparent text-white border border-white/30 hover:border-[#FDDA2F]'}`}
+                            className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'ALL' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-white border border-white/30 hover:border-[#B59431]'}`}
                         >
                             All
                         </button>
                         {initialTalents.some(t => t.category === 'VISUAL') && (
                             <button
                                 onClick={() => setActiveFilter('VISUAL')}
-                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'VISUAL' ? 'bg-[#FDDA2F] text-black border border-[#FDDA2F]' : 'bg-transparent text-white border border-white/30 hover:border-[#FDDA2F]'}`}
+                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'VISUAL' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-white border border-white/30 hover:border-[#B59431]'}`}
                             >
                                 Visual
                             </button>
@@ -64,7 +64,7 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
                         {initialTalents.some(t => t.category === 'SONIC') && (
                             <button
                                 onClick={() => setActiveFilter('SONIC')}
-                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'SONIC' ? 'bg-[#FDDA2F] text-black border border-[#FDDA2F]' : 'bg-transparent text-white border border-white/30 hover:border-[#FDDA2F]'}`}
+                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'SONIC' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-white border border-white/30 hover:border-[#B59431]'}`}
                             >
                                 Sonic
                             </button>
@@ -72,7 +72,7 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
                     </div>
 
                     {/* Icons Section matching the design screenshot */}
-                    <div className="flex items-center gap-6 text-[#FDDA2F]">
+                    <div className="flex items-center gap-6 text-[#B59431]">
                         <AnimatePresence mode="wait">
                             {(activeFilter === 'ALL' || activeFilter === 'SONIC') && (
                                 <motion.div
@@ -135,19 +135,19 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
 
                                 {/* Overlay Hint */}
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                                    <span className="text-white text-[8px] sm:text-[10px] md:text-sm font-bold tracking-widest uppercase border border-white/50 px-2 md:px-6 py-2 text-center">View Profile</span>
+                                    <span className="text-white text-[8px] sm:text-[10px] md:text-sm font-bold tracking-widest uppercase border border-black/100 px-2 md:px-6 py-2 text-center">View Profile</span>
                                 </div>
                             </div>
                             <div className="flex flex-col pl-1">
-                                <span className="text-[#FDDA2F] font-bold text-[10px] sm:text-xs md:text-[15px] tracking-wide mb-0.5 md:mb-1 truncate uppercase">{talent.name}</span>
-                                <span className="text-[#FDDA2F]/80 font-medium text-[9px] sm:text-[10px] md:text-sm tracking-wide truncate uppercase">{talent.type}</span>
+                                <span className="text-[#B59431] font-bold text-[10px] sm:text-xs md:text-[15px] tracking-wide mb-0.5 md:mb-1 truncate uppercase">{talent.name}</span>
+                                <span className="text-[#B59431]/80 font-medium text-[9px] sm:text-[10px] md:text-sm tracking-wide truncate uppercase">{talent.type}</span>
                             </div>
                         </Link>
                     ))}
 
                     {/* Empty State */}
                     {filteredTalents.length === 0 && (
-                        <div className="col-span-3 flex flex-col items-center justify-center py-20 text-white/40 italic">
+                        <div className="col-span-3 flex flex-col items-center justify-center py-20 text-[#77746D] italic">
                             No talents found in this category.
                         </div>
                     )}
