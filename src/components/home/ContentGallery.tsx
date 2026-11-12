@@ -47,7 +47,7 @@ export default function ContentGallery({ contents = [] }: ContentGalleryProps) {
                 {/* Section Header */}
                 <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
                     <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
-                        YAAAS CONTENTS
+                        SELECTED PROJECTS
                     </h2>
                     <div className="w-[75%] md:w-[32%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
@@ -65,7 +65,7 @@ export default function ContentGallery({ contents = [] }: ContentGalleryProps) {
 
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-black/30 italic uppercase tracking-widest text-xs border border-black/10 rounded-2xl mx-10">
-                            No contents featured yet.
+                            No projects featured yet.
                         </div>
                     )}
                 </div>
@@ -74,7 +74,7 @@ export default function ContentGallery({ contents = [] }: ContentGalleryProps) {
                     className="group flex items-center justify-end gap-3 mr-4"
                 >
                     <span className="text-[#171717] text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">
-                        View All Contents
+                        View All Projects
                     </span>
                     <span className="group-hover:translate-x-1 transition-transform text-[#171717] text-xs uppercase tracking-[0.2em] font-bold">→</span>
                 </Link>
