@@ -15,8 +15,8 @@ export default function ServicesClient({ services, settings }: ServicesClientPro
     const headerBg = settings?.servicesHeaderImage;
 
     return (
-        <div className="pt-40 md:pt-24 pb-16 md:mb-40 bg-[#080807] text-white flex flex-col">
-            <div className={`w-full ${headerBg ? 'relative overflow-hidden min-h-[120px] md:min-h-[200px]' : 'bg-[#c1a03a]'} py-6 md:py-8 mt-5 shadow-2xl z-10 flex items-center`}>
+        <div className="pt-32 pb-16 bg-[#F1EFE8] text-[#171717] flex flex-col">
+            <div className={`w-full ${headerBg ? 'relative overflow-hidden min-h-[120px] md:min-h-[200px]' : 'bg-transparent'} py-6 md:py-8 mt-5 shadow-2xl z-10 flex items-center`}>
                 {headerBg && (
                     <Image
                         src={headerBg}
@@ -26,7 +26,7 @@ export default function ServicesClient({ services, settings }: ServicesClientPro
                     />
                 )}
                 <div className="px-6 md:px-32 relative z-10">
-                    <h1 className="text-white text-3xl md:text-[64px] uppercase tracking-widest">YAAAS SERVICES</h1>
+                    <h1 className="text-[#171717] text-3xl md:text-[64px] uppercase tracking-widest">YAAAS SERVICES</h1>
                 </div>
             </div>
             {/* ── Page header ── */}
@@ -35,7 +35,7 @@ export default function ServicesClient({ services, settings }: ServicesClientPro
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-[#e0e0e0] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full"
+                    className="text-[#55534E] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full"
                     style={{ marginTop: "2.5rem" }}
                 >
                     A curated suite of capabilities built around the creative visionary.
