@@ -46,7 +46,7 @@ export default function ContactSection() {
             style={{ backgroundColor: "#F1EFE8" }}
 
         >
-            <div>
+            <div className="mx-auto max-w-7xl w-full px-5 md:px-8 relative z-20">
 
                 {/* Header Section */}
                 <div className="w-full relative mb-6 md:mb-8">
@@ -55,8 +55,6 @@ export default function ContactSection() {
                     </h2>
                     <div className="w-20 h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
-
-                <div className="mx-auto max-w-7xl w-full px-5 md:px-8 relative z-20">
                     <div className="mb-8 md:mb-12 max-w-3xl">
                         <p className="text-[#55534E] font-light text-base md:text-lg leading-relaxed tracking-wide w-full">
                             Whether you are looking for representation, a new addition to your collection, or a creative partnership, we are here to connect. Reach out and let's start the conversation.
