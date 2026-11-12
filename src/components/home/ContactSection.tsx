@@ -119,10 +119,10 @@ export default function ContactSection() {
                                         <div className="flex flex-col">
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
                                             <select name="subject" className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
-                                                <option className="bg-black">General Inquiry</option>
-                                                <option className="bg-black">Art Acquisition</option>
-                                                <option className="bg-black">Representation</option>
-                                                <option className="bg-black">Collaboration</option>
+                                                <option className="bg-[#F7F6F1] text-[#171717]">General Inquiry</option>
+                                                <option className="bg-[#F7F6F1] text-[#171717]">Art Acquisition</option>
+                                                <option className="bg-[#F7F6F1] text-[#171717]">Representation</option>
+                                                <option className="bg-[#F7F6F1] text-[#171717]">Collaboration</option>
                                             </select>
                                         </div>
                                         <div className="flex flex-col mb-4">
