@@ -1,6 +1,7 @@
+
 "use client";
 
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import EnquiryModal from '@/components/shared/EnquiryModal';
 import ContactSection from '../home/ContactSection';
@@ -9,117 +10,163 @@ interface CatalogueClientProps {
     initialArtworks: any[];
 }
 
+const ITEMS_PER_PAGE = 12;
+
 export default function CatalogueClient({ initialArtworks }: CatalogueClientProps) {
     const [selectedArt, setSelectedArt] = useState<any | null>(null);
     const [activeFilter, setActiveFilter] = useState<string>('all');
     const [selectedArtist, setSelectedArtist] = useState<string>('all');
     const [sortBy, setSortBy] = useState<string>('newest');
-    const [visibleCount, setVisibleCount] = useState(12);
-    const loadMoreRef = useRef<HTMLDivElement | null>(null);
+    const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
-    const ITEMS_PER_PAGE = 12;
+    const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
     // Dynamically derive categories from existing artworks
     const categories = useMemo(() => {
         const mediums = initialArtworks
-            .filter(art => ['painting', 'photography', 'sculpture'].includes(art.medium))
+            .filter(art =>
+                ['painting', 'photography', 'sculpture'].includes(art.medium)
+            )
             .map(art => art.medium);
+
         return ['all', ...Array.from(new Set(mediums))];
     }, [initialArtworks]);
 
-    // Dynamically derive unique artists from existing artworks
+    // Dynamically derive unique artists
     const artists = useMemo(() => {
-        const uniqueArtists = Array.from(new Set(initialArtworks.map(art => art.artistName)))
+        const uniqueArtists = Array.from(
+            new Set(initialArtworks.map(art => art.artistName))
+        )
             .filter(Boolean)
             .sort((a, b) => a.localeCompare(b));
+
         return ['all', ...uniqueArtists];
     }, [initialArtworks]);
 
-    const filteredArtworks = initialArtworks
-        .filter(art => {
-            const isVisual = ['painting', 'photography', 'sculpture'].includes(art.medium);
+    // Filter and sort artworks
+    const filteredArtworks = useMemo(() => {
+        return initialArtworks
+            .filter(art => {
+                const isVisual = [
+                    'painting',
+                    'photography',
+                    'sculpture'
+                ].includes(art.medium);
 
-            // Filter by medium (activeFilter)
-            const matchesMedium = activeFilter === 'all' ? isVisual : art.medium === activeFilter;
+                const matchesMedium =
+                    activeFilter === 'all'
+                        ? isVisual
+                        : art.medium === activeFilter;
 
-            // Filter by artist (selectedArtist)
-            const matchesArtist = selectedArtist === 'all' || art.artistName === selectedArtist;
+                const matchesArtist =
+                    selectedArtist === 'all' ||
+                    art.artistName === selectedArtist;
 
-            return matchesMedium && matchesArtist;
-        })
-        .sort((a, b) => {
-            const dateA = a.date ? new Date(a.date).getTime() : new Date(a.createdAt).getTime();
-            const dateB = b.date ? new Date(b.date).getTime() : new Date(b.createdAt).getTime();
+                return matchesMedium && matchesArtist;
+            })
+            .sort((a, b) => {
+                const dateA = a.date
+                    ? new Date(a.date).getTime()
+                    : new Date(a.createdAt).getTime();
 
-            if (sortBy === 'newest') return dateB - dateA;
-            if (sortBy === 'oldest') return dateA - dateB;
-            if (sortBy === 'title-asc') return a.title.localeCompare(b.title);
-            if (sortBy === 'title-desc') return b.title.localeCompare(a.title);
-            return 0;
-        });
+                const dateB = b.date
+                    ? new Date(b.date).getTime()
+                    : new Date(b.createdAt).getTime();
 
-    const totalPages = Math.ceil(filteredArtworks.length / ITEMS_PER_PAGE);
-    const paginatedArtworks = filteredArtworks.slice(
-        (currentPage - 1) * ITEMS_PER_PAGE,
-        currentPage * ITEMS_PER_PAGE
-    );
+                if (sortBy === 'newest') return dateB - dateA;
+                if (sortBy === 'oldest') return dateA - dateB;
+                if (sortBy === 'title-asc') {
+                    return a.title.localeCompare(b.title);
+                }
+                if (sortBy === 'title-desc') {
+                    return b.title.localeCompare(a.title);
+                }
 
-    // Reset to page 1 when filter or sort changes
-    React.useEffect(() => {
-    setVisibleCount(ITEMS_PER_PAGE);
-}, [activeFilter, selectedArtist, sortBy]);
+                return 0;
+            });
+    }, [initialArtworks, activeFilter, selectedArtist, sortBy]);
 
-React.useEffect(() => {
-    if (visibleCount >= filteredArtworks.length) return;
+    // Display only the currently visible batch
+    const displayedArtworks = filteredArtworks.slice(0, visibleCount);
 
-    const observer = new IntersectionObserver(
-        (entries) => {
-            if (entries[0].isIntersecting) {
-                setVisibleCount(prev =>
-                    Math.min(prev + ITEMS_PER_PAGE, filteredArtworks.length)
-                );
+    // Reset visible artworks whenever filters or sorting change
+    useEffect(() => {
+        setVisibleCount(ITEMS_PER_PAGE);
+    }, [activeFilter, selectedArtist, sortBy]);
+
+    // Automatically load more artworks when visitors scroll down
+    useEffect(() => {
+        const target = loadMoreRef.current;
+
+        if (!target || visibleCount >= filteredArtworks.length) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            entries => {
+                if (entries[0]?.isIntersecting) {
+                    setVisibleCount(current =>
+                        Math.min(
+                            current + ITEMS_PER_PAGE,
+                            filteredArtworks.length
+                        )
+                    );
+                }
+            },
+            {
+                rootMargin: '300px',
             }
-        },
-        { rootMargin: '300px' }
-    );
+        );
 
-    const currentElement = loadMoreRef.current;
+        observer.observe(target);
 
-    if (currentElement) observer.observe(currentElement);
-
-    return () => observer.disconnect();
-}, [visibleCount, filteredArtworks.length]);
+        return () => observer.disconnect();
+    }, [visibleCount, filteredArtworks.length]);
 
     return (
         <main className="min-h-screen bg-black flex flex-col pt-32 font-sans">
+
             {/* First Gold Banner */}
             <div className="w-full bg-[#c1a03a] py-5 px-8 md:px-[10%] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+
                 <h1 className="text-white text-2xl md:text-[64px] uppercase tracking-widest outline-none">
                     Art Catalogue
                 </h1>
 
                 <div className="flex flex-row md:flex-row gap-4 w-full md:w-auto">
+
                     {/* Artist Filter */}
                     <div className="flex flex-col gap-2 w-full md:w-auto min-w-[140px]">
-                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">Artist</label>
+                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">
+                            Artist
+                        </label>
+
                         <select
                             value={selectedArtist}
-                            onChange={(e) => setSelectedArtist(e.target.value)}
+                            onChange={e => setSelectedArtist(e.target.value)}
                             className="bg-black/20 border border-white/20 text-white text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
                         >
                             <option value="all">All Artists</option>
-                            {artists.filter(artist => artist !== 'all').map(artist => (
-                                <option key={artist} value={artist}>{artist}</option>
-                            ))}
+
+                            {artists
+                                .filter(artist => artist !== 'all')
+                                .map(artist => (
+                                    <option key={artist} value={artist}>
+                                        {artist}
+                                    </option>
+                                ))}
                         </select>
                     </div>
 
                     {/* Sort By Filter */}
                     <div className="flex flex-col gap-2 w-full md:w-auto min-w-[140px]">
-                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">Sort By</label>
+                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">
+                            Sort By
+                        </label>
+
                         <select
                             value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value)}
+                            onChange={e => setSortBy(e.target.value)}
                             className="bg-black/20 border border-white/20 text-white text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
                         >
                             <option value="newest">Newest First</option>
@@ -128,113 +175,129 @@ React.useEffect(() => {
                             <option value="title-desc">Title Z-A</option>
                         </select>
                     </div>
+
                 </div>
             </div>
 
             {/* Filters Section */}
             <div className="w-full bg-black py-8 border-b border-white/5 flex justify-center px-4 overflow-x-auto">
                 <div className="flex gap-4 md:gap-8">
+
                     {categories.map((filter: string) => (
                         <button
                             key={filter}
                             onClick={() => setActiveFilter(filter)}
-                            className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all pb-2 border-b-2 ${activeFilter === filter
-                                ? 'text-[#B59431] border-[#B59431]'
-                                : 'text-white/40 border-transparent hover:text-white'
-                                }`}
+                            className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all pb-2 border-b-2 ${
+                                activeFilter === filter
+                                    ? 'text-[#B59431] border-[#B59431]'
+                                    : 'text-white/40 border-transparent hover:text-white'
+                            }`}
                         >
                             {filter}
                         </button>
                     ))}
+
                 </div>
             </div>
 
-            {/* Grid Section */}
-            <div className="w-full bg-black py-16 px-4 md:px-16 flex justify-center">
+            {/* Artwork Grid */}
+            <div className="w-full bg-black py-16 px-4 md:px-16">
+
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 md:gap-x-10 lg:gap-x-16 gap-y-12 md:gap-y-20 w-full items-start">
-                    {paginatedArtworks.map((art) => (
+
+                    {displayedArtworks.map(art => (
                         <div
                             key={art._id}
                             onClick={() => setSelectedArt(art)}
                             className="flex flex-col group cursor-pointer"
                         >
 
-
+                            {/* Artwork Image */}
                             <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-white/5 border border-white/5 group-hover:border-[#FDDA2F]/40 transition-all shadow-2xl">
+
                                 <Image
                                     src={art.src}
-                                    alt={art.title}
+                                    alt={art.title || 'Artwork'}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 />
 
-                                {/* Overlay Hint */}
+                                {/* Hover Enquiry */}
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
-                                    <span className="text-white font-bold tracking-[0.3em] uppercase border border-white/50 px-8 py-3 text-xs text-center backdrop-blur-sm">Enquire</span>
+                                    <span className="text-white font-bold tracking-[0.3em] uppercase border border-white/50 px-8 py-3 text-xs text-center backdrop-blur-sm">
+                                        Enquire
+                                    </span>
                                 </div>
+
                             </div>
+
+                            {/* Artwork Title */}
                             <div className="flex flex-col items-center text-center px-2 mb-4 md:mb-3">
-                                <span className="text-[#FDDA2F] font-bold text-sm md:text-lg tracking-widest leading-tight uppercase group-hover:brightness-125 transition-all">{art.title}</span>
-                            </div>
-                            <div className="flex flex-col items-center text-center px-2">
-                                <span className="text-white/80 font-medium text-[10px] md:text-xs tracking-[0.2em] leading-tight uppercase">
-                                    {art.artistName} {art.year ? `(${art.year}, ${art.medium})` : `(${art.medium})`}
+                                <span className="text-[#FDDA2F] font-bold text-sm md:text-lg tracking-widest leading-tight uppercase group-hover:brightness-125 transition-all">
+                                    {art.title}
                                 </span>
                             </div>
+
+                            {/* Artist Name and Details */}
+                            <div className="flex flex-col items-center text-center px-2">
+                                <span className="text-white/80 font-medium text-[10px] md:text-xs tracking-[0.2em] leading-tight uppercase">
+                                    {art.artistName}{' '}
+                                    {art.year
+                                        ? `(${art.year}, ${art.medium})`
+                                        : `(${art.medium})`}
+                                </span>
+                            </div>
+
                         </div>
                     ))}
 
-                    {paginatedArtworks.length === 0 && (
+                    {/* Empty Catalogue Message */}
+                    {displayedArtworks.length === 0 && (
                         <div className="col-span-full py-40 text-center text-white/20 italic text-xs tracking-[0.3em] uppercase">
-                            No pieces found {selectedArtist !== 'all' ? `by ${selectedArtist}` : ''} in the {activeFilter !== 'all' ? activeFilter : 'collection'}.
+                            No pieces found{' '}
+                            {selectedArtist !== 'all'
+                                ? `by ${selectedArtist}`
+                                : ''}{' '}
+                            in the{' '}
+                            {activeFilter !== 'all'
+                                ? activeFilter
+                                : 'collection'}.
                         </div>
                     )}
+
                 </div>
+
+                {/* Infinite Scroll Trigger */}
                 {visibleCount < filteredArtworks.length && (
-    <div
-        ref={loadMoreRef}
-        className="w-full py-8 text-center text-white/40 text-xs uppercase tracking-widest"
-    >
-        Scroll to explore more
-    </div>
-)}
+                    <div
+                        ref={loadMoreRef}
+                        className="w-full py-12 text-center text-white/40 text-xs uppercase tracking-widest"
+                    >
+                        Scroll to explore more
+                    </div>
+                )}
+
+                {/* End of Catalogue */}
+                {filteredArtworks.length > 0 &&
+                    visibleCount >= filteredArtworks.length && (
+                        <div className="w-full py-12 text-center text-white/20 text-[10px] uppercase tracking-widest">
+                            You've reached the end of the collection
+                        </div>
+                    )}
+
             </div>
 
-            {totalPages > 1 && (
-                <div className="w-full bg-black flex justify-center items-center gap-6 pb-32">
-                    <button
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 1}
-                        className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#111] border border-white/10 flex items-center justify-center text-white hover:bg-[#B59431] hover:text-black transition-all disabled:opacity-20 disabled:hover:bg-[#111] disabled:hover:text-white"
-                    >
-                        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-                    </button>
-
-                    <div className="flex items-center gap-4">
-                        <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-[#B59431]">
-                            Page {currentPage} <span className="text-white/20 mx-2">/</span> {totalPages}
-                        </span>
-                    </div>
-
-                    <button
-                        onClick={handleNextPage}
-                        disabled={currentPage === totalPages}
-                        className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#111] border border-white/10 flex items-center justify-center text-white hover:bg-[#B59431] hover:text-black transition-all disabled:opacity-20 disabled:hover:bg-[#111] disabled:hover:text-white"
-                    >
-                        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-                    </button>
-                </div>
-            )}
-
+            {/* Contact Section */}
             <ContactSection />
 
-            {/* Shared Modal Overlay */}
+            {/* Enquiry Modal */}
             <EnquiryModal
                 isOpen={!!selectedArt}
                 onClose={() => setSelectedArt(null)}
                 artwork={selectedArt}
             />
+
         </main>
     );
 }
