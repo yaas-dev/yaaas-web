@@ -213,10 +213,16 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 />
 
+                                {art.isSold && (
+                                    <div className="absolute top-3 left-3 z-10 bg-[#c1a03a] text-black px-3 py-2 text-[10px] font-extrabold tracking-[0.2em] uppercase">
+                                        Sold
+                                    </div>
+                                )}
+
                                 {/* Overlay Hint */}
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
                                     <span className="text-white font-bold tracking-[0.3em] uppercase border border-white/50 px-8 py-3 text-xs text-center backdrop-blur-sm">
-                                        Enquire
+                                        {art.isSold ? 'Sold' : 'Enquire'}
                                     </span>
                                 </div>
                             </div>
