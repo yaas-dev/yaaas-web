@@ -57,7 +57,7 @@ export default function ContentsClient({ initialContents }: ContentsClientProps)
                             >
                                 <div className="flex items-center gap-4">
                                     <h2 className="text-2xl font-bold uppercase tracking-[0.4em] text-[#B59431]">Case Studies</h2>
-                                    <div className="flex-grow h-[1px] bg-white/10"></div>
+                                    <div className="flex-grow h-[1px] bg-black/10"></div>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                                     {filteredContents.map((content, index) => (
@@ -67,7 +67,7 @@ export default function ContentsClient({ initialContents }: ContentsClientProps)
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 viewport={{ once: true }}
                                                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                                                className="group flex flex-col h-full bg-white/60 border border-black/10 p-6 hover:bg-white/[0.05] transition-all rounded-sm"
+                                                className="group flex flex-col h-full bg-white/60 border border-black/10 p-6 hover:bg-[#B59431]/[0.08] transition-all rounded-sm"
                                             >
                                                 <div className="relative aspect-[4/3] overflow-hidden mb-6 grayscale group-hover:grayscale-0 transition-all duration-700 rounded-sm">
                                                     <Image
@@ -101,7 +101,7 @@ export default function ContentsClient({ initialContents }: ContentsClientProps)
                             animate={{ opacity: 1 }}
                             className="py-40 text-center flex flex-col items-center gap-6"
                         >
-                            <Search size={48} className="text-white/10" />
+                            <Search size={48} className="text-[#171717]/15" />
                             <p className="text-[#77746D] text-xl tracking-[0.3em] uppercase italic">
                                 No contents found for "{searchQuery}"
                             </p>
