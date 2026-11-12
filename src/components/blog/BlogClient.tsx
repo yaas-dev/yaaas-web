@@ -84,7 +84,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
                     </div>
                 ) : (
                     <div className="text-center py-32 flex flex-col items-center gap-6">
-                        <Search size={48} className="text-white/10" />
+                        <Search size={48} className="text-[#171717]/15" />
                         <p className="text-[#77746D] text-xl tracking-widest uppercase italic">No articles found matching "{searchQuery}"</p>
                         <button 
                             onClick={() => setSearchQuery('')}
@@ -101,7 +101,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
                         <button 
                             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                             disabled={currentPage === 1}
-                            className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center hover:bg-[#B59431] hover:text-black transition-all disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-white"
+                            className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center hover:bg-[#B59431] hover:text-black transition-all disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-[#171717]"
                         >
                             <ChevronLeft size={20} />
                         </button>
@@ -111,7 +111,7 @@ export default function BlogClient({ initialPosts }: BlogClientProps) {
                         <button 
                             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                             disabled={currentPage === totalPages}
-                            className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center hover:bg-[#B59431] hover:text-black transition-all disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-white"
+                            className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center hover:bg-[#B59431] hover:text-black transition-all disabled:opacity-20 disabled:hover:bg-transparent disabled:hover:text-[#171717]"
                         >
                             <ChevronRight size={20} />
                         </button>
