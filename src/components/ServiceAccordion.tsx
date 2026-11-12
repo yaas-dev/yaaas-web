@@ -44,7 +44,7 @@ export default function ServiceAccordion({
                 const panelId = `service-panel-${serviceId}`;
 
                 const Content = (
-                    <div className="overflow-hidden bg-black flex flex-col border-b border-white/10 last:border-b-0">
+                    <div className="overflow-hidden bg-[#171717] flex flex-col border-b border-black/10 last:border-b-0">
                         {/* Trigger Banner */}
                         <div
                             id={triggerId}
@@ -91,7 +91,7 @@ export default function ServiceAccordion({
                                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                                     style={{ overflow: "hidden" }}
                                 >
-                                    <div className="px-6 md:px-12 py-6 md:py-8 bg-[#111] relative overflow-hidden">
+                                    <div className="px-6 md:px-12 py-6 md:py-8 bg-[#24231F] relative overflow-hidden">
                                         {service.backgroundImage && (
                                             <div className="absolute inset-0 z-0">
                                                 <Image
