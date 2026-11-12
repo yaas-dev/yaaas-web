@@ -27,6 +27,7 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
         date: initialData?.date ? new Date(initialData.date).getUTCFullYear().toString() : '',
         medium: initialData?.medium || 'painting',
         externalLink: initialData?.externalLink || '',
+        isSold: initialData?.isSold || false,
     });
 
     useEffect(() => {
@@ -199,6 +200,16 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                                 <option value="event">Event</option>
                             </select>
                         </div>
+
+                        <label className="flex items-center gap-3 border border-white/10 bg-black p-4 cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={formData.isSold}
+                                onChange={(e) => setFormData({ ...formData, isSold: e.target.checked })}
+                                className="h-4 w-4 accent-[#B59431]"
+                            />
+                            <span className="text-white/70 text-xs uppercase tracking-widest font-bold">Mark as sold</span>
+                        </label>
 
                         <div className="flex flex-col gap-2">
                             <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">External Work Link</label>
