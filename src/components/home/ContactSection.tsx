@@ -44,9 +44,9 @@ export default function ContactSection() {
             id="contact"
             className="relative min-h-[50vh] w-full overflow-hidden flex flex-col justify-center pb-10"
             style={{
-                backgroundColor: "#080807",
+                backgroundColor: "#F1EFE8",
                 backgroundImage: `
-                    radial-gradient(circle at 50% 50%, rgba(28, 27, 22, 0.4) 0%, rgba(8, 8, 7, 1) 100%),
+                    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(241, 239, 232, 1) 100%),
                     url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231c1b16' fill-opacity='0.15'%3E%3Cpath d='M30 60C13.431 60 0 46.569 0 30S13.431 0 30 0s30 13.431 30 30-13.431 30-30 30zM30 4C15.64 4 4 15.64 4 30s11.64 26 26 26 26-11.64 26-26S44.36 4 30 4zm0 46c-11.046 0-20-8.954-20-20S18.954 10 30 10s20 8.954 20 20-8.954 20-20 20zm0-4C21.163 46 14 38.837 14 30s7.163-16 16-16 16 7.163 16 16-7.163 16-16 16zm0-4c-6.627 0-12-5.373-12-12s5.373-12 12-12 12 5.373 12 12-5.373 12-12 12zm0-4c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm0-4c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
                 `,
                 backgroundSize: '100% 100%, 80px 80px',
@@ -57,7 +57,7 @@ export default function ContactSection() {
 
                 {/* Header Section */}
                 <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
-                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-white mb-2 ml-[10%]">
+                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
                         CONTACT US
                     </h2>
                     <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
@@ -65,7 +65,7 @@ export default function ContactSection() {
 
                 <div className="w-full px-6 md:px-12 relative z-20">
                     <div className="mb-16 md:mb-24">
-                        <p className="text-[#e0e0e0] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full">
+                        <p className="text-[#55534E] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full">
                             Whether you are looking for representation, a new addition to your collection, or a creative partnership, we are here to connect. Reach out and let's start the conversation.
                         </p>
                     </div>
@@ -77,7 +77,7 @@ export default function ContactSection() {
                             <div className="space-y-12">
                                 <div>
                                     <span className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-3 block">General Inquiries</span>
-                                    <p className="text-white text-xl md:text-2xl font-light tracking-wide">hello@yaaas.co</p>
+                                    <p className="text-[#171717] text-xl md:text-2xl font-light tracking-wide">hello@yaaas.co</p>
                                 </div>
 
                             </div>
@@ -103,7 +103,7 @@ export default function ContactSection() {
                                                 name="name"
                                                 type="text"
                                                 placeholder="John Doe"
-                                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
+                                                className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#999]"
                                             />
                                         </div>
                                         <div className="flex flex-col">
@@ -113,12 +113,12 @@ export default function ContactSection() {
                                                 name="email"
                                                 type="email"
                                                 placeholder="john@example.com"
-                                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#333]"
+                                                className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors placeholder:text-[#999]"
                                             />
                                         </div>
                                         <div className="flex flex-col">
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Subject</label>
-                                            <select name="subject" className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
+                                            <select name="subject" className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors appearance-none cursor-pointer">
                                                 <option className="bg-black">General Inquiry</option>
                                                 <option className="bg-black">Art Acquisition</option>
                                                 <option className="bg-black">Representation</option>
@@ -132,7 +132,7 @@ export default function ContactSection() {
                                                 name="message"
                                                 rows={4}
                                                 placeholder="How can we help?"
-                                                className="w-full bg-transparent border-b border-[#333] text-white py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#333]"
+                                                className="w-full bg-transparent border-b border-[#333] text-[#171717] py-3 focus:outline-none focus:border-[#d8b511] transition-colors resize-none placeholder:text-[#999]"
                                             />
                                         </div>
 
@@ -148,10 +148,10 @@ export default function ContactSection() {
                                         key="success"
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
-                                        className="h-full flex flex-col items-center justify-center text-center py-20 border border-white/5 bg-white/5 rounded-sm"
+                                        className="h-full flex flex-col items-center justify-center text-center py-20 border border-black/10 bg-white/60 rounded-sm"
                                     >
                                         <h3 className="text-3xl md:text-4xl font-serif italic font-bold mb-6 text-[#d8b511] tracking-tight">VISION ACKNOWLEDGED</h3>
-                                        <p className="text-[#e0e0e0] font-light text-sm tracking-[0.3em] leading-loose max-w-sm mb-12 uppercase">
+                                        <p className="text-[#55534E] font-light text-sm tracking-[0.3em] leading-loose max-w-sm mb-12 uppercase">
                                             Resonance expected within <br />
                                             24 solar hours.
                                         </p>
