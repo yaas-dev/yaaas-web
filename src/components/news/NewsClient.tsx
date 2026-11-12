@@ -10,9 +10,9 @@ interface NewsClientProps {
 export default function NewsClient({ newsPosts }: NewsClientProps) {
     if (!newsPosts || newsPosts.length === 0) {
         return (
-            <div className="pt-32 pb-24 container mx-auto px-4 min-h-screen bg-background text-white flex flex-col items-center justify-center">
+            <div className="pt-32 pb-24 container mx-auto px-4 min-h-screen bg-[#F1EFE8] text-[#171717] flex flex-col items-center justify-center">
                 <h1 className="text-4xl md:text-6xl font-bold tracking-[0.2em] uppercase mb-8">Latest News</h1>
-                <p className="text-white/20 italic uppercase tracking-widest">No news articles published yet.</p>
+                <p className="text-[#99958B] italic uppercase tracking-widest">No news articles published yet.</p>
             </div>
         );
     }
@@ -21,19 +21,19 @@ export default function NewsClient({ newsPosts }: NewsClientProps) {
     const others = newsPosts.slice(1);
 
     return (
-        <div className="pt-24 md:pt-32 pb-24 max-w-[1400px] mx-auto px-4 min-h-screen bg-background text-white">
+        <div className="pt-24 md:pt-32 pb-24 max-w-[1400px] mx-auto px-4 min-h-screen bg-[#F1EFE8] text-[#171717]">
             <div className="mb-16 md:mb-24">
                 <div className="section-title mb-8">
                     <h1 className="text-4xl md:text-6xl font-bold tracking-[0.2em] uppercase">Latest News</h1>
                 </div>
-                <p className="text-[#999999] text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium max-w-2xl">
+                <p className="text-[#77746D] text-[10px] md:text-xs uppercase tracking-[0.3em] font-medium max-w-2xl">
                     Deep dives into the creative process, agency updates, and visionary insights.
                 </p>
             </div>
 
             {/* Featured Post */}
             <section className="mb-20 md:mb-32">
-                <Link href={`/news/${featured._id}`} className="group relative block aspect-[4/3] md:aspect-[21/9] overflow-hidden bg-black/40 border border-white/5">
+                <Link href={`/news/${featured._id}`} className="group relative block aspect-[4/3] md:aspect-[21/9] overflow-hidden bg-black/40 border border-black/10">
                     <img
                         src={featured.image}
                         alt={featured.title}
@@ -41,11 +41,11 @@ export default function NewsClient({ newsPosts }: NewsClientProps) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 max-w-4xl">
-                        <span className="text-[#FDDA2F] text-[9px] md:text-[10px] font-bold uppercase tracking-[0.4em] mb-3 md:mb-4 block">{featured.category} / {new Date(featured.date).toLocaleDateString()}</span>
-                        <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 italic font-serif leading-tight group-hover:text-[#FDDA2F] transition-colors uppercase tracking-tight">
+                        <span className="text-[#B59431] text-[9px] md:text-[10px] font-bold uppercase tracking-[0.4em] mb-3 md:mb-4 block">{featured.category} / {new Date(featured.date).toLocaleDateString()}</span>
+                        <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 italic font-serif leading-tight group-hover:text-[#B59431] transition-colors uppercase tracking-tight">
                             {featured.title}
                         </h2>
-                        <p className="text-xs md:text-lg text-[#999999] max-w-2xl line-clamp-2 md:line-clamp-none">
+                        <p className="text-xs md:text-lg text-[#77746D] max-w-2xl line-clamp-2 md:line-clamp-none">
                             {featured.blurb}
                         </p>
                     </div>
@@ -56,22 +56,22 @@ export default function NewsClient({ newsPosts }: NewsClientProps) {
             <section className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
                 {others.map((post) => (
                     <Link key={post._id} href={`/news/${post._id}`} className="group">
-                        <div className="aspect-[16/10] overflow-hidden mb-6 md:mb-8 bg-black/40 border border-white/5">
+                        <div className="aspect-[16/10] overflow-hidden mb-6 md:mb-8 bg-black/40 border border-black/10">
                             <img
                                 src={post.image}
                                 alt={post.title}
                                 className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105"
                             />
                         </div>
-                        <span className="text-[#FDDA2F] text-[10px] font-bold uppercase tracking-[0.4em] mb-3 block">{post.category} — {new Date(post.date).toLocaleDateString()}</span>
-                        <h3 className="text-xl md:text-2xl font-bold mb-4 group-hover:text-[#FDDA2F] transition-colors leading-snug uppercase tracking-tight italic font-serif">
+                        <span className="text-[#B59431] text-[10px] font-bold uppercase tracking-[0.4em] mb-3 block">{post.category} — {new Date(post.date).toLocaleDateString()}</span>
+                        <h3 className="text-xl md:text-2xl font-bold mb-4 group-hover:text-[#B59431] transition-colors leading-snug uppercase tracking-tight italic font-serif">
                             {post.title}
                         </h3>
-                        <p className="text-[#999999] text-sm leading-relaxed line-clamp-3">
+                        <p className="text-[#77746D] text-sm leading-relaxed line-clamp-3">
                             {post.blurb}
                         </p>
                         <div className="mt-6 md:mt-8">
-                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold border-b border-[#FDDA2F]/20 pb-1 group-hover:border-[#FDDA2F] transition-all">Read Full Article</span>
+                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold border-b border-[#B59431]/20 pb-1 group-hover:border-[#B59431] transition-all">Read Full Article</span>
                         </div>
                     </Link>
                 ))}
