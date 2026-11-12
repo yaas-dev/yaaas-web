@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -6,26 +7,44 @@ import { ChevronLeft } from 'lucide-react';
 import { getNewsPostById } from '@/actions/newsActions';
 import NewsContent from '@/components/news/NewsContent';
 
-export default async function SingleNewsPage({ params }: { params: Promise<{ id: string }> }) {
+type Props = { params: Promise<{ id: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id } = await params;
+    const article = await getNewsPostById(id);
+    if (!article) return { title: 'Article not found', robots: { index: false, follow: false } };
+
+    const description = (article.contentBlurb || article.fullContent || article.title)
+        .replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 155);
+
+    return {
+        title: article.title,
+        description,
+        alternates: { canonical: `/news/${id}` },
+        openGraph: {
+            type: 'article',
+            title: article.title,
+            description,
+            images: article.image ? [{ url: article.image, alt: article.title }] : undefined,
+            publishedTime: article.createdAt ? new Date(article.createdAt).toISOString() : undefined,
+        },
+    };
+}
+
+export default async function SingleNewsPage({ params }: Props) {
     const { id } = await params;
     const article = await getNewsPostById(id);
 
-    if (!article) {
-        notFound();
-    }
+    if (!article) notFound();
 
     return (
         <main className="min-h-screen bg-black flex flex-col pt-40 pb-32 font-sans text-white">
-
-            {/* Top Back Navigation */}
             <div className="w-full max-w-[1000px] mx-auto px-6 md:px-12 pt-8 mb-6">
                 <Link href="/blog" className="inline-flex items-center text-[#FDDA2F] font-bold tracking-widest text-xs uppercase hover:text-white transition-colors">
                     <ChevronLeft size={16} className="mr-2" />
                     Back to Blog
                 </Link>
             </div>
-
-            {/* Article Header */}
             <article className="w-full max-w-[1000px] mx-auto px-6 md:px-12">
                 <header className="mb-10">
                     <div className="flex items-center gap-3 mb-6">
@@ -33,27 +52,13 @@ export default async function SingleNewsPage({ params }: { params: Promise<{ id:
                         <div className="w-1 h-1 rounded-full bg-[#FDDA2F]"></div>
                         <span className="text-[#FDDA2F] text-[10px] md:text-xs font-bold tracking-widest uppercase">{article.date}</span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#FDDA2F] tracking-wide leading-tight max-w-4xl mb-12">
-                        {article.title}
-                    </h1>
-
-                    {/* Hero Image */}
+                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#FDDA2F] tracking-wide leading-tight max-w-4xl mb-12">{article.title}</h1>
                     <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-sm border border-white/10 mb-16 shadow-2xl">
-                        <Image
-                            src={article.image}
-                            alt={article.title}
-                            fill
-                            className="object-cover"
-                            priority
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1000px"
-                        />
+                        <Image src={article.image} alt={article.title} fill className="object-cover" priority sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1000px" />
                     </div>
                 </header>
-
-                {/* Article Body Content */}
                 <NewsContent content={article.fullContent} />
             </article>
         </main>
     );
 }
-
