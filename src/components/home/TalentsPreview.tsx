@@ -34,26 +34,26 @@ export default function TalentsPreview({ initialTalents = [], settings }: Talent
     }, [initialTalents, settings]);
 
     return (
-        <section id="talents" className="lg:min-h-screen bg-[#F1EFE8] overflow-hidden flex flex-col justify-center">
-            <div className="flex flex-col w-full mx-auto">
+        <section id="talents" className="bg-[#F1EFE8] py-14 md:py-20 overflow-hidden">
+            <div className="mx-auto max-w-7xl px-5 md:px-8">
 
                 {/* Section Header */}
-                <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
-                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
+                <div className="w-full relative mb-6 md:mb-8">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-[0.1em] uppercase text-[#171717] mb-2">
                         YAAAS CREATIVES
                     </h2>
-                    <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
+                    <div className="w-20 h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
                 {/* Talents Grid */}
-                <div className="grid grid-cols-2 gap-4 md:gap-8 px-4 md:px-10 lg:px-20 mb-8 flex-1 min-h-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     {talents.map((talent, index) => {
                         const Icon = talent.icon;
                         return (
                             <Link
                                 key={index}
                                 href={talent.href}
-                                className="group relative w-full h-[40vh] md:h-[60vh] lg:h-[75vh] min-h-[300px] overflow-hidden rounded-2xl block shadow-xl border border-white/5 bg-[#111]"
+                                className="group relative w-full aspect-[4/3] sm:aspect-[5/4] max-h-[440px] min-h-[260px] overflow-hidden rounded-lg block shadow-sm border border-black/5 bg-[#111]"
                             >
                                 <Image
                                     src={talent.image}
@@ -78,7 +78,7 @@ export default function TalentsPreview({ initialTalents = [], settings }: Talent
 
                                 {/* Category Text */}
                                 <div className="absolute inset-0 flex items-center justify-center p-4 z-20">
-                                    <h3 className="text-[#FDDA2F] text-sm sm:text-xl md:text-2xl font-black tracking-[0.25em] text-center uppercase drop-shadow-md">
+                                    <h3 className="text-[#FDDA2F] text-sm sm:text-xl md:text-2xl font-black tracking-[0.18em] text-center uppercase drop-shadow-md">
                                         {talent.title}
                                     </h3>
                                 </div>
