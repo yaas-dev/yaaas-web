@@ -1,10 +1,12 @@
 import Hero from "@/components/home/Hero";
 import TalentsPreview from "@/components/home/TalentsPreview";
+import UpcomingEvents from "@/components/home/UpcomingEvents";
 import ContactSection from "@/components/home/ContactSection";
 import AboutSection from "@/components/home/AboutSection";
 import ContentGallery from "@/components/home/ContentGallery";
 import ArtCatalogueSection from "@/components/home/ArtCatalogueSection";
 import BlogSection from "@/components/home/BlogSection";
+import WelcomePopup from "@/components/shared/WelcomePopup";
 import { getProjects } from "@/actions/projectActions";
 import { getArtworks } from "@/actions/catalogueActions";
 import { getNewsPosts } from "@/actions/newsActions";
@@ -23,7 +25,7 @@ export default async function Home() {
   ]);
 
   return (
-    <div>
+    <div className="">
       <Hero settings={settings} />
       <AboutSection services={services} settings={settings} />
       <TalentsPreview initialTalents={talents} settings={settings} />
@@ -31,6 +33,7 @@ export default async function Home() {
       <ArtCatalogueSection artworks={artworks} settings={settings} />
       <BlogSection newsPosts={news} settings={settings} />
       <ContactSection settings={settings} />
+      {/* <WelcomePopup /> */}
     </div>
   );
 }
