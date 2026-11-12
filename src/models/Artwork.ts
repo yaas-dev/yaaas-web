@@ -9,6 +9,7 @@ export interface IArtwork extends Document {
     year: string;
     date?: Date;
     externalLink?: string;
+    isSold: boolean;
 }
 
 const ArtworkSchema: Schema = new Schema({
@@ -25,6 +26,7 @@ const ArtworkSchema: Schema = new Schema({
         default: 'painting'
     },
     externalLink: { type: String, default: '' },
+    isSold: { type: Boolean, default: false },
 }, { timestamps: true });
 
 // Check if the model exists and delete it to force reload with new schema in development
