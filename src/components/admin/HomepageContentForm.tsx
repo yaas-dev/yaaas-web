@@ -43,6 +43,17 @@ const GROUPS = [
         ],
     },
     {
+        title: "Upcoming Events",
+        description: "The events section heading, introduction and gallery link on the homepage.",
+        fields: [
+            { key: "eventsEyebrow", label: "Eyebrow", fallback: "What's On" },
+            { key: "eventsTitle", label: "Section title", fallback: "UPCOMING EVENTS" },
+            { key: "eventsDescription", label: "Intro paragraph", fallback: "Our previous work includes curating for Papi Wata, Mr Eazi and more.", multiline: true },
+            { key: "eventsCta", label: "Button text", fallback: "VIEW FULL GALLERY" },
+            { key: "eventsCtaLink", label: "Button link", fallback: "/gallery" },
+        ],
+    },
+    {
         title: "Art Catalogue",
         description: "The catalogue section heading and button.",
         fields: [
@@ -56,17 +67,6 @@ const GROUPS = [
         fields: [
             { key: "journalTitle", label: "Section title", fallback: "BLOG" },
             { key: "journalCta", label: "Link text", fallback: "View All Blogs" },
-        ],
-    },
-    {
-        title: "Upcoming Events",
-        description: "The events section heading, introduction and gallery link on the homepage.",
-        fields: [
-            { key: "eventsEyebrow", label: "Eyebrow", fallback: "What's On" },
-            { key: "eventsTitle", label: "Section title", fallback: "UPCOMING EVENTS" },
-            { key: "eventsDescription", label: "Intro paragraph", fallback: "Our previous work includes curating for Papi Wata, Mr Eazi and more.", multiline: true },
-            { key: "eventsCta", label: "Button text", fallback: "VIEW FULL GALLERY" },
-            { key: "eventsCtaLink", label: "Button link", fallback: "/gallery" },
         ],
     },
     {
