@@ -49,14 +49,14 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
                     <div className="flex flex-wrap gap-4">
                         <button
                             onClick={() => setActiveFilter('ALL')}
-                            className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'ALL' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-white border border-white/30 hover:border-[#B59431]'}`}
+                            className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'ALL' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-[#171717] border border-black/20 hover:border-[#B59431]'}`}
                         >
                             All
                         </button>
                         {initialTalents.some(t => t.category === 'VISUAL') && (
                             <button
                                 onClick={() => setActiveFilter('VISUAL')}
-                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'VISUAL' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-white border border-white/30 hover:border-[#B59431]'}`}
+                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'VISUAL' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-[#171717] border border-black/20 hover:border-[#B59431]'}`}
                             >
                                 Visual
                             </button>
@@ -64,7 +64,7 @@ function TalentsContent({ initialTalents }: TalentsClientProps) {
                         {initialTalents.some(t => t.category === 'SONIC') && (
                             <button
                                 onClick={() => setActiveFilter('SONIC')}
-                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'SONIC' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-white border border-white/30 hover:border-[#B59431]'}`}
+                                className={`text-[10px] md:text-xs font-bold tracking-[0.2em] px-8 py-3 uppercase transition-all min-w-[100px] ${activeFilter === 'SONIC' ? 'bg-[#B59431] text-black border border-[#B59431]' : 'bg-transparent text-[#171717] border border-black/20 hover:border-[#B59431]'}`}
                             >
                                 Sonic
                             </button>
