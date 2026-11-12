@@ -34,12 +34,12 @@ export default function TalentsPreview({ initialTalents = [], settings }: Talent
     }, [initialTalents, settings]);
 
     return (
-        <section id="talents" className="lg:min-h-screen bg-black overflow-hidden flex flex-col justify-center">
+        <section id="talents" className="lg:min-h-screen bg-[#F1EFE8] overflow-hidden flex flex-col justify-center">
             <div className="flex flex-col w-full mx-auto">
 
                 {/* Section Header */}
                 <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
-                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-white mb-2 ml-[10%]">
+                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
                         YAAAS CREATIVES
                     </h2>
                     <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
