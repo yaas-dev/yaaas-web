@@ -76,7 +76,7 @@ const ArtCatalogue = ({ initialArtworks = [] }: ArtCatalogueProps) => {
     }
 
     return (
-        <div className="bg-black overflow-hidden relative flex flex-col justify-center w-full h-[520px] group">
+        <div className="bg-[#F1EFE8] overflow-hidden relative flex flex-col justify-center w-full h-[520px] group">
 
             {/* Stacked Gallery Container */}
             <div className="relative w-full md:max-w-[1200px] mx-auto flex items-center justify-center h-[280px] md:h-[520px]">
