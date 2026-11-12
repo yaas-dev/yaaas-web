@@ -1,3 +1,7 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Creative Strategy, Artist Representation & Cultural Programming", description: "Explore YAAAS services: brand and creative strategy, artist development and representation, and experiential cultural programming.", alternates: { canonical: "/services" } };
+
 import React from "react";
 import ServicesClient from "@/components/services/ServicesClient";
 import { getServices } from "@/actions/serviceActions";
