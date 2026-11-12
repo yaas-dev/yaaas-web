@@ -42,28 +42,28 @@ export default function ContactSection() {
     return (
         <section
             id="contact"
-            className="relative min-h-[50vh] w-full overflow-hidden flex flex-col justify-center pb-10"
+            className="relative w-full overflow-hidden flex flex-col justify-center py-14 md:py-20"
             style={{ backgroundColor: "#F1EFE8" }}
 
         >
             <div>
 
                 {/* Header Section */}
-                <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
-                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-bold tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
+                <div className="w-full relative mb-6 md:mb-8">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-[0.1em] uppercase text-[#171717] mb-2">
                         CONTACT US
                     </h2>
-                    <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
+                    <div className="w-20 h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
-                <div className="w-full px-6 md:px-12 relative z-20">
-                    <div className="mb-16 md:mb-24">
-                        <p className="text-[#55534E] font-light text-sm md:text-[24px] leading-8 tracking-wide w-full">
+                <div className="mx-auto max-w-7xl w-full px-5 md:px-8 relative z-20">
+                    <div className="mb-8 md:mb-12 max-w-3xl">
+                        <p className="text-[#55534E] font-light text-base md:text-lg leading-relaxed tracking-wide w-full">
                             Whether you are looking for representation, a new addition to your collection, or a creative partnership, we are here to connect. Reach out and let's start the conversation.
                         </p>
                     </div>
 
-                    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+                    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
 
                         {/* Left Column: Information */}
                         <div>
@@ -87,7 +87,7 @@ export default function ContactSection() {
                                         exit={{ opacity: 0, x: -20 }}
                                         transition={{ duration: 0.6 }}
                                         onSubmit={handleSubmit}
-                                        className="flex flex-col gap-4 md:gap-12 w-full max-w-xl"
+                                        className="flex flex-col gap-5 md:gap-7 w-full max-w-xl"
                                     >
                                         <div className="flex flex-col">
                                             <label className="text-[#d8b511] text-xs font-bold tracking-widest uppercase mb-2">Full Name</label>
