@@ -1,12 +1,10 @@
 import Hero from "@/components/home/Hero";
 import TalentsPreview from "@/components/home/TalentsPreview";
-import UpcomingEvents from "@/components/home/UpcomingEvents";
 import ContactSection from "@/components/home/ContactSection";
 import AboutSection from "@/components/home/AboutSection";
 import ContentGallery from "@/components/home/ContentGallery";
 import ArtCatalogueSection from "@/components/home/ArtCatalogueSection";
 import BlogSection from "@/components/home/BlogSection";
-import WelcomePopup from "@/components/shared/WelcomePopup";
 import { getProjects } from "@/actions/projectActions";
 import { getArtworks } from "@/actions/catalogueActions";
 import { getNewsPosts } from "@/actions/newsActions";
@@ -15,7 +13,6 @@ import { getServices } from "@/actions/serviceActions";
 import { getTalents } from "@/actions/talentActions";
 
 export default async function Home() {
-  // Fetch live data from MongoDB
   const [contents, artworks, news, settings, services, talents] = await Promise.all([
     getProjects(),
     getArtworks(),
@@ -26,15 +23,14 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="">
+    <div>
       <Hero settings={settings} />
-      <AboutSection services={services} />
+      <AboutSection services={services} settings={settings} />
       <TalentsPreview initialTalents={talents} settings={settings} />
-      <ContentGallery contents={contents} />
-      <ArtCatalogueSection artworks={artworks} />
-      <BlogSection newsPosts={news} />
-      <ContactSection />
-      {/* <WelcomePopup /> */}
+      <ContentGallery contents={contents} settings={settings} />
+      <ArtCatalogueSection artworks={artworks} settings={settings} />
+      <BlogSection newsPosts={news} settings={settings} />
+      <ContactSection settings={settings} />
     </div>
   );
 }
