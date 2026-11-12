@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ArtCatalogue from '@/components/home/ArtCatalogue';
 import EnquiryModal from '@/components/shared/EnquiryModal';
 import ContactSection from '../home/ContactSection';
 
@@ -16,7 +14,8 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
     const [activeFilter, setActiveFilter] = useState<string>('all');
     const [selectedArtist, setSelectedArtist] = useState<string>('all');
     const [sortBy, setSortBy] = useState<string>('newest');
-    const [currentPage, setCurrentPage] = useState(1);
+    const [visibleCount, setVisibleCount] = useState(12);
+    const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
     const ITEMS_PER_PAGE = 12;
 
@@ -67,11 +66,29 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
 
     // Reset to page 1 when filter or sort changes
     React.useEffect(() => {
-        setCurrentPage(1);
-    }, [activeFilter, selectedArtist, sortBy]);
+    setVisibleCount(ITEMS_PER_PAGE);
+}, [activeFilter, selectedArtist, sortBy]);
 
-    const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
-    const handleNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
+React.useEffect(() => {
+    if (visibleCount >= filteredArtworks.length) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            if (entries[0].isIntersecting) {
+                setVisibleCount(prev =>
+                    Math.min(prev + ITEMS_PER_PAGE, filteredArtworks.length)
+                );
+            }
+        },
+        { rootMargin: '300px' }
+    );
+
+    const currentElement = loadMoreRef.current;
+
+    if (currentElement) observer.observe(currentElement);
+
+    return () => observer.disconnect();
+}, [visibleCount, filteredArtworks.length]);
 
     return (
         <main className="min-h-screen bg-black flex flex-col pt-32 font-sans">
@@ -174,9 +191,16 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                         </div>
                     )}
                 </div>
+                {visibleCount < filteredArtworks.length && (
+    <div
+        ref={loadMoreRef}
+        className="w-full py-8 text-center text-white/40 text-xs uppercase tracking-widest"
+    >
+        Scroll to explore more
+    </div>
+)}
             </div>
 
-            {/* Pagination Controls */}
             {totalPages > 1 && (
                 <div className="w-full bg-black flex justify-center items-center gap-6 pb-32">
                     <button
