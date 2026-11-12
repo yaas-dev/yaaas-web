@@ -46,18 +46,18 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
     ));
 
     return (
-        <section id="blog" className="py-24 md:py-32 bg-[#F7F6F1] overflow-hidden flex flex-col justify-center">
-            <div className="flex flex-col h-full w-full mx-auto">
+        <section id="blog" className="py-14 md:py-20 bg-[#F7F6F1] overflow-hidden">
+            <div className="mx-auto max-w-7xl w-full px-5 md:px-8">
                 {/* Section Header */}
-                <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
-                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
+                <div className="w-full relative mb-6 md:mb-8">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-[0.1em] uppercase text-[#171717] mb-2">
                         BLOG
                     </h2>
-                    <div className="w-[75%] md:w-[32%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
+                    <div className="w-20 h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
                 {/* News Carousel */}
-                <div className="w-full h-[60vh] min-h-[450px] md:h-[70vh] relative">
+                <div className="w-full h-[420px] md:h-[480px] relative">
                     {newsPosts.length > 0 ? (
                         <Carousel
                             items={blogSlides}
@@ -74,7 +74,7 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
                 </div>
                 <Link
                     href={`/blog`}
-                    className="group flex items-center justify-end gap-3 mr-4 mt-4"
+                    className="group flex items-center justify-end gap-3 mt-5"
                 >
                     <span className="text-[#171717] text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">
                         View All Blogs
