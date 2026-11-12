@@ -185,7 +185,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                             className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all pb-2 border-b-2 ${
                                 activeFilter === filter
                                     ? 'text-[#B59431] border-[#B59431]'
-                                    : 'text-[#77746D] border-transparent hover:text-white'
+                                    : 'text-[#77746D] border-transparent hover:text-[#171717]'
                             }`}
                         >
                             {filter}
