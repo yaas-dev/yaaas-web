@@ -12,25 +12,25 @@ interface ArtCatalogueSectionProps {
 
 export default function ArtCatalogueSection({ artworks = [] }: ArtCatalogueSectionProps) {
     return (
-        <section id="catalogue-section" className="min-h-[90vh] bg-[#F1EFE8] overflow-hidden flex flex-col justify-center relative py-6 md:py-10">
-            <div className="flex flex-col h-full w-full mx-auto justify-between">
+        <section id="catalogue-section" className="bg-[#F1EFE8] overflow-hidden relative py-14 md:py-20">
+            <div className="mx-auto max-w-7xl w-full px-5 md:px-8">
 
                 {/* Section Header */}
-                <div className="w-full relative pt-0 mb-4 md:mb-6 z-50">
-                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
+                <div className="w-full relative mb-6 md:mb-8">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-[0.1em] uppercase text-[#171717] mb-2">
                         ART CATALOGUE
                     </h2>
-                    <div className="w-[75%] md:w-[30%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
+                    <div className="w-20 h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
 
                 {/* The 3D rotating carousel */}
-                <div className="flex-1 flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <ArtCatalogue initialArtworks={artworks} />
                 </div>
 
                 <Link
                     href={`/catalogue`}
-                    className="group flex items-center bg-[#171717] hover:bg-[#B59431] transition-colors p-4 rounded-md justify-center gap-3 mx-auto mb-4"
+                    className="group inline-flex items-center bg-[#171717] hover:bg-[#B59431] transition-colors px-6 py-3 rounded-md justify-center gap-3 mx-auto mt-4"
                 >
                     <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover:text-white transition-colors">
                         Explore Catalogue
