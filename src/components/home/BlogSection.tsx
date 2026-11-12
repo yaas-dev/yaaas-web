@@ -13,7 +13,7 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
     if (!newsPosts || newsPosts.length === 0) return null;
 
     const blogSlides = newsPosts.slice(0, 5).map((post) => (
-        <Link href={`/news/${post._id}`} key={post._id} className="w-full h-full flex flex-col md:flex-row gap-6 lg:gap-12 items-center bg-[#0d0d0c] rounded-2xl overflow-hidden border border-white/5">
+        <Link href={`/news/${post._id}`} key={post._id} className="w-full h-full flex flex-col md:flex-row gap-6 lg:gap-12 items-center bg-white rounded-2xl overflow-hidden border border-black/10 shadow-sm">
             {/* Image Side */}
             <div className="w-full md:w-1/2 h-[250px] md:h-full relative overflow-hidden group">
                 <Image
@@ -34,11 +34,11 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
                     </span>
                 </div>
 
-                <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-playfair font-bold mb-6 leading-tight uppercase tracking-widest">
+                <h3 className="text-[#171717] text-2xl md:text-3xl lg:text-4xl font-playfair font-bold mb-6 leading-tight uppercase tracking-widest">
                     {post.title}
                 </h3>
 
-                <p className="text-gray-400 text-sm md:text-base tracking-wide leading-relaxed mb-10 max-w-lg line-clamp-3">
+                <p className="text-[#66635D] text-sm md:text-base tracking-wide leading-relaxed mb-10 max-w-lg line-clamp-3">
                     {post.contentBlurb}
                 </p>
             </div>
@@ -46,11 +46,11 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
     ));
 
     return (
-        <section id="blog" className="py-24 md:py-32 bg-black overflow-hidden flex flex-col justify-center">
+        <section id="blog" className="py-24 md:py-32 bg-[#F7F6F1] overflow-hidden flex flex-col justify-center">
             <div className="flex flex-col h-full w-full mx-auto">
                 {/* Section Header */}
                 <div className="w-full relative pt-4 md:pt-8 mb-8 md:mb-12 z-50">
-                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-white mb-2 ml-[10%]">
+                    <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%]">
                         BLOG
                     </h2>
                     <div className="w-[75%] md:w-[32%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
@@ -67,7 +67,7 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
                             showDots={true}
                         />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center text-white/20 italic uppercase tracking-widest text-xs border border-white/5 rounded-2xl mx-10">
+                        <div className="w-full h-full flex items-center justify-center text-black/30 italic uppercase tracking-widest text-xs border border-black/10 rounded-2xl mx-10">
                             No news posts available yet.
                         </div>
                     )}
@@ -76,10 +76,10 @@ export default function BlogSection({ newsPosts = [] }: BlogSectionProps) {
                     href={`/blog`}
                     className="group flex items-center justify-end gap-3 mr-4 mt-4"
                 >
-                    <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">
+                    <span className="text-[#171717] text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">
                         View All Blogs
                     </span>
-                    <span className="group-hover:translate-x-1 transition-transform text-white text-xs uppercase tracking-[0.2em] font-bold">→</span>
+                    <span className="group-hover:translate-x-1 transition-transform text-[#171717] text-xs uppercase tracking-[0.2em] font-bold">→</span>
                 </Link>
             </div>
         </section>
