@@ -18,7 +18,7 @@ const AboutSection = () => {
                             </div>
 
                             <p className="text-lg md:text-xl lg:text-2xl text-[#55534E] leading-relaxed font-normal max-w-2xl ml-[10%] md:ml-[20%] pr-6">
-                                Welcome to Yaaas, We are a culture-forward creative agency committed to amplifying African creativity through tailored representation and strategic growth for a curated roster of African talent.
+                                YAAAS is an independent African creative agency working across contemporary art, artist representation and cultural programming. We represent visual and sonic artists, build creative brands, and develop exhibitions, cultural experiences and partnerships that connect African talent with audiences and opportunities across the continent and diaspora.
                             </p>
                         </div>
                     </div>
