@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const AboutSection = () => {
     return (
-        <section className="relative w-full bg-black text-white lg:min-h-screen overflow-hidden flex items-center justify-center py-16 md:py-24">
+        <section className="relative w-full bg-[#F7F6F1] text-[#171717] lg:min-h-screen overflow-hidden flex items-center justify-center py-16 md:py-24">
             <div className="w-full relative z-10">
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-4">
                     {/* Left Content Column */}
@@ -49,13 +49,13 @@ const AboutSection = () => {
                         {/* Text Content */}
                         <div className="relative z-10 w-full">
                             <div className="w-full relative mb-6 md:mb-8 z-50">
-                                <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-white mb-2 ml-[10%] md:ml-[15%]">
+                                <h2 className="text-2xl md:text-4xl lg:text-[44px] font-normal tracking-[0.15em] uppercase text-[#171717] mb-2 ml-[10%] md:ml-[15%]">
                                     WE ARE YAAAS
                                 </h2>
                                 <div className="w-[75%] md:w-[50%] h-[4px] md:h-[6px] bg-[#B59431]"></div>
                             </div>
 
-                            <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed font-normal max-w-2xl ml-[10%] md:ml-[20%] pr-6">
+                            <p className="text-lg md:text-xl lg:text-2xl text-[#55534E] leading-relaxed font-normal max-w-2xl ml-[10%] md:ml-[20%] pr-6">
                                 Welcome to Yaaas, We are a culture-forward creative agency committed to amplifying African creativity through tailored representation and strategic growth for a curated roster of African talent.
                             </p>
                         </div>
