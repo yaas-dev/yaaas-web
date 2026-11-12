@@ -8,44 +8,6 @@ const AboutSection = () => {
                 <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-4">
                     {/* Left Content Column */}
                     <div className="w-full lg:w-[55%] md:h-[60vh] flex flex-col items-start justify-center text-left relative py-8 px-4 md:px-0">
-                        {/* Background pattern - Strictly behind text area only */}
-                        {/* Background pattern - Sitting on each other vertically with no spacing */}
-                        <div className="absolute inset-0 z-0 flex flex-col pointer-events-none opacity-[0.09]">
-                            <div
-                                className="w-full flex-1"
-                                style={{
-                                    backgroundImage: 'url("/images/hero_2.png")',
-                                    backgroundSize: '50% 200px',
-                                    backgroundRepeat: 'repeat-x',
-                                    backgroundPosition: 'left bottom',
-                                    filter: 'grayscale(.1) brightness(1) contrast(1.2)',
-                                    transform: 'rotate(180deg)',
-                                }}
-                            />
-                            <div
-                                className="w-full flex-1"
-                                style={{
-                                    backgroundImage: 'url("/images/hero_2.png")',
-                                    backgroundSize: '50% 200px',
-                                    backgroundRepeat: 'repeat-x',
-                                    backgroundPosition: 'left bottom',
-                                    filter: 'grayscale(.1) brightness(1) contrast(1.2)',
-                                    transform: 'rotate(180deg)',
-                                }}
-                            />
-                            <div
-                                className="w-full hidden lg:block flex-1"
-                                style={{
-                                    backgroundImage: 'url("/images/hero_2.png")',
-                                    backgroundSize: '50% 200px',
-                                    backgroundRepeat: 'repeat-x',
-                                    backgroundPosition: 'left top',
-                                    filter: 'grayscale(.1) brightness(1) contrast(1.2)',
-                                    transform: 'rotate(180deg)',
-                                }}
-                            />
-                        </div>
-
                         {/* Text Content */}
                         <div className="relative z-10 w-full">
                             <div className="w-full relative mb-6 md:mb-8 z-50">
