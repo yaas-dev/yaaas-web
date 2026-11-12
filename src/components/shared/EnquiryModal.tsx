@@ -11,6 +11,7 @@ export type Artwork = {
     artist?: string;
     artistName?: string;
     title: string;
+    isSold?: boolean;
 };
 
 interface EnquiryModalProps {
@@ -110,7 +111,7 @@ export default function EnquiryModal({ isOpen, onClose, artwork }: EnquiryModalP
                             </div>
                         ) : (
                             <>
-                                <h4 className="text-white/80 text-xs uppercase tracking-[0.2em] mb-6 font-medium">Enquire About This Piece</h4>
+                                <h4 className="text-white/80 text-xs uppercase tracking-[0.2em] mb-6 font-medium">{artwork.isSold ? "This piece has been sold. Enquire about similar work." : "Enquire About This Piece"}</h4>
 
                                 <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                                     <div className="flex flex-col gap-2">
@@ -123,7 +124,7 @@ export default function EnquiryModal({ isOpen, onClose, artwork }: EnquiryModalP
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <label className="text-white/50 text-[10px] uppercase tracking-widest font-semibold">Message</label>
-                                        <textarea required name="message" defaultValue={`I would like to enquire about ${artwork.title || 'this piece'} by ${artistDisplayName}.`} className="bg-transparent border-b border-white/20 pb-2 text-white outline-none focus:border-[#c1a03a] transition-colors resize-none font-light text-sm h-20" />
+                                        <textarea required name="message" defaultValue={artwork.isSold ? `I’m interested in similar work to ${artwork.title} by ${artistDisplayName}.` : `I would like to enquire about ${artwork.title || 'this piece'} by ${artistDisplayName}.`} className="bg-transparent border-b border-white/20 pb-2 text-white outline-none focus:border-[#c1a03a] transition-colors resize-none font-light text-sm h-20" />
                                     </div>
                                     <button
                                         type="submit"
