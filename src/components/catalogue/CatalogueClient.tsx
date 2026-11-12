@@ -123,11 +123,11 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
     }, [visibleCount, filteredArtworks.length]);
 
     return (
-        <main className="min-h-screen bg-black flex flex-col pt-32 font-sans">
+        <main className="min-h-screen bg-[#F1EFE8] flex flex-col pt-32 font-sans text-[#171717]">
 
             {/* First Gold Banner */}
-            <div className="w-full bg-[#c1a03a] py-5 px-8 md:px-[10%] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <h1 className="text-white text-2xl md:text-[64px] uppercase tracking-widest outline-none">
+            <div className="w-full bg-[#F1EFE8] py-5 px-8 md:px-[10%] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <h1 className="text-[#171717] text-2xl md:text-[64px] uppercase tracking-widest outline-none">
                     Art Catalogue
                 </h1>
 
@@ -135,14 +135,14 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
 
                     {/* Artist Filter */}
                     <div className="flex flex-col gap-2 w-full md:w-auto min-w-[140px]">
-                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">
+                        <label className="text-[#77746D] text-[10px] uppercase tracking-widest font-bold">
                             Artist
                         </label>
 
                         <select
                             value={selectedArtist}
                             onChange={e => setSelectedArtist(e.target.value)}
-                            className="bg-black/20 border border-white/20 text-white text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
+                            className="bg-white/70 border border-black/15 text-[#171717] text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
                         >
                             <option value="all">All Artists</option>
                             {artists
@@ -157,14 +157,14 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
 
                     {/* Sort By Filter */}
                     <div className="flex flex-col gap-2 w-full md:w-auto min-w-[140px]">
-                        <label className="text-white/60 text-[10px] uppercase tracking-widest font-bold">
+                        <label className="text-[#77746D] text-[10px] uppercase tracking-widest font-bold">
                             Sort By
                         </label>
 
                         <select
                             value={sortBy}
                             onChange={e => setSortBy(e.target.value)}
-                            className="bg-black/20 border border-white/20 text-white text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
+                            className="bg-white/70 border border-black/15 text-[#171717] text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
                         >
                             <option value="newest">Newest First</option>
                             <option value="oldest">Oldest First</option>
@@ -176,7 +176,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
             </div>
 
             {/* Filters Section */}
-            <div className="w-full bg-black py-8 border-b border-white/5 flex justify-center px-4 overflow-x-auto">
+            <div className="w-full bg-[#F1EFE8] py-8 border-b border-black/10 flex justify-center px-4 overflow-x-auto">
                 <div className="flex gap-4 md:gap-8">
                     {categories.map((filter: string) => (
                         <button
@@ -185,7 +185,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                             className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all pb-2 border-b-2 ${
                                 activeFilter === filter
                                     ? 'text-[#B59431] border-[#B59431]'
-                                    : 'text-white/40 border-transparent hover:text-white'
+                                    : 'text-[#77746D] border-transparent hover:text-white'
                             }`}
                         >
                             {filter}
@@ -195,7 +195,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
             </div>
 
             {/* Artwork Grid */}
-            <div className="w-full bg-black py-16 px-4 md:px-16">
+            <div className="w-full bg-[#F1EFE8] py-16 px-4 md:px-16">
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 md:gap-x-10 lg:gap-x-16 gap-y-12 md:gap-y-20 w-full items-start">
 
                     {displayedArtworks.map(art => (
@@ -204,7 +204,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                             onClick={() => setSelectedArt(art)}
                             className="flex flex-col group cursor-pointer"
                         >
-                            <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-white/5 border border-white/5 group-hover:border-[#FDDA2F]/40 transition-all shadow-2xl">
+                            <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-white/5 border border-black/10 group-hover:border-[#B59431]/40 transition-all shadow-2xl">
                                 <Image
                                     src={art.src}
                                     alt={art.title}
@@ -214,21 +214,21 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                                 />
 
                                 {art.isSold && (
-                                    <div className="absolute top-3 left-3 z-10 bg-[#c1a03a] text-black px-3 py-2 text-[10px] font-extrabold tracking-[0.2em] uppercase">
+                                    <div className="absolute top-3 left-3 z-10 bg-[#F1EFE8] text-black px-3 py-2 text-[10px] font-extrabold tracking-[0.2em] uppercase">
                                         Sold
                                     </div>
                                 )}
 
                                 {/* Overlay Hint */}
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
-                                    <span className="text-white font-bold tracking-[0.3em] uppercase border border-white/50 px-8 py-3 text-xs text-center backdrop-blur-sm">
+                                    <span className="text-white font-bold tracking-[0.3em] uppercase border border-black/100 px-8 py-3 text-xs text-center backdrop-blur-sm">
                                         {art.isSold ? 'Sold' : 'Enquire'}
                                     </span>
                                 </div>
                             </div>
 
                             <div className="flex flex-col items-center text-center px-2 mb-4 md:mb-3">
-                                <span className="text-[#FDDA2F] font-bold text-sm md:text-lg tracking-widest leading-tight uppercase group-hover:brightness-125 transition-all">
+                                <span className="text-[#B59431] font-bold text-sm md:text-lg tracking-widest leading-tight uppercase group-hover:brightness-125 transition-all">
                                     {art.title}
                                 </span>
                             </div>
@@ -245,7 +245,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                     ))}
 
                     {displayedArtworks.length === 0 && (
-                        <div className="col-span-full py-40 text-center text-white/20 italic text-xs tracking-[0.3em] uppercase">
+                        <div className="col-span-full py-40 text-center text-[#99958B] italic text-xs tracking-[0.3em] uppercase">
                             No pieces found{' '}
                             {selectedArtist !== 'all'
                                 ? `by ${selectedArtist}`
@@ -262,7 +262,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                 {visibleCount < filteredArtworks.length && (
                     <div
                         ref={loadMoreRef}
-                        className="w-full py-8 text-center text-white/40 text-xs uppercase tracking-widest"
+                        className="w-full py-8 text-center text-[#77746D] text-xs uppercase tracking-widest"
                     >
                         Scroll to explore more
                     </div>
@@ -271,7 +271,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                 {/* End of Collection */}
                 {filteredArtworks.length > 0 &&
                     visibleCount >= filteredArtworks.length && (
-                        <div className="w-full py-8 text-center text-white/20 text-xs uppercase tracking-widest">
+                        <div className="w-full py-8 text-center text-[#99958B] text-xs uppercase tracking-widest">
                             You've reached the end of the collection
                         </div>
                     )}
