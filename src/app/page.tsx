@@ -1,5 +1,4 @@
 import Hero from "@/components/home/Hero";
-import Services from "@/components/home/Services";
 import TalentsPreview from "@/components/home/TalentsPreview";
 import UpcomingEvents from "@/components/home/UpcomingEvents";
 import ContactSection from "@/components/home/ContactSection";
@@ -29,8 +28,7 @@ export default async function Home() {
   return (
     <div className="">
       <Hero settings={settings} />
-      <AboutSection />
-      <Services services={services} />
+      <AboutSection services={services} />
       <TalentsPreview initialTalents={talents} settings={settings} />
       <ContentGallery contents={contents} />
       <ArtCatalogueSection artworks={artworks} />
