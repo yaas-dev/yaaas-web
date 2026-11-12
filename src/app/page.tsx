@@ -30,6 +30,7 @@ export default async function Home() {
       <AboutSection services={services} settings={settings} />
       <TalentsPreview initialTalents={talents} settings={settings} />
       <ContentGallery contents={contents} settings={settings} />
+      <UpcomingEvents settings={settings} />
       <ArtCatalogueSection artworks={artworks} settings={settings} />
       <BlogSection newsPosts={news} settings={settings} />
       <ContactSection settings={settings} />
