@@ -8,6 +8,7 @@ export interface ISettings extends Document {
     servicesHeaderImage?: string;
     creativesVisualImage?: string;
     creativesSonicImage?: string;
+    homepageContent?: Record<string, string>;
 }
 
 const SettingsSchema: Schema = new Schema({
@@ -22,17 +23,12 @@ const SettingsSchema: Schema = new Schema({
             default: '/images/hero.png'
         }
     },
-    servicesHeaderImage: {
-        type: String,
-        default: ''
-    },
-    creativesVisualImage: {
-        type: String,
-        default: ''
-    },
-    creativesSonicImage: {
-        type: String,
-        default: ''
+    servicesHeaderImage: { type: String, default: '' },
+    creativesVisualImage: { type: String, default: '' },
+    creativesSonicImage: { type: String, default: '' },
+    homepageContent: {
+        type: Schema.Types.Mixed,
+        default: {}
     }
 }, { timestamps: true });
 
