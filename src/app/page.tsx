@@ -15,7 +15,6 @@ import { getServices } from "@/actions/serviceActions";
 import { getTalents } from "@/actions/talentActions";
 
 export default async function Home() {
-  // Fetch live data from MongoDB
   const [contents, artworks, news, settings, services, talents] = await Promise.all([
     getProjects(),
     getArtworks(),
@@ -28,12 +27,13 @@ export default async function Home() {
   return (
     <div className="">
       <Hero settings={settings} />
-      <AboutSection services={services} />
+      <AboutSection services={services} settings={settings} />
       <TalentsPreview initialTalents={talents} settings={settings} />
-      <ContentGallery contents={contents} />
-      <ArtCatalogueSection artworks={artworks} />
-      <BlogSection newsPosts={news} />
-      <ContactSection />
+      <ContentGallery contents={contents} settings={settings} />
+      <UpcomingEvents settings={settings} />
+      <ArtCatalogueSection artworks={artworks} settings={settings} />
+      <BlogSection newsPosts={news} settings={settings} />
+      <ContactSection settings={settings} />
       {/* <WelcomePopup /> */}
     </div>
   );

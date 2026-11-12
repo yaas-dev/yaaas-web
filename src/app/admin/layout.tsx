@@ -30,6 +30,7 @@ const ADMIN_NAV = [
     // { name: 'Collaborations', href: '/admin/collaborations', icon: Handshake },
     { name: 'Enquiries', href: '/admin/enquiries', icon: Mail },
     { name: 'Services', href: '/admin/services', icon: LayoutGrid },
+    { name: 'Homepage', href: '/admin/homepage', icon: FileText },
     { name: 'Settings', href: '/admin/settings', icon: SettingsIcon },
 ];
 
