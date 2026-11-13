@@ -31,7 +31,7 @@ export default function Hero({ settings }: { settings?: any }) {
             </motion.div>
 
             <div className="relative z-10 flex flex-col items-center justify-center max-w-5xl px-6">
-                <motion.p initial={hasAnimated ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }} className="text-[#D5B64A] text-[10px] md:text-xs tracking-[0.35em] uppercase mb-5">
+                <motion.p initial={hasAnimated ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }} className="text-[#D5B64A] text-[10px] md:text-xs tracking-[0.12em] normal-case mb-5">
                     {text('heroEyebrow', 'YAH AH-SAHN-TEH-WAH')}
                 </motion.p>
                 <motion.h1 initial={hasAnimated ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }} className="text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-[0.08em] uppercase font-azonix leading-tight">
