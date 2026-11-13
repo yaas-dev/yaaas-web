@@ -16,7 +16,8 @@ import {
     Menu,
     X,
     LayoutGrid,
-    Settings as SettingsIcon
+    Settings as SettingsIcon,
+    CalendarDays
 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -31,6 +32,7 @@ const ADMIN_NAV = [
     { name: 'Enquiries', href: '/admin/enquiries', icon: Mail },
     { name: 'Services', href: '/admin/services', icon: LayoutGrid },
     { name: 'Homepage', href: '/admin/homepage', icon: FileText },
+    { name: 'Events', href: '/admin/events', icon: CalendarDays },
     { name: 'Settings', href: '/admin/settings', icon: SettingsIcon },
 ];
 
@@ -108,7 +110,7 @@ export default function AdminLayout({
 
                 <nav className="flex-grow p-6 space-y-2 overflow-y-auto">
                     {ADMIN_NAV.map((item) => {
-                        const isActive = pathname === item.href;
+                        const isActive = pathname === item.href || (item.href === '/admin/events' && pathname.startsWith('/admin/events/'));
                         return (
                             <Link
                                 key={item.href}
