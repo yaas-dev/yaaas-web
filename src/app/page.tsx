@@ -13,15 +13,17 @@ import { getNewsPosts } from "@/actions/newsActions";
 import { getSettings } from "@/actions/settingsActions";
 import { getServices } from "@/actions/serviceActions";
 import { getTalents } from "@/actions/talentActions";
+import { getEvents } from "@/actions/eventActions";
 
 export default async function Home() {
-  const [contents, artworks, news, settings, services, talents] = await Promise.all([
+  const [contents, artworks, news, settings, services, talents, events] = await Promise.all([
     getProjects(),
     getArtworks(),
     getNewsPosts(),
     getSettings(),
     getServices(),
-    getTalents()
+    getTalents(),
+    getEvents()
   ]);
 
   return (
@@ -30,7 +32,7 @@ export default async function Home() {
       <AboutSection services={services} settings={settings} />
       <TalentsPreview initialTalents={talents} settings={settings} />
       <ContentGallery contents={contents} settings={settings} />
-      <UpcomingEvents settings={settings} />
+      <UpcomingEvents settings={settings} events={events} />
       <ArtCatalogueSection artworks={artworks} settings={settings} />
       <BlogSection newsPosts={news} settings={settings} />
       <ContactSection settings={settings} />
