@@ -142,7 +142,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                         <select
                             value={selectedArtist}
                             onChange={e => setSelectedArtist(e.target.value)}
-                            className="bg-white/70 border border-black/15 text-[#171717] text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
+                            className="bg-white/70 border border-black/15 text-[#171717] text-xs p-2 uppercase tracking-widest outline-none focus:border-[#B59431] transition-colors appearance-none"
                         >
                             <option value="all">All Artists</option>
                             {artists
@@ -164,7 +164,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                         <select
                             value={sortBy}
                             onChange={e => setSortBy(e.target.value)}
-                            className="bg-white/70 border border-black/15 text-[#171717] text-xs p-2 uppercase tracking-widest outline-none focus:border-white transition-colors appearance-none"
+                            className="bg-white/70 border border-black/15 text-[#171717] text-xs p-2 uppercase tracking-widest outline-none focus:border-[#B59431] transition-colors appearance-none"
                         >
                             <option value="newest">Newest First</option>
                             <option value="oldest">Oldest First</option>
@@ -234,7 +234,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                             </div>
 
                             <div className="flex flex-col items-center text-center px-2">
-                                <span className="text-white/80 font-medium text-[10px] md:text-xs tracking-[0.2em] leading-tight uppercase">
+                                <span className="text-[#55534E] font-medium text-[10px] md:text-xs tracking-[0.2em] leading-tight uppercase">
                                     {art.artistName}{' '}
                                     {art.year
                                         ? `(${art.year}, ${art.medium})`
