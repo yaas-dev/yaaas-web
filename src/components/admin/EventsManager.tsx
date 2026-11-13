@@ -62,10 +62,13 @@ export default function EventsManager({ initialEvents }: { initialEvents: EventI
         setSaving(true);
         try {
             const payload = { ...draft, date: new Date(draft.date).toISOString() };
-            if (editingId) await updateEvent(editingId, payload);
-            else await createEvent(payload);
-            const refreshed = events.filter(item => item._id !== editingId);
-            setEvents([...refreshed, { ...payload, _id: editingId || "new-" + Date.now() } as EventItem].sort((a,b) => a.date.localeCompare(b.date)));
+            const savedEvent = editingId
+                ? await updateEvent(editingId, payload)
+                : await createEvent(payload);
+            if (savedEvent) {
+                const refreshed = events.filter(item => item._id !== savedEvent._id);
+                setEvents([...refreshed, savedEvent as EventItem].sort((a,b) => a.date.localeCompare(b.date)));
+            }
             reset();
             router.refresh();
         } catch (error) {
@@ -86,7 +89,7 @@ export default function EventsManager({ initialEvents }: { initialEvents: EventI
 
     const togglePublished = async (event: EventItem) => {
         const updated = { ...event, published: !event.published };
-        await updateEvent(event._id, updated);
+        await updateEvent(event._id, { published: updated.published });
         setEvents(current => current.map(item => item._id === event._id ? updated : item));
         router.refresh();
     };
