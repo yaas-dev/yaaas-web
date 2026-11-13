@@ -1,6 +1,5 @@
 import Hero from "@/components/home/Hero";
 import TalentsPreview from "@/components/home/TalentsPreview";
-import UpcomingEvents from "@/components/home/UpcomingEvents";
 import ContactSection from "@/components/home/ContactSection";
 import AboutSection from "@/components/home/AboutSection";
 import ContentGallery from "@/components/home/ContentGallery";
@@ -30,7 +29,6 @@ export default async function Home() {
       <AboutSection services={services} settings={settings} />
       <TalentsPreview initialTalents={talents} settings={settings} />
       <ContentGallery contents={contents} settings={settings} />
-      <UpcomingEvents settings={settings} />
       <ArtCatalogueSection artworks={artworks} settings={settings} />
       <BlogSection newsPosts={news} settings={settings} />
       <ContactSection settings={settings} />
