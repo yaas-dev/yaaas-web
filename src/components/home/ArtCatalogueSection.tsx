@@ -18,7 +18,7 @@ export default function ArtCatalogueSection({ artworks = [], settings }: ArtCata
                     <div className="w-20 h-[4px] md:h-[6px] bg-[#B59431]"></div>
                 </div>
                 <div className="flex items-center justify-center"><ArtCatalogue initialArtworks={artworks} /></div>
-                <Link href="/catalogue" className="group inline-flex items-center bg-[#171717] hover:bg-[#B59431] transition-colors px-6 py-3 rounded-md justify-center gap-3 mx-auto mt-4">
+                <Link href={copy.catalogueCtaLink || "/catalogue"} className="group inline-flex items-center bg-[#171717] hover:bg-[#B59431] transition-colors px-6 py-3 rounded-md justify-center gap-3 mx-auto mt-4">
                     <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover:text-white transition-colors">{copy.catalogueCta || 'Explore Catalogue'}</span>
                 </Link>
             </div>
