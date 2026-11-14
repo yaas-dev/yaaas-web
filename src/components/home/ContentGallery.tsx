@@ -35,7 +35,7 @@ export default function ContentGallery({ contents = [], settings }: ContentGalle
                 <div className="w-full h-[420px] md:h-[480px] mb-5 relative">
                     {contents.length > 0 ? <Carousel items={contentSlides} autoPlay={true} interval={6000} showArrows={true} showDots={true} /> : <div className="w-full h-full flex items-center justify-center text-black/30 italic uppercase tracking-widest text-xs border border-black/10 rounded-2xl mx-10">No projects featured yet.</div>}
                 </div>
-                <Link href="/contents" className="group flex items-center justify-end gap-3">
+                <Link href={copy.projectsCtaLink || "/contents"} className="group flex items-center justify-end gap-3">
                     <span className="text-[#171717] text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">{copy.projectsCta || 'View All Projects'}</span>
                     <span className="group-hover:translate-x-1 transition-transform text-[#171717] text-xs uppercase tracking-[0.2em] font-bold">→</span>
                 </Link>
