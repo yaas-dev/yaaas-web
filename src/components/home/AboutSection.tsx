@@ -40,7 +40,7 @@ const AboutSection = ({ services, settings }: AboutSectionProps) => {
                             <h2 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-[0.1em] uppercase">{text('servicesTitle', 'OUR SERVICES')}</h2>
                             <div className="w-20 h-1 bg-[#B59431] mt-4" />
                         </div>
-                        <Link href={copy.servicesCtaLink || "/services"} className="text-[#8A7028} text-[10px] md:text-xs font-bold tracking-[0.16em] uppercase hover:text-[#171717] transition-colors flex items-center gap-2 group">
+                        <Link href={copy.servicesCtaLink || "/services"} className="text-[#8A7028] text-[10px] md:text-xs font-bold tracking-[0.16em] uppercase hover:text-[#171717] transition-colors flex items-center gap-2 group">
                             {text('servicesCta', 'Explore All Services')} <span className="group-hover:translate-x-1 transition-transform">→</span>
                         </Link>
                     </div>
