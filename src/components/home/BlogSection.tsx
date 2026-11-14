@@ -37,7 +37,7 @@ export default function BlogSection({ newsPosts = [], settings }: BlogSectionPro
                 <div className="w-full h-[420px] md:h-[480px] relative">
                     <Carousel items={blogSlides} autoPlay={true} interval={8000} showArrows={true} showDots={true} />
                 </div>
-                <Link href="/blog" className="group flex items-center justify-end gap-3 mt-5">
+                <Link href={copy.journalCtaLink || "/blog"} className="group flex items-center justify-end gap-3 mt-5">
                     <span className="text-[#171717] text-xs uppercase tracking-[0.2em] font-bold group-hover:text-[#B59431] transition-colors">{copy.journalCta || 'View All Blogs'}</span>
                     <span className="group-hover:translate-x-1 transition-transform text-[#171717] text-xs uppercase tracking-[0.2em] font-bold">→</span>
                 </Link>
