@@ -52,7 +52,7 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
     const exportCsv = () => {
         const rows = [
             ['First name', 'Email', 'Status', 'Subscribed date', 'Unsubscribe URL', 'Source'],
-            ...subscribers.map(item => [
+            ...subscribers.filter(item => item.status === 'SUBSCRIBED').map(item => [
                 item.firstName || '',
                 item.email,
                 item.status,
