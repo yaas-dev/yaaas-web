@@ -14,7 +14,9 @@ const GROUPS = [
             { key: "heroTitle", label: "Main title", fallback: "YAA ASANTEWAA" },
             { key: "heroDescription", label: "Description", fallback: "Connecting African talent with new audiences, opportunities and ideas.", multiline: true },
             { key: "heroPrimaryCta", label: "Primary button", fallback: "Meet Our Artists" },
+            { key: "heroPrimaryCtaLink", label: "Primary button link", fallback: "/talents" },
             { key: "heroSecondaryCta", label: "Secondary button", fallback: "Explore Our Work" },
+            { key: "heroSecondaryCtaLink", label: "Secondary button link", fallback: "/contents" },
         ],
     },
     {
@@ -26,7 +28,8 @@ const GROUPS = [
             { key: "aboutDescription", label: "About paragraph", fallback: "YAAAS is an independent African creative agency working across contemporary art, artist representation and cultural programming. We represent visual and sonic artists, build creative brands, and develop exhibitions, cultural experiences and partnerships that connect African talent with audiences and opportunities across the continent and diaspora.", multiline: true },
             { key: "servicesEyebrow", label: "Services eyebrow", fallback: "How We Work" },
             { key: "servicesTitle", label: "Services title", fallback: "OUR SERVICES" },
-            { key: "servicesCta", label: "Services link", fallback: "Explore All Services" },
+            { key: "servicesCta", label: "Services button text", fallback: "Explore All Services" },
+            { key: "servicesCtaLink", label: "Services button link", fallback: "/services" },
         ],
     },
     {
@@ -39,7 +42,8 @@ const GROUPS = [
         description: "The projects carousel heading and link.",
         fields: [
             { key: "projectsTitle", label: "Section title", fallback: "SELECTED PROJECTS" },
-            { key: "projectsCta", label: "Link text", fallback: "View All Projects" },
+            { key: "projectsCta", label: "Button text", fallback: "View All Projects" },
+            { key: "projectsCtaLink", label: "Button link", fallback: "/contents" },
         ],
     },
     {
@@ -59,6 +63,7 @@ const GROUPS = [
         fields: [
             { key: "catalogueTitle", label: "Section title", fallback: "ART CATALOGUE" },
             { key: "catalogueCta", label: "Button text", fallback: "Explore Catalogue" },
+            { key: "catalogueCtaLink", label: "Button link", fallback: "/catalogue" },
         ],
     },
     {
@@ -66,7 +71,8 @@ const GROUPS = [
         description: "The news and journal section heading and link.",
         fields: [
             { key: "journalTitle", label: "Section title", fallback: "BLOG" },
-            { key: "journalCta", label: "Link text", fallback: "View All Blogs" },
+            { key: "journalCta", label: "Button text", fallback: "View All Blogs" },
+            { key: "journalCtaLink", label: "Button link", fallback: "/blog" },
         ],
     },
     {
@@ -120,7 +126,7 @@ export default function HomepageContentForm({ initialData }: { initialData: Reco
                 <div>
                     <p className="text-[#B59431] text-[10px] uppercase tracking-[0.25em] font-bold mb-3">Website content</p>
                     <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">Homepage Editor</h1>
-                    <p className="text-white/40 text-sm mt-3 max-w-2xl">Edit the words visitors see across the homepage. Leave a field empty to use its original default copy.</p>
+                    <p className="text-white/40 text-sm mt-3 max-w-2xl">Edit homepage text and CTA destinations. Leave a field empty to use its original default. For links, use a site path (for example /catalogue) or a full URL.</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <button type="button" onClick={resetDraft} className="inline-flex items-center gap-2 border border-white/10 text-white/60 px-4 py-3 text-[10px] uppercase tracking-widest font-bold hover:border-white/30 hover:text-white transition-colors">
