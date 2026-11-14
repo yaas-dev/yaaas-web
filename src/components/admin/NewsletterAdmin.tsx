@@ -57,7 +57,7 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
                 item.email,
                 item.status,
                 item.consentedAt ? new Date(item.consentedAt).toISOString() : '',
-                `${window.location.origin}/newsletter/unsubscribe?token=${item.unsubscribeToken}`,
+                `${window.location.origin}/api/newsletter/unsubscribe?token=${item.unsubscribeToken}`,
                 'Website pop-up',
             ]),
         ];
