@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from 'react';
-import { Download, Save, Users, CheckCircle2, Mail, Search } from 'lucide-react';
+import { Download, Save, Users, CheckCircle2, Mail, Search, Monitor, Smartphone } from 'lucide-react';
+import Image from 'next/image';
 import ImageUpload from '@/components/admin/ImageUpload';
 import { updateNewsletterSettings, setNewsletterSubscriberStatus } from '@/actions/newsletterActions';
 
@@ -34,6 +35,7 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
     const [query, setQuery] = useState('');
     const [saving, setSaving] = useState(false);
     const [notice, setNotice] = useState('');
+    const [previewMode, setPreviewMode] = useState<'desktop' | 'mobile'>('desktop');
 
     const update = (key: keyof Settings, value: string | number | boolean) => setSettings(current => ({ ...current, [key]: value }));
     const activeCount = subscribers.filter(item => item.status === 'SUBSCRIBED').length;
@@ -134,12 +136,27 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
                             <div className="flex flex-col gap-2"><label className={labelClass}>Delay (seconds)</label><select className={fieldClass} value={settings.delaySeconds} onChange={event => update('delaySeconds', Number(event.target.value))}>{[5, 10, 15, 20, 30].map(value => <option key={value} value={value}>{value} seconds</option>)}</select></div>
                             <div className="flex flex-col gap-2"><label className={labelClass}>Show again after close</label><select className={fieldClass} value={settings.dismissalDays} onChange={event => update('dismissalDays', Number(event.target.value))}><option value={7}>7 days</option><option value={14}>14 days</option><option value={30}>30 days</option><option value={0}>Never</option></select></div>
                         </div>
-                        <div className="border border-white/10 rounded-sm p-5 flex flex-col gap-3">
-                            <p className="text-[10px] uppercase tracking-widest text-[#B59431]">{settings.eyebrow || 'THE YAAAS EDIT'}</p>
-                            <h3 className="text-xl font-medium">{settings.heading || 'Your heading appears here'}</h3>
-                            <p className="text-sm text-white/50">{settings.description || 'Your description appears here.'}</p>
-                            <div className="bg-[#B59431] text-black text-center text-xs font-bold tracking-wide p-3">{settings.buttonText || 'Subscribe'}</div>
-                            <p className="text-[10px] text-white/30">{settings.consentText}</p>
+                        <div className="flex items-center justify-between gap-3">
+                            <p className={labelClass}>Live preview</p>
+                            <div className="flex items-center gap-1">
+                                <button type="button" onClick={() => setPreviewMode('desktop')} aria-label="Desktop preview" className={`p-2 border ${previewMode === 'desktop' ? 'border-[#B59431] text-[#B59431]' : 'border-white/10 text-white/40'}`}><Monitor size={15} /></button>
+                                <button type="button" onClick={() => setPreviewMode('mobile')} aria-label="Mobile preview" className={`p-2 border ${previewMode === 'mobile' ? 'border-[#B59431] text-[#B59431]' : 'border-white/10 text-white/40'}`}><Smartphone size={15} /></button>
+                            </div>
+                        </div>
+                        <div className={`mx-auto border border-white/10 bg-[#F1EFE8] text-[#171717] shadow-xl overflow-hidden transition-all ${previewMode === 'mobile' ? 'w-full max-w-[300px] rounded-2xl' : 'w-full max-w-[640px] rounded-sm'}`}>
+                            <div className={`grid ${previewMode === 'mobile' ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                                <div className={`relative bg-[#E4DED0] ${previewMode === 'mobile' ? 'aspect-[16/7]' : 'min-h-[260px]'}`}>
+                                    {settings.image ? <Image src={settings.image} alt="Newsletter preview" fill sizes="(max-width: 768px) 100vw, 320px" className="object-cover" /> : <div className="absolute inset-0 flex items-center justify-center"><span className="text-[#B59431] font-semibold tracking-[0.25em] text-xl">YAAAS</span></div>}
+                                </div>
+                                <div className={`flex flex-col justify-center gap-3 ${previewMode === 'mobile' ? 'p-5' : 'p-6'}`}>
+                                    <p className="text-[9px] uppercase tracking-widest text-[#B59431]">{settings.eyebrow || 'THE YAAAS EDIT'}</p>
+                                    <h3 className={`font-medium leading-tight ${previewMode === 'mobile' ? 'text-lg' : 'text-xl'}`}>{settings.heading || 'Your heading appears here'}</h3>
+                                    <p className="text-xs leading-relaxed text-[#55534E]">{settings.description || 'Your description appears here.'}</p>
+                                    <div className="bg-[#171717] text-white text-center text-[10px] font-semibold tracking-wide p-3">{settings.buttonText || 'Subscribe'}</div>
+                                    <p className="text-[9px] leading-relaxed text-[#77746D]">{settings.consentText}</p>
+                                    <p className="text-[8px] tracking-widest text-[#77746D]">{settings.footerText}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
