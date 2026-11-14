@@ -7,6 +7,7 @@ import Project from '@/models/Project';
 import Collaboration from '@/models/Collaboration';
 import News from '@/models/News';
 import Enquiry from '@/models/Enquiry';
+import NewsletterSubscriber from '@/models/NewsletterSubscriber';
 
 export async function getDashboardStats() {
     try {
@@ -19,7 +20,8 @@ export async function getDashboardStats() {
             collaborationCount,
             newsCount,
             enquiryCount,
-            newEnquiryCount
+            newEnquiryCount,
+            newsletterCount
         ] = await Promise.all([
             Talent.countDocuments(),
             Artwork.countDocuments(),
@@ -27,7 +29,8 @@ export async function getDashboardStats() {
             Collaboration.countDocuments(),
             News.countDocuments(),
             Enquiry.countDocuments(),
-            Enquiry.countDocuments({ status: 'NEW' })
+            Enquiry.countDocuments({ status: 'NEW' }),
+            NewsletterSubscriber.countDocuments({ status: 'SUBSCRIBED' })
         ]);
 
         return {
@@ -37,7 +40,8 @@ export async function getDashboardStats() {
             collaborations: collaborationCount,
             news: newsCount,
             enquiries: enquiryCount,
-            newEnquiries: newEnquiryCount
+            newEnquiries: newEnquiryCount,
+            newsletterSubscribers: newsletterCount
         };
     } catch (error) {
         console.error('Error fetching dashboard stats:', error);
@@ -48,7 +52,8 @@ export async function getDashboardStats() {
             collaborations: 0,
             news: 0,
             enquiries: 0,
-            newEnquiries: 0
+            newEnquiries: 0,
+            newsletterSubscribers: 0
         };
     }
 }
