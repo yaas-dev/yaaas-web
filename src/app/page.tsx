@@ -32,7 +32,7 @@ export default async function Home() {
       <ArtCatalogueSection artworks={artworks} settings={settings} />
       <BlogSection newsPosts={news} settings={settings} />
       <ContactSection settings={settings} />
-      {/* <WelcomePopup /> */}
+      <WelcomePopup settings={settings?.newsletter} />
     </div>
   );
 }
