@@ -204,12 +204,12 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                             onClick={() => setSelectedArt(art)}
                             className="flex flex-col group cursor-pointer"
                         >
-                            <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-white/5 border border-black/10 group-hover:border-[#B59431]/40 transition-all shadow-2xl">
+                            <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-[#F7F6F2] border border-black/10 group-hover:border-[#B59431]/40 transition-all shadow-2xl">
                                 <Image
                                     src={art.src}
                                     alt={art.title}
                                     fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="object-contain"
                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 />
 
