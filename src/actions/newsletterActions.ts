@@ -7,7 +7,7 @@ import NewsletterSubscriber from '@/models/NewsletterSubscriber';
 import Settings from '@/models/Settings';
 import { revalidatePath } from 'next/cache';
 
-export const DEFAULT_NEWSLETTER_SETTINGS = {
+const DEFAULT_NEWSLETTER_SETTINGS = {
     enabled: true,
     eyebrow: 'THE YAAAS EDIT',
     heading: 'Stay close to African creativity.',
