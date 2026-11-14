@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { ModalProvider } from "@/components/Modal";
 import PageTransition from "@/components/PageTransition";
 import Providers from "@/components/Providers";
+import NewsletterPopupController from "@/components/shared/NewsletterPopupController";
 
 import { azonix, modernSans } from "./fonts";
 
@@ -66,6 +67,7 @@ export default function RootLayout({
               <main>{children}</main>
             </PageTransition>
             <Footer />
+            <NewsletterPopupController />
           </ModalProvider>
         </Providers>
       </body>
