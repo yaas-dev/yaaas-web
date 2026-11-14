@@ -41,10 +41,10 @@ export default function Hero({ settings }: { settings?: any }) {
                     {text('heroDescription', 'Connecting African talent with new audiences, opportunities and ideas.')}
                 </motion.p>
                 <motion.div initial={hasAnimated ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.7 }} className="flex flex-col sm:flex-row items-center gap-3 mt-8">
-                    <Link href="/talents" className="inline-flex items-center justify-center min-w-[190px] px-7 py-4 bg-[#B59431] text-[#171717] text-[11px] font-bold tracking-[0.18em] uppercase hover:bg-white transition-colors">
+                    <Link href={copy.heroPrimaryCtaLink || "/talents"} className="inline-flex items-center justify-center min-w-[190px] px-7 py-4 bg-[#B59431] text-[#171717] text-[11px] font-bold tracking-[0.18em] uppercase hover:bg-white transition-colors">
                         {text('heroPrimaryCta', 'Meet Our Artists')}
                     </Link>
-                    <Link href="/contents" className="inline-flex items-center justify-center min-w-[190px] px-7 py-4 border border-white/70 text-white text-[11px] font-bold tracking-[0.18em] uppercase hover:bg-white hover:text-[#171717] transition-colors">
+                    <Link href={copy.heroSecondaryCtaLink || "/contents"} className="inline-flex items-center justify-center min-w-[190px] px-7 py-4 border border-white/70 text-white text-[11px] font-bold tracking-[0.18em] uppercase hover:bg-white hover:text-[#171717] transition-colors">
                         {text('heroSecondaryCta', 'Explore Our Work')}
                     </Link>
                 </motion.div>
