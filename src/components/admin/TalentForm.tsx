@@ -22,6 +22,7 @@ export default function TalentForm({ initialData }: TalentFormProps) {
         type: initialData?.type || '',
         category: initialData?.category || 'VISUAL',
         headshot: initialData?.headshot || '',
+        artsyUrl: initialData?.artsyUrl || '',
         bio: initialData?.bio || [''],
         socials: {
             x: initialData?.socials?.x || '',
