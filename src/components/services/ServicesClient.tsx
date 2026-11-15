@@ -37,7 +37,7 @@ export default function ServicesClient({ services = [], settings, featuredProjec
             <section className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 md:mb-14">
                     <div>
-                        <p className="text-[#9A7622] text-[10px] uppercase tracking-[0.28em] font-bold mb-3">Our capabilities</p>
+                        <p className="text-[#9A7622] text-[10px] uppercase tracking-[0.28em] font-bold mb-3">Our expertise</p>
                         <h2 className="font-serif text-3xl md:text-5xl">How we work.</h2>
                     </div>
                     <p className="text-[#666158] text-sm leading-relaxed max-w-md">Three connected areas of work, shaped around the needs of artists, brands and cultural partners.</p>
