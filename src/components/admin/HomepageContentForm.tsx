@@ -65,6 +65,15 @@ const GROUPS = [
         ],
     },
     {
+        title: "Footer Links",
+        description: "Manage the external links shown in the footer under Links.",
+        fields: [
+            { key: "footerInstagramUrl", label: "Instagram URL", fallback: "https://www.instagram.com/yaaas.agency" },
+            { key: "footerLinkedinUrl", label: "LinkedIn URL", fallback: "https://ci.linkedin.com/company/yaaas-agency" },
+            { key: "footerArtsyUrl", label: "Artsy URL", fallback: "https://www.artsy.net/..." },
+        ],
+    },
+    {
         title: "Contact",
         description: "The contact introduction and form call to action.",
         fields: [
