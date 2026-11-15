@@ -7,12 +7,13 @@ export interface ISettings extends Document {
     creativesSonicImage?: string;
     homepageContent?: Record<string, string>;
     aboutTeam?: Array<{ id: string; name: string; role: string; bio: string; image: string; visible: boolean }>;
+    aboutIntro?: { eyebrow: string; headline: string; paragraphOne: string; paragraphTwo: string; cardLabel: string; cardText: string };
     newsletter?: { enabled: boolean; eyebrow: string; heading: string; description: string; buttonText: string; image: string; delaySeconds: number; dismissalDays: number; consentText: string; footerText: string };
 }
 const SettingsSchema: Schema = new Schema({
     heroBackground: { type: { type: String, enum: ['image', 'video'], default: 'image' }, src: { type: String, default: '/images/hero.png' } },
     servicesHeaderImage: { type: String, default: '' }, creativesVisualImage: { type: String, default: '' }, creativesSonicImage: { type: String, default: '' },
-    homepageContent: { type: Schema.Types.Mixed, default: {} }, aboutTeam: { type: Schema.Types.Mixed, default: [] },
+    homepageContent: { type: Schema.Types.Mixed, default: {} }, aboutTeam: { type: Schema.Types.Mixed, default: [] }, aboutIntro: { type: Schema.Types.Mixed, default: {} },
     newsletter: {
         enabled: { type: Boolean, default: true }, eyebrow: { type: String, default: 'THE YAAAS EDIT' }, heading: { type: String, default: 'Stay close to African creativity.' },
         description: { type: String, default: "A little of what we're seeing, making and bringing together. Discover artists, exhibitions, projects and ideas from across Africa and its diaspora." },
