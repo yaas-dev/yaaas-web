@@ -1,69 +1,9 @@
-"use client";
-
 import React from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-
-type Props = {
-    settings?: { homepageContent?: Record<string, string> } | null;
-};
-
-export default function UpcomingEvents({ settings }: Props) {
-    const content = settings?.homepageContent ?? {};
-    const eyebrow = content.eventsEyebrow || "What's On";
-    const title = content.eventsTitle || "UPCOMING EVENTS";
-    const description = content.eventsDescription || "Our previous work includes curating for Papi Wata, Mr Eazi and more.";
-    const cta = content.eventsCta || "VIEW FULL GALLERY";
-    const href = content.eventsCtaLink || "/gallery";
-
-    return (
-        <section className="bg-black text-white py-24 w-full overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
-                <div className="mb-8">
-                    <p className="text-[#B59431] text-[10px] uppercase tracking-[0.25em] font-bold mb-3">{eyebrow}</p>
-                    <h2 className="text-3xl md:text-5xl lg:text-[54px] font-bold tracking-[0.15em] uppercase mb-4 md:mb-6">
-                        {title}
-                    </h2>
-                    <div className="w-64 md:w-80 h-[4px] md:h-[6px] bg-[#B59431]"></div>
-                </div>
-
-                <div className="mb-12 md:mb-16">
-                    <p className="text-[15px] md:text-[17px] font-medium tracking-wide text-gray-100">
-                        {description}
-                    </p>
-                </div>
-
-                <div className="flex flex-col w-full mb-16 shadow-2xl">
-                    <motion.div
-                        className="w-full aspect-[4/3] sm:aspect-[2/1] md:aspect-[2.5/1] bg-gray-800 flex items-center justify-center border-b-[4px] border-black"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <span className="text-gray-400 font-bold tracking-widest text-sm text-center px-4">TOP HORIZONTAL IMAGE PLACEHOLDER</span>
-                    </motion.div>
-
-                    <motion.div
-                        className="w-full aspect-[4/3] sm:aspect-[2/1] md:aspect-[2.5/1] bg-gray-800 flex items-center justify-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        <span className="text-gray-400 font-bold tracking-widest text-sm text-center px-4">BOTTOM HORIZONTAL IMAGE PLACEHOLDER</span>
-                    </motion.div>
-                </div>
-
-                <div className="flex justify-center flex-col items-center">
-                    <Link
-                        href={href}
-                        className="bg-white text-black px-8 py-3 md:px-10 md:py-4 rounded font-extrabold text-[12px] md:text-[14px] tracking-[0.15em] hover:bg-gray-200 transition-all uppercase shadow-lg text-center"
-                    >
-                        {cta}
-                    </Link>
-                </div>
-            </div>
-        </section>
-    );
+import { CalendarDays, Clock3, MapPin, ArrowUpRight } from "lucide-react";
+type EventItem = { id: string; title: string; date: string; time?: string; location?: string; description?: string; link?: string };
+export default function UpcomingEvents({ settings }: { settings?: { upcomingEvents?: EventItem[] } | null }) {
+ const today=new Date().toISOString().slice(0,10);
+ const events=(settings?.upcomingEvents||[]).filter(event=>event.date>=today).sort((a,b)=>a.date.localeCompare(b.date));
+ if(!events.length)return null;
+ return <section className="bg-[#080808] text-white py-20 md:py-28 w-full"><div className="max-w-7xl mx-auto px-6 md:px-12"><div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-12"><div><p className="text-[#B59431] text-[10px] uppercase tracking-[0.25em] font-bold mb-3">What's on</p><h2 className="text-3xl md:text-5xl font-bold tracking-[0.12em] uppercase">Upcoming Events</h2></div><p className="text-white/45 text-xs tracking-wide">The YAAAS agenda</p></div><div className="border-t border-white/15">{events.map(event=>{const date=new Date(`${event.date}T12:00:00`);const content=<div className="grid grid-cols-[76px_1fr] md:grid-cols-[100px_1fr_auto] gap-5 md:gap-8 py-7 md:py-9 border-b border-white/15 group"><div className="flex flex-col items-center justify-center border-r border-[#B59431]/40 pr-5"><span className="text-3xl md:text-4xl font-light text-[#B59431]">{date.toLocaleDateString("en",{day:"2-digit"})}</span><span className="text-[10px] text-white/50 uppercase tracking-[0.2em] mt-1">{date.toLocaleDateString("en",{month:"short"})}</span></div><div><p className="text-[10px] text-white/45 uppercase tracking-widest mb-2">{date.toLocaleDateString("en",{weekday:"long",year:"numeric"})}</p><h3 className="text-lg md:text-2xl font-semibold tracking-wide group-hover:text-[#D0B15D] transition-colors">{event.title}</h3>{event.description&&<p className="text-white/60 text-sm leading-relaxed mt-3 max-w-3xl">{event.description}</p>}<div className="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-[11px] text-white/45">{event.time&&<span className="inline-flex items-center gap-2"><Clock3 size={13}/>{event.time}</span>}{event.location&&<span className="inline-flex items-center gap-2"><MapPin size={13}/>{event.location}</span>}</div></div><div className="hidden md:flex items-center text-[#B59431]">{event.link?<ArrowUpRight size={20}/>:<CalendarDays size={20}/>}</div></div>;return event.link?<a key={event.id} href={event.link} target="_blank" rel="noopener noreferrer" className="block">{content}</a>:<div key={event.id}>{content}</div>;})}</div></div></section>;
 }
