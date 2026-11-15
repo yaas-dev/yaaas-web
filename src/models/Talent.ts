@@ -6,6 +6,7 @@ export interface ITalent extends Document {
     type: string; // e.g., '[ THE VISUAL ]' or '[ THE SONIC ]'
     category: 'VISUAL' | 'SONIC';
     headshot: string;
+    artsyUrl?: string;
     bio: string[];
     socials: {
         x?: string;
@@ -25,6 +26,7 @@ const TalentSchema: Schema = new Schema({
     type: { type: String, required: true },
     category: { type: String, enum: ['VISUAL', 'SONIC'], required: true },
     headshot: { type: String, required: true },
+    artsyUrl: { type: String, default: '' },
     bio: [{ type: String }],
     socials: {
         x: { type: String },
