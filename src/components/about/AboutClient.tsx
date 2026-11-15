@@ -3,8 +3,8 @@ import React from "react";
 import Image from "next/image";
 import ContactSection from "../home/ContactSection";
 type TeamMember = { id: string; name: string; role: string; bio: string; image?: string; visible?: boolean };
-type AboutIntro = { eyebrow: string; headline: string; paragraphOne: string; paragraphTwo: string; cardLabel: string; cardText: string };
-const DEFAULT_INTRO: AboutIntro = { eyebrow: "Yaa Asantewaa Agency", headline: "Unleashing the power of African creativity.", paragraphOne: "YAAAS is an independent creative agency working across art, music and culture. We represent artists, develop creative talent and bring cultural ideas to life.", paragraphTwo: "Rooted in Africa and connected to its diaspora, we work with creatives, brands and cultural partners to build meaningful projects, create new opportunities and take African creative expression further.", cardLabel: "YAAAS / The agency", cardText: "A creative agency built around the people, ideas and culture shaping Africa and its diaspora." };
+type AboutIntro = { eyebrow: string; headline: string; paragraphOne: string; paragraphTwo: string; image?: string };
+const DEFAULT_INTRO: AboutIntro = { eyebrow: "Yaa Asantewaa Agency", headline: "Unleashing the power of African creativity.", paragraphOne: "YAAAS is an independent creative agency working across art, music and culture. We represent artists, develop creative talent and bring cultural ideas to life.", paragraphTwo: "Rooted in Africa and connected to its diaspora, we work with creatives, brands and cultural partners to build meaningful projects, create new opportunities and take African creative expression further.", image: "" };
 export default function AboutClient({ team, intro }: { team: TeamMember[]; intro?: Partial<AboutIntro> }) {
     const copy = { ...DEFAULT_INTRO, ...(intro || {}) };
     const people = (team || []).filter(person => person.visible !== false && person.name?.trim());
@@ -29,12 +29,8 @@ export default function AboutClient({ team, intro }: { team: TeamMember[]; intro
                     <p>{copy.paragraphOne}</p>
                     <p className="mt-6">{copy.paragraphTwo}</p>
                 </div>
-                <div className="bg-[#171717] text-[#F1EFE8] min-h-[250px] md:min-h-[340px] flex flex-col justify-between p-8 md:p-10 relative overflow-hidden">
-                    <span className="text-[#B59431] text-xs uppercase tracking-[0.25em]">{copy.cardLabel}</span>
-                    <div className="font-serif text-6xl md:text-8xl leading-none tracking-tight">YAA<span className="text-[#B59431]">AS</span></div>
-                    <p className="text-white/60 text-sm max-w-xs leading-relaxed">{copy.cardText}</p>
-                    <div className="absolute -right-10 -top-16 w-56 h-56 rounded-full border border-[#B59431]/30 pointer-events-none"/>
-                    <div className="absolute -right-2 -top-8 w-40 h-40 rounded-full border border-[#B59431]/20 pointer-events-none"/>
+                <div className="relative aspect-[4/3] min-h-[250px] md:min-h-[340px] overflow-hidden bg-[#E4E0D6]">
+                    {copy.image ? <Image src={copy.image} alt="YAAAS creative work" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover"/> : <div className="absolute inset-0 flex flex-col items-center justify-center border border-black/10 text-[#77746D]"><span className="text-[10px] uppercase tracking-[0.25em] font-bold">Image placeholder</span><span className="font-serif text-4xl mt-3 text-[#B59431]">YAAAS</span></div>}
                 </div>
             </div>
         </section>
