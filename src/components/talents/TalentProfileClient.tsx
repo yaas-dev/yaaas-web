@@ -87,6 +87,14 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                             )}
                         </div>
 
+                        {artist.artsyUrl && (
+                            <a href={artist.artsyUrl} target="_blank" rel="noreferrer" className="inline-flex w-fit mt-6 border border-[#B59431] text-[#9A7622] px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#B59431] hover:text-black transition-colors">View on Artsy</a>
+                        )}
+
+                        {!isSonic && (
+                            <Link href={`/catalogue?artist=${encodeURIComponent(artist.slug)}`} className="inline-flex w-fit mt-3 border border-black/20 text-[#171717] px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#171717] hover:text-white transition-colors">View {artist.name}’s catalogue</Link>
+                        )}
+
                         {/* Stream & Work Links */}
                         {artist.musicLinks && artist.musicLinks.length > 0 && (
                             <div className="flex flex-wrap gap-3 mt-8">
