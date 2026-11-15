@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Instagram, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getSettings } from "@/actions/settingsActions";
 
