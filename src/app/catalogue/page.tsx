@@ -4,13 +4,14 @@ export const metadata: Metadata = { title: "African Art Catalogue — Contempora
 
 import React from 'react';
 import { getArtworks } from '@/actions/catalogueActions';
+import { getTalentBySlug } from '@/actions/talentActions';
 import CatalogueClient from '@/components/catalogue/CatalogueClient';
 
-export default async function CataloguePage() {
-    // Fetch live artworks from MongoDB
-    const artworks = await getArtworks();
+export default async function CataloguePage({ searchParams }: { searchParams: Promise<{ artist?: string }> }) {
+    const [{ artist: artistSlug }, artworks] = await Promise.all([searchParams, getArtworks()]);
+    const artist = artistSlug ? await getTalentBySlug(artistSlug.toLowerCase()) : null;
 
     return (
-        <CatalogueClient initialArtworks={artworks} />
+        <CatalogueClient initialArtworks={artworks} initialArtistName={artist?.name || ''} />
     );
 }
