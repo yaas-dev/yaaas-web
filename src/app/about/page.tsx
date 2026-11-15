@@ -16,5 +16,5 @@ const DEFAULT_TEAM = [
 ];
 export default async function AboutPage() {
     const settings = await getSettings();
-    return <AboutClient team={settings?.aboutTeam?.length ? settings.aboutTeam : DEFAULT_TEAM} />;
+    return <AboutClient team={settings?.aboutTeam?.length ? settings.aboutTeam : DEFAULT_TEAM} intro={settings?.aboutIntro} />;
 }
