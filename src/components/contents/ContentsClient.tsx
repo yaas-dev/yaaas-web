@@ -1,125 +1,104 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
-import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from "next/link";
+import { Search, ArrowUpRight, Mail } from "lucide-react";
+import { subscribeToNewsletter } from "@/actions/newsletterActions";
 
-interface ContentsClientProps {
-    initialContents: any[];
-}
+type Props = { initialContents: any[]; newsPosts: any[] };
 
-export default function ContentsClient({ initialContents }: ContentsClientProps) {
-    const [searchQuery, setSearchQuery] = useState('');
+export default function ContentsClient({ initialContents, newsPosts }: Props) {
+    const [query, setQuery] = useState("");
+    const [email, setEmail] = useState("");
+    const [consent, setConsent] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+    const [newsletterMessage, setNewsletterMessage] = useState("");
 
-    const filteredContents = useMemo(() => {
-        return initialContents.filter(content =>
-            content.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            content.category?.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    }, [initialContents, searchQuery]);
+    const term = query.trim().toLowerCase();
+    const projects = useMemo(() => initialContents.filter(item =>
+        !term || [item.title, item.category, item.description].some(value => String(value || "").toLowerCase().includes(term))
+    ), [initialContents, term]);
+    const articles = useMemo(() => newsPosts.filter(item =>
+        !term || [item.title, item.category, item.contentBlurb, item.fullContent, item.date].some(value => String(value || "").toLowerCase().includes(term))
+    ), [newsPosts, term]);
 
-    const hasResults = filteredContents.length > 0;
+    async function joinNewsletter(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setSubmitting(true);
+        setNewsletterMessage("");
+        try {
+            const result = await subscribeToNewsletter({ email, firstName: "", consent, website: "" });
+            setNewsletterMessage(result.success
+                ? (result.alreadySubscribed ? "You're already on the list." : "You're on the list. Thanks for joining us.")
+                : (result.error || "Please try again."));
+            if (result.success) setEmail("");
+        } catch {
+            setNewsletterMessage("Something went wrong. Please try again.");
+        } finally {
+            setSubmitting(false);
+        }
+    }
 
     return (
-        <main className="min-h-screen bg-[#F1EFE8] flex flex-col pt-32 font-sans text-[#171717] pb-20">
-            {/* Gold Header Banner */}
-            <div className="w-full bg-[#F1EFE8] py-8 md:py-8 mb-12 shadow-2xl">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <h1 className="text-[#171717] text-3xl md:text-[64px] uppercase tracking-widest font-normal">CONTENTS</h1>
-
-                    {/* Search Bar */}
-                    <div className="relative w-full md:w-[401px]">
+        <main className="min-h-screen bg-[#F1EFE8] text-[#171717] pt-32 pb-24">
+            <header className="max-w-[1400px] mx-auto px-6 md:px-12 pb-12 md:pb-16">
+                <p className="text-[#B59431] text-[10px] uppercase tracking-[0.3em] font-bold mb-5">Stories, projects & perspectives</p>
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+                    <div className="max-w-3xl">
+                        <h1 className="text-4xl md:text-7xl font-normal uppercase tracking-[0.12em]">The YAAAS Journal</h1>
+                        <p className="mt-6 text-[#55534E] text-base md:text-lg leading-relaxed max-w-2xl">Explore our creative projects, artist collaborations, exhibitions, cultural experiences and stories from across Africa and its diaspora.</p>
+                    </div>
+                    <div className="relative w-full lg:max-w-[420px]">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#77746D]" size={18} />
-                        <input
-                            type="text"
-                            placeholder="SEARCH CONTENTS..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white/70 border border-black/15 rounded-sm py-4 pl-12 pr-4 text-[#171717] text-xs tracking-widest outline-none focus:border-white transition-all uppercase placeholder:text-[#77746D]"
-                        />
+                        <input aria-label="Search all YAAAS content" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="SEARCH PROJECTS, STORIES, TOPICS..." className="w-full bg-white/70 border border-black/15 rounded-sm py-4 pl-12 pr-4 text-[#171717] text-xs tracking-widest outline-none focus:border-[#B59431] placeholder:text-[#77746D]" />
                     </div>
                 </div>
-            </div>
+                <p className="text-[10px] text-[#77746D] tracking-widest uppercase mt-4">{projects.length} case studies · {articles.length} articles</p>
+            </header>
 
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
-                <AnimatePresence mode="wait">
-                    {hasResults ? (
-                        <div className="space-y-32">
-                            {/* Contents Section */}
-                            <motion.section
-                                key="contents-section"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                className="space-y-12"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <h2 className="text-2xl font-bold uppercase tracking-[0.4em] text-[#B59431]">Case Studies</h2>
-                                    <div className="flex-grow h-[1px] bg-black/10"></div>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                                    {filteredContents.map((content, index) => (
-                                        <Link href={`/contents/${content._id}`} key={content._id}>
-                                            <motion.div
-                                                initial={{ opacity: 0, y: 30 }}
-                                                whileInView={{ opacity: 1, y: 0 }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 0.8, delay: index * 0.1 }}
-                                                className="group flex flex-col h-full bg-white/60 border border-black/10 p-6 hover:bg-[#B59431]/[0.08] transition-all rounded-sm"
-                                            >
-                                                <div className="relative aspect-[4/3] overflow-hidden mb-6 grayscale group-hover:grayscale-0 transition-all duration-700 rounded-sm">
-                                                    <Image
-                                                        src={content.mainImage}
-                                                        alt={content.title}
-                                                        fill
-                                                        className="object-cover"
-                                                    />
-                                                </div>
-                                                <p className="text-[#77746D] text-[10px] tracking-[0.2em] uppercase mb-4">{content.category}</p>
-                                                <h4 className="text-xl font-bold text-[#B59431] tracking-wide mb-6 uppercase group-hover:brightness-125 transition-all line-clamp-2">
-                                                    {content.title}
-                                                </h4>
-                                                <p className="text-[#55534E] text-sm tracking-wide leading-relaxed line-clamp-3 mb-8">
-                                                    {content.description}
-                                                </p>
-                                                <div className="mt-auto pt-6 border-t border-black/10 flex items-center gap-3">
-                                                    <span className="text-[#B59431] text-[10px] uppercase tracking-[0.2em] font-bold">EXPLORE CONTENT</span>
-                                                    <div className="w-6 h-[1px] bg-[#B59431] group-hover:w-12 transition-all"></div>
-                                                </div>
-                                            </motion.div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </motion.section>
-                        </div>
-                    ) : (
-                        <motion.div
-                            key="no-results"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="py-40 text-center flex flex-col items-center gap-6"
-                        >
-                            <Search size={48} className="text-[#171717]/15" />
-                            <p className="text-[#77746D] text-xl tracking-[0.3em] uppercase italic">
-                                No contents found for "{searchQuery}"
-                            </p>
-                            <button
-                                onClick={() => { setSearchQuery(''); }}
-                                className="text-[#B59431] border border-[#B59431]/30 px-8 py-3 text-xs tracking-widest font-bold uppercase hover:bg-[#B59431] hover:text-black transition-all"
-                            >
-                                Clear Search
-                            </button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
+            <div className="max-w-[1400px] mx-auto px-6 md:px-12 space-y-24">
+                <section aria-labelledby="case-studies-heading" className="space-y-9">
+                    <div className="flex items-center gap-5"><div><p className="text-[#B59431] text-[10px] tracking-[0.25em] uppercase font-bold mb-2">What we make happen</p><h2 id="case-studies-heading" className="text-2xl md:text-3xl uppercase tracking-[0.18em]">Case Studies & Projects</h2></div><div className="h-px bg-black/10 flex-1 mt-5"/></div>
+                    {projects.length ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {projects.map((item, index) => <Link href={`/contents/${item._id}`} key={item._id} className="group flex flex-col bg-white/60 border border-black/10 p-5 hover:border-[#B59431]/50 transition-colors">
+                            <div className="relative aspect-[4/3] overflow-hidden mb-6 bg-[#E4DED0]">
+                                {item.mainImage && <Image src={item.mainImage} alt={item.title || "YAAAS creative project"} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"/>}
+                            </div>
+                            <p className="text-[#77746D] text-[10px] tracking-[0.2em] uppercase mb-3">{item.category || "Project"}</p>
+                            <h3 className="text-xl font-bold text-[#171717] mb-4 group-hover:text-[#9A7622]">{item.title}</h3>
+                            <p className="text-[#55534E] text-sm leading-relaxed line-clamp-4">{item.description}</p>
+                            <span className="mt-7 pt-5 border-t border-black/10 flex items-center gap-2 text-[#9A7622] text-[10px] uppercase tracking-[0.2em] font-bold">Explore project <ArrowUpRight size={14}/></span>
+                        </Link>)}
+                    </div> : <p className="text-sm text-[#77746D] py-8">{term ? "No projects match your search." : "New projects coming soon."}</p>}
+                </section>
 
-            <style jsx>{`
-                .scrollbar-hide::-webkit-scrollbar { display: none; }
-                .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-            `}</style>
+                <section aria-labelledby="journal-heading" className="space-y-9">
+                    <div className="flex items-center gap-5"><div><p className="text-[#B59431] text-[10px] tracking-[0.25em] uppercase font-bold mb-2">From the YAAAS team</p><h2 id="journal-heading" className="text-2xl md:text-3xl uppercase tracking-[0.18em]">News, Stories & Insights</h2></div><div className="h-px bg-black/10 flex-1 mt-5"/></div>
+                    {articles.length ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {articles.map(post => <Link href={`/news/${post._id}`} key={post._id} className="group flex flex-col">
+                            <div className="relative aspect-[4/3] overflow-hidden mb-5 bg-[#E4DED0] border border-black/10">
+                                {post.image && <Image src={post.image} alt={post.title || "YAAAS journal article"} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"/>}
+                            </div>
+                            <p className="text-[#77746D] text-[10px] tracking-[0.2em] uppercase mb-3">{post.category || "News"}{post.date ? ` · ${post.date}` : ""}</p>
+                            <h3 className="text-xl font-bold text-[#171717] leading-snug mb-4 group-hover:text-[#9A7622]">{post.title}</h3>
+                            <p className="text-[#55534E] text-sm leading-relaxed line-clamp-4">{post.contentBlurb}</p>
+                            <span className="mt-5 flex items-center gap-2 text-[#9A7622] text-[10px] uppercase tracking-[0.2em] font-bold">Read story <ArrowUpRight size={14}/></span>
+                        </Link>)}
+                    </div> : <p className="text-sm text-[#77746D] py-8">{term ? "No articles match your search." : "New stories coming soon."}</p>}
+                    {term && projects.length === 0 && articles.length === 0 && <p className="text-sm text-[#77746D]">Try another keyword or search by artist, exhibition, project or topic.</p>}
+                </section>
+
+                <section className="bg-[#171717] text-[#F1EFE8] px-7 py-12 md:px-14 md:py-16 grid md:grid-cols-[1fr_0.9fr] gap-10 items-center">
+                    <div><p className="text-[#B59431] text-[10px] uppercase tracking-[0.3em] font-bold mb-4">The YAAAS Edit</p><h2 className="text-3xl md:text-4xl leading-tight">Stay close to African creativity.</h2><p className="text-white/65 text-sm leading-relaxed mt-5 max-w-xl">Get the latest art news, artist highlights, exhibitions, projects and creative ideas from across Africa and its diaspora, straight to your inbox.</p></div>
+                    <form onSubmit={joinNewsletter} className="flex flex-col gap-4">
+                        <label className="text-[10px] text-white/55 uppercase tracking-widest" htmlFor="journal-newsletter-email">Email address</label>
+                        <div className="flex flex-col sm:flex-row gap-2"><input id="journal-newsletter-email" type="email" required value={email} onChange={event => setEmail(event.target.value)} placeholder="Your email address" className="min-w-0 flex-1 bg-white/5 border border-white/20 px-4 py-4 text-sm text-white placeholder:text-white/35 outline-none focus:border-[#B59431]"/><button disabled={submitting} className="inline-flex items-center justify-center gap-2 bg-[#B59431] text-black px-6 py-4 text-[10px] font-bold uppercase tracking-widest disabled:opacity-50"><Mail size={14}/>{submitting ? "Joining..." : "Subscribe"}</button></div>
+                        <label className="flex items-start gap-2 text-[10px] text-white/45 leading-relaxed"><input type="checkbox" checked={consent} onChange={event => setConsent(event.target.checked)} required className="mt-0.5 accent-[#B59431]"/><span>I agree to receive occasional updates from YAAAS. I can unsubscribe at any time.</span></label>
+                        {newsletterMessage && <p role="status" aria-live="polite" className="text-xs text-[#D9C58A]">{newsletterMessage}</p>}
+                    </form>
+                </section>
+            </div>
         </main>
     );
 }
