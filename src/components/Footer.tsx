@@ -64,6 +64,7 @@ export default function Footer() {
                                         </Link>
                                     </li>
                                 ))}
+                                {artsyUrl && <li><a href={artsyUrl} target="_blank" rel="noreferrer" className="hover:text-[#B59431] transition-colors">ARTSY</a></li>}
                             </ul>
                         </div>
 
