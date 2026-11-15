@@ -64,12 +64,17 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                 return matchesMedium && matchesArtist;
             })
             .sort((a, b) => {
-                const dateA = a.date
-                    ? new Date(a.date).getTime()
+                const yearA = a.date
+                    ? new Date(a.date).getUTCFullYear()
+                    : (a.year && /^\d{4}$/.test(a.year) ? Number(a.year) : NaN);
+                const yearB = b.date
+                    ? new Date(b.date).getUTCFullYear()
+                    : (b.year && /^\d{4}$/.test(b.year) ? Number(b.year) : NaN);
+                const dateA = Number.isFinite(yearA)
+                    ? Date.UTC(yearA, 0, 1)
                     : new Date(a.createdAt).getTime();
-
-                const dateB = b.date
-                    ? new Date(b.date).getTime()
+                const dateB = Number.isFinite(yearB)
+                    ? Date.UTC(yearB, 0, 1)
                     : new Date(b.createdAt).getTime();
 
                 if (sortBy === 'newest') return dateB - dateA;
@@ -235,9 +240,11 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                             <div className="flex flex-col items-center text-center px-2">
                                 <span className="text-[#55534E] font-medium text-[10px] md:text-xs tracking-[0.2em] leading-tight uppercase">
                                     {art.artistName}{' '}
-                                    {art.year
-                                        ? `(${art.year}, ${art.medium})`
-                                        : `(${art.medium})`}
+                                    {art.date
+                                        ? `(${new Date(art.date).getUTCFullYear()}, ${art.medium})`
+                                        : art.year && /^\d{4}$/.test(art.year)
+                                            ? `(${art.year}, ${art.medium})`
+                                            : `(${art.medium})`}
                                 </span>
                                 {(art.dimensions || (art.year && !/^\\d{4}$/.test(art.year) ? art.year : '')) && (
                                     <span className="text-[#77746D] font-medium text-[9px] md:text-[10px] tracking-[0.15em] mt-2 uppercase">
