@@ -16,6 +16,7 @@ export async function createProject(formData: any) {
     revalidatePath("/admin/contents");
     revalidatePath("/");
     revalidatePath("/contents");
+    revalidatePath("/services");
     return JSON.parse(JSON.stringify(project));
 }
 
