@@ -24,6 +24,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
         galleryImages: initialData?.galleryImages || [],
         date: initialData?.date || '',
         details: initialData?.details || [''],
+        featuredOnServices: initialData?.featuredOnServices || false,
     });
 
     const handleDetailChange = (index: number, value: string) => {
@@ -183,6 +184,11 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                                 />
                             </div>
                         </div>
+
+                        <label className="flex items-start gap-3 border border-[#B59431]/25 bg-[#B59431]/5 p-4 cursor-pointer">
+                            <input type="checkbox" checked={formData.featuredOnServices} onChange={(e) => setFormData({ ...formData, featuredOnServices: e.target.checked })} className="mt-0.5 accent-[#B59431]" />
+                            <span className="flex flex-col gap-1"><span className="text-white text-xs font-bold uppercase tracking-widest">Feature on Services page</span><span className="text-white/40 text-xs leading-relaxed">Show this project in the Selected Work / Case Studies section on the Services page.</span></span>
+                        </label>
 
                         <div className="flex flex-col gap-4">
                             <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Key Content Details (Bullet Points)</label>
