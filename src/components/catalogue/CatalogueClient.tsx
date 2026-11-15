@@ -239,9 +239,9 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                                         ? `(${art.year}, ${art.medium})`
                                         : `(${art.medium})`}
                                 </span>
-                                {art.dimensions && (
+                                {(art.dimensions || (art.year && !/^\\d{4}$/.test(art.year) ? art.year : '')) && (
                                     <span className="text-[#77746D] font-medium text-[9px] md:text-[10px] tracking-[0.15em] mt-2 uppercase">
-                                        {art.dimensions}
+                                        {art.dimensions || art.year}
                                     </span>
                                 )}
                             </div>
