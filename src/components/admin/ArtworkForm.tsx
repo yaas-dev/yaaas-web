@@ -23,7 +23,8 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
         artistName: initialData?.artistName || '',
         talentId: initialData?.talentId || '',
         src: initialData?.src || '',
-        year: initialData?.year || '',
+        year: initialData?.year && /^\\d{4}$/.test(initialData.year) ? initialData.year : '',
+        dimensions: initialData?.dimensions || (initialData?.year && !/^\\d{4}$/.test(initialData.year) ? initialData.year : ''),
         date: initialData?.date ? new Date(initialData.date).getUTCFullYear().toString() : '',
         medium: initialData?.medium || 'painting',
         externalLink: initialData?.externalLink || '',
@@ -142,6 +143,17 @@ export default function ArtworkForm({ initialData }: ArtworkFormProps) {
                                 placeholder="e.g. Memory fragments"
                             />
                         </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Dimensions</label>
+                                    <input
+                                        type="text"
+                                        value={formData.dimensions}
+                                        onChange={(e) => setFormData({ ...formData, dimensions: e.target.value })}
+                                        className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors"
+                                        placeholder="e.g. 80 × 100 cm"
+                                    />
+                                </div>
 
                                 <div className="flex flex-col gap-2">
                                     <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Creation Year</label>
