@@ -134,6 +134,16 @@ export default function TalentForm({ initialData }: TalentFormProps) {
 
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
+                                <label className="text-white/40 text-[8px] uppercase tracking-widest font-bold">Artsy Profile URL</label>
+                                <input
+                                    type="url"
+                                    value={formData.artsyUrl}
+                                    onChange={(e) => setFormData({ ...formData, artsyUrl: e.target.value })}
+                                    className="bg-black border border-white/10 p-3 text-xs text-white outline-none focus:border-[#B59431] transition-colors"
+                                    placeholder="https://www.artsy.net/artist/..."
+                                />
+                            </div>
+                            <div className="flex flex-col gap-2">
                                 <label className="text-white/40 text-[8px] uppercase tracking-widest font-bold">Instagram URL</label>
                                 <input
                                     type="url"
