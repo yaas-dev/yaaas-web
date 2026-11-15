@@ -196,21 +196,20 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
 
             {/* Artwork Grid */}
             <div className="w-full bg-[#F1EFE8] py-16 px-4 md:px-16">
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 md:gap-x-10 lg:gap-x-16 gap-y-12 md:gap-y-20 w-full items-start">
+                <div className="columns-2 lg:columns-4 gap-6 md:gap-10 lg:gap-16 [column-fill:_balance]">
 
                     {displayedArtworks.map(art => (
                         <div
                             key={art._id}
                             onClick={() => setSelectedArt(art)}
-                            className="flex flex-col group cursor-pointer"
+                            className="mb-10 md:mb-14 break-inside-avoid flex flex-col group cursor-pointer"
                         >
-                            <div className="relative w-full aspect-[4/5] rounded-sm overflow-hidden mb-4 md:mb-6 bg-[#F7F6F2] border border-black/10 group-hover:border-[#B59431]/40 transition-all shadow-2xl">
-                                <Image
+                            <div className="relative w-full overflow-hidden mb-4 md:mb-6">
+                                <img
                                     src={art.src}
                                     alt={art.title}
-                                    fill
-                                    className="object-contain"
-                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                    className="block w-full h-auto transition-opacity duration-500 group-hover:opacity-90"
+                                    loading="lazy"
                                 />
 
                                 {art.isSold && (
