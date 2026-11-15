@@ -8,12 +8,8 @@ export async function getSettings() {
     await dbConnect();
     let settings = await Settings.findOne({});
     if (!settings) {
-        // Create default settings if they don't exist
         settings = await Settings.create({
-            heroBackground: {
-                type: 'image',
-                src: '/images/hero.png'
-            },
+            heroBackground: { type: 'image', src: '/images/hero.png' },
             servicesHeaderImage: ''
         });
     }
@@ -24,6 +20,9 @@ export async function updateSettings(formData: any) {
     await dbConnect();
     const settings = await Settings.findOneAndUpdate({}, formData, { new: true, upsert: true });
     revalidatePath("/");
+    revalidatePath("/about");
     revalidatePath("/admin/settings");
+    revalidatePath("/admin/homepage");
+    revalidatePath("/admin/about-team");
     return JSON.parse(JSON.stringify(settings));
 }
