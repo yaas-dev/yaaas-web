@@ -239,6 +239,11 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                                         ? `(${art.year}, ${art.medium})`
                                         : `(${art.medium})`}
                                 </span>
+                                {art.dimensions && (
+                                    <span className="text-[#77746D] font-medium text-[9px] md:text-[10px] tracking-[0.15em] mt-2 uppercase">
+                                        {art.dimensions}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     ))}
