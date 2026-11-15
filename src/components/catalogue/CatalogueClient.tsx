@@ -8,12 +8,13 @@ import ContactSection from '../home/ContactSection';
 
 interface CatalogueClientProps {
     initialArtworks: any[];
+    initialArtistName?: string;
 }
 
-export default function CatalogueClient({ initialArtworks }: CatalogueClientProps) {
+export default function CatalogueClient({ initialArtworks, initialArtistName = '' }: CatalogueClientProps) {
     const [selectedArt, setSelectedArt] = useState<any | null>(null);
     const [activeFilter, setActiveFilter] = useState<string>('all');
-    const [selectedArtist, setSelectedArtist] = useState<string>('all');
+    const [selectedArtist, setSelectedArtist] = useState<string>(initialArtistName || 'all');
     const [sortBy, setSortBy] = useState<string>('newest');
     const [visibleCount, setVisibleCount] = useState(12);
 
@@ -133,7 +134,7 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
             {/* First Gold Banner */}
             <div className="w-full bg-[#F1EFE8] py-5 px-8 md:px-[10%] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <h1 className="text-[#171717] text-2xl md:text-[64px] uppercase tracking-widest outline-none">
-                    Art Catalogue
+                    {initialArtistName ? `${initialArtistName} — Art Catalogue` : 'Art Catalogue'}
                 </h1>
 
                 <div className="flex flex-row md:flex-row gap-4 w-full md:w-auto">
