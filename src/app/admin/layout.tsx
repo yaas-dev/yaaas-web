@@ -30,6 +30,7 @@ const ADMIN_NAV = [
     { name: 'Newsletter', href: '/admin/newsletter', icon: Send },
     { name: 'Services', href: '/admin/services', icon: LayoutGrid },
     { name: 'Homepage', href: '/admin/homepage', icon: FileText },
+    { name: 'About Team', href: '/admin/about-team', icon: Users },
     { name: 'Settings', href: '/admin/settings', icon: SettingsIcon },
 ];
 
