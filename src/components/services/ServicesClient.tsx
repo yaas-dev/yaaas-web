@@ -9,9 +9,10 @@ import Image from "next/image";
 interface ServicesClientProps {
     services: Service[];
     settings?: any;
+    featuredProjects?: any[];
 }
 
-export default function ServicesClient({ services, settings }: ServicesClientProps) {
+export default function ServicesClient({ services, settings, featuredProjects = [] }: ServicesClientProps) {
     const headerBg = settings?.servicesHeaderImage;
 
     return (
@@ -55,6 +56,32 @@ export default function ServicesClient({ services, settings }: ServicesClientPro
                     <ServiceAccordion services={services} initialAllOpen={true} allowToggle={false} />
                 </motion.div>
             </div>
+
+            {featuredProjects.length > 0 && (
+                <section className="w-full max-w-[1400px] mx-auto px-6 md:px-16 mt-24 mb-12">
+                    <div className="flex items-end justify-between gap-6 mb-10">
+                        <div>
+                            <p className="text-[#B59431] text-[10px] uppercase tracking-[0.28em] font-bold mb-3">Selected work</p>
+                            <h2 className="font-serif text-4xl md:text-6xl">Ideas in action.</h2>
+                        </div>
+                        <Link href="/contents" className="hidden sm:inline-flex text-[#B59431] text-[10px] font-bold uppercase tracking-[0.2em] border-b border-[#B59431]/50 pb-2 hover:text-[#171717] hover:border-[#171717] transition-colors">View all work</Link>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {featuredProjects.map((project: any) => (
+                            <Link href={`/contents/${project._id}`} key={project._id} className="group block">
+                                <div className="relative aspect-[4/3] overflow-hidden bg-[#292929] mb-5">
+                                    <Image src={project.mainImage} alt={project.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                                </div>
+                                <p className="text-[#77746D] text-[10px] uppercase tracking-[0.2em] mb-3">{project.category}</p>
+                                <h3 className="font-serif text-2xl md:text-3xl text-[#171717] group-hover:text-[#B59431] transition-colors">{project.title}</h3>
+                                <p className="text-[#55534E] text-sm leading-relaxed mt-3 line-clamp-3">{project.description}</p>
+                                <span className="inline-flex items-center gap-3 text-[#B59431] text-[10px] uppercase tracking-[0.2em] font-bold mt-6">Explore case study <span className="w-7 h-px bg-[#B59431] group-hover:w-12 transition-all"/></span>
+                            </Link>
+                        ))}
+                    </div>
+                    <div className="sm:hidden mt-8"><Link href="/contents" className="text-[#B59431] text-[10px] font-bold uppercase tracking-[0.2em] border-b border-[#B59431]/50 pb-2">View all work</Link></div>
+                </section>
+            )}
 
             {/* ── Bottom CTA ── */}
             <motion.div
