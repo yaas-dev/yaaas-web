@@ -23,7 +23,7 @@ export default function AboutClient({ team, intro }: { team: TeamMember[]; intro
     return <main className="min-h-screen bg-[#F1EFE8] text-[#171717] pt-24 pb-10">
         <section className="max-w-[1400px] mx-auto px-6 md:px-12 pt-8 md:pt-14 pb-16 md:pb-24">
             <p className="text-[#B59431] text-[10px] md:text-xs uppercase tracking-[0.28em] font-bold mb-5">{copy.eyebrow}</p>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-[100px] leading-[0.95] tracking-tight max-w-5xl">{copy.headline.split("African creativity.")[0]}<span className="text-[#B59431]">{copy.headline.includes("African creativity.") ? "African creativity." : ""}</span></h1>
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-[100px] leading-[0.95] tracking-tight max-w-5xl">{copy.headline}</h1>
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-24 items-end mt-12 md:mt-20">
                 <div className="text-base md:text-xl leading-relaxed text-[#4D4A43] max-w-3xl">
                     <p>{copy.paragraphOne}</p>
