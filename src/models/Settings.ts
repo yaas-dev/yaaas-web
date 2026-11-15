@@ -7,7 +7,7 @@ export interface ISettings extends Document {
     creativesSonicImage?: string;
     homepageContent?: Record<string, string>;
     aboutTeam?: Array<{ id: string; name: string; role: string; bio: string; image: string; visible: boolean }>;
-    aboutIntro?: { eyebrow: string; headline: string; paragraphOne: string; paragraphTwo: string; cardLabel: string; cardText: string };
+    aboutIntro?: { eyebrow: string; headline: string; paragraphOne: string; paragraphTwo: string; image?: string };
     newsletter?: { enabled: boolean; eyebrow: string; heading: string; description: string; buttonText: string; image: string; delaySeconds: number; dismissalDays: number; consentText: string; footerText: string };
 }
 const SettingsSchema: Schema = new Schema({
