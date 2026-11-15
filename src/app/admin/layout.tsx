@@ -32,7 +32,7 @@ const ADMIN_NAV = [
     { name: 'Services', href: '/admin/services', icon: LayoutGrid },
     { name: 'Homepage', href: '/admin/homepage', icon: FileText },
     { name: 'Team', href: '/admin/about-team', icon: Users },
-    { name: 'Upcoming Event', href: '/admin/homepage#upcoming-events', icon: Clock },
+    { name: 'Upcoming Event', href: '/admin/upcoming-event', icon: Clock },
     { name: 'Settings', href: '/admin/settings', icon: SettingsIcon },
 ];
 
