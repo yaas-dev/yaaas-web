@@ -16,6 +16,7 @@ import {
     X,
     LayoutGrid,
     Settings as SettingsIcon,
+    Clock,
     Send
 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
@@ -30,7 +31,8 @@ const ADMIN_NAV = [
     { name: 'Newsletter', href: '/admin/newsletter', icon: Send },
     { name: 'Services', href: '/admin/services', icon: LayoutGrid },
     { name: 'Homepage', href: '/admin/homepage', icon: FileText },
-    { name: 'About Team', href: '/admin/about-team', icon: Users },
+    { name: 'Team', href: '/admin/about-team', icon: Users },
+    { name: 'Upcoming Event', href: '/admin/homepage#upcoming-events', icon: Clock },
     { name: 'Settings', href: '/admin/settings', icon: SettingsIcon },
 ];
 
