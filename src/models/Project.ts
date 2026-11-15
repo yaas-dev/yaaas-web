@@ -8,6 +8,7 @@ export interface IProject extends Document {
     galleryImages: string[];
     date: string;
     details: string[];
+    featuredOnServices?: boolean;
 }
 
 const ProjectSchema: Schema = new Schema({
@@ -18,6 +19,7 @@ const ProjectSchema: Schema = new Schema({
     galleryImages: [{ type: String }],
     date: { type: String },
     details: [{ type: String }],
+    featuredOnServices: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export default mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema);
