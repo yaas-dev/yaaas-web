@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { getProjects } from "@/actions/projectActions";
+import { getNewsPosts } from "@/actions/newsActions";
+import ContentsClient from "@/components/contents/ContentsClient";
 
-export const metadata: Metadata = { title: "Cultural Projects & Creative Experiences", description: "Discover YAAAS projects, exhibitions, collaborations and cultural experiences across Africa and its diaspora.", alternates: { canonical: "/contents" } };
-
-import React from 'react';
-import { getProjects } from '@/actions/projectActions';
-import ContentsClient from '@/components/contents/ContentsClient';
+export const dynamic = "force-dynamic";
+export const metadata: Metadata = {
+    title: "African Art, Culture, Projects & Stories | YAAAS",
+    description: "Explore YAAAS creative projects, African art exhibitions, artist collaborations, cultural experiences, news and stories from across Africa and its diaspora.",
+    alternates: { canonical: "/contents" },
+    openGraph: {
+        title: "The YAAAS Journal | African Art, Culture & Creative Projects",
+        description: "Case studies, exhibitions, artist stories, cultural projects and perspectives from across Africa and its diaspora.",
+        type: "website",
+    },
+};
 
 export default async function ContentsPage() {
-    // Fetch live contents
-    const projects = await getProjects();
-
-    return (
-        <ContentsClient initialContents={projects} />
-    );
+    const [projects, newsPosts] = await Promise.all([getProjects(), getNewsPosts()]);
+    return <ContentsClient initialContents={projects} newsPosts={newsPosts} />;
 }
