@@ -279,13 +279,6 @@ export default function CatalogueClient({ initialArtworks }: CatalogueClientProp
                     </div>
                 )}
 
-                {/* End of Collection */}
-                {filteredArtworks.length > 0 &&
-                    visibleCount >= filteredArtworks.length && (
-                        <div className="w-full py-8 text-center text-[#99958B] text-xs uppercase tracking-widest">
-                            You've reached the end of the collection
-                        </div>
-                    )}
             </div>
 
             <ContactSection />
