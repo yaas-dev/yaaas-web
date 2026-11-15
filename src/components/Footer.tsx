@@ -9,10 +9,10 @@ import { getSettings } from "@/actions/settingsActions";
 
 export default function Footer() {
     const pathname = usePathname();
-    const [artsyUrl, setArtsyUrl] = useState("");
+    const [footerLinks, setFooterLinks] = useState({ instagram: "https://www.instagram.com/yaaas.agency", linkedin: "https://ci.linkedin.com/company/yaaas-agency", artsy: "" });
 
     useEffect(() => {
-        getSettings().then((settings) => setArtsyUrl(settings?.artsyUrl || "")).catch(() => setArtsyUrl(""));
+        getSettings().then((settings) => {\n            const content = settings?.homepageContent || {};\n            setFooterLinks({\n                instagram: content.footerInstagramUrl || "https://www.instagram.com/yaaas.agency",\n                linkedin: content.footerLinkedinUrl || "https://ci.linkedin.com/company/yaaas-agency",\n                artsy: content.footerArtsyUrl || "",\n            });\n        }).catch(() => {});
     }, []);
 
     if (pathname?.startsWith('/admin')) return null;
@@ -69,14 +69,14 @@ export default function Footer() {
                         </div>
 
                         <div className="flex flex-col gap-6">
-                            <h4 className="text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase">SOCIALS</h4>
+                            <h4 className="text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase">LINKS</h4>
                             <ul className="flex flex-col gap-4 text-xs md:text-sm uppercase tracking-widest font-semibold text-gray-300">
                                 {[
                                     { label: "INSTAGRAM", href: "https://www.instagram.com/yaaas.agency" },
                                     { label: "LINKEDIN", href: "https://ci.linkedin.com/company/yaaas-agency" },
                                 ].map(({ label, href }) => (
                                     <li key={label}>
-                                        <Link href={href} className="hover:text-[#B59431] transition-colors">{label}</Link>
+                                        <a href={href} target="_blank" rel="noreferrer" className="hover:text-[#B59431] transition-colors">{label}</a>
                                     </li>
                                 ))}
                             </ul>
