@@ -5,6 +5,18 @@ import ContactSection from "../home/ContactSection";
 type TeamMember = { id: string; name: string; role: string; bio: string; image?: string; visible?: boolean };
 export default function AboutClient({ team }: { team: TeamMember[] }) {
     const people = (team || []).filter(person => person.visible !== false && person.name?.trim());
+    const founderIds = new Set(["julie-rozand", "belly-ogunyemi"]);
+    const founders = people.filter(person => founderIds.has(person.id));
+    const teamMembers = people.filter(person => !founderIds.has(person.id));
+    const renderPeople = (members: TeamMember[], startIndex = 0) => members.map((person, index) => <article key={person.id || person.name} className="group">
+        <div className="relative aspect-[4/5] bg-[#292929] overflow-hidden mb-5">
+            {person.image ? <Image src={person.image} alt={person.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"/> : <div className="absolute inset-0 flex items-center justify-center"><span className="font-serif text-6xl text-[#B59431]/70">{person.name.split(" ").map(part => part[0]).slice(0,2).join("")}</span></div>}
+            <span className="absolute top-4 left-4 text-[10px] tracking-widest text-white/60">0{startIndex + index + 1}</span>
+        </div>
+        <h3 className="font-serif text-2xl md:text-3xl">{person.name}</h3>
+        <p className="text-[#B59431] text-[10px] uppercase tracking-[0.18em] font-bold mt-2">{person.role}</p>
+        {person.bio && <p className="text-[#F1EFE8]/60 text-sm leading-relaxed mt-4 max-w-md">{person.bio}</p>}
+    </article>);
     return <main className="min-h-screen bg-[#F1EFE8] text-[#171717] pt-24 pb-10">
         <section className="max-w-[1400px] mx-auto px-6 md:px-12 pt-8 md:pt-14 pb-16 md:pb-24">
             <p className="text-[#B59431] text-[10px] md:text-xs uppercase tracking-[0.28em] font-bold mb-5">Yaa Asantewaa Agency</p>
@@ -29,17 +41,14 @@ export default function AboutClient({ team }: { team: TeamMember[] }) {
                     <div><p className="text-[#B59431] text-[10px] uppercase tracking-[0.28em] font-bold mb-4">The people behind the work</p><h2 className="font-serif text-4xl md:text-6xl">Meet the team.</h2></div>
                     <p className="text-white/55 text-sm md:text-base max-w-md leading-relaxed">A team bringing together different experiences and perspectives, with a shared commitment to African creativity.</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-12">
-                    {people.map((person, index) => <article key={person.id || person.name} className="group">
-                        <div className="relative aspect-[4/5] bg-[#292929] overflow-hidden mb-5">
-                            {person.image ? <Image src={person.image} alt={person.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"/> : <div className="absolute inset-0 flex items-center justify-center"><span className="font-serif text-6xl text-[#B59431]/70">{person.name.split(" ").map(part => part[0]).slice(0,2).join("")}</span></div>}
-                            <span className="absolute top-4 left-4 text-[10px] tracking-widest text-white/60">0{index + 1}</span>
-                        </div>
-                        <h3 className="font-serif text-2xl md:text-3xl">{person.name}</h3>
-                        <p className="text-[#B59431] text-[10px] uppercase tracking-[0.18em] font-bold mt-2">{person.role}</p>
-                        {person.bio && <p className="text-[#F1EFE8]/60 text-sm leading-relaxed mt-4 max-w-md">{person.bio}</p>}
-                    </article>)}
-                </div>
+                {founders.length > 0 && <div className="mb-14 md:mb-20">
+                    <div className="flex items-center gap-5 mb-7"><h3 className="text-[#B59431] text-[10px] uppercase tracking-[0.28em] font-bold">Founders</h3><div className="h-px bg-white/15 flex-1"/></div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-12 max-w-[900px] mx-auto">{renderPeople(founders)}</div>
+                </div>}
+                {teamMembers.length > 0 && <div>
+                    <div className="flex items-center gap-5 mb-7"><h3 className="text-[#B59431] text-[10px] uppercase tracking-[0.28em] font-bold">The team</h3><div className="h-px bg-white/15 flex-1"/></div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-12">{renderPeople(teamMembers, founders.length)}</div>
+                </div>}
             </div>
         </section>
         <section className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
