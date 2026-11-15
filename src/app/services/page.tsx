@@ -6,12 +6,15 @@ import React from "react";
 import ServicesClient from "@/components/services/ServicesClient";
 import { getServices } from "@/actions/serviceActions";
 import { getSettings } from "@/actions/settingsActions";
+import { getProjects } from "@/actions/projectActions";
 
 export default async function ServicesPage() {
-    const [services, settings] = await Promise.all([
+    const [services, settings, projects] = await Promise.all([
         getServices(),
-        getSettings()
+        getSettings(),
+        getProjects()
     ]);
+    const featuredProjects = projects.filter((project: any) => project.featuredOnServices);
 
-    return <ServicesClient services={services} settings={settings} />;
+    return <ServicesClient services={services} settings={settings} featuredProjects={featuredProjects} />;
 }
