@@ -79,7 +79,6 @@ export default async function AdminDashboard() {
                         <Link href="/admin/contents/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">New Content</span></Link>
                         <Link href="/admin/enquiries" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">View Inbox</span>{stats.newEnquiries > 0 && <span className="ml-2 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">{stats.newEnquiries}</span>}</Link>
                         <Link href="/admin/newsletter" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Manage Newsletter</span></Link>
-                        <Link href="/admin/about-intro" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Edit About Intro</span></Link>
                     </div>
                 </div>
             </div>
