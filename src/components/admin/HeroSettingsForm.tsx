@@ -21,6 +21,7 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
         servicesHeaderImage: initialData?.servicesHeaderImage || '',
         creativesVisualImage: initialData?.creativesVisualImage || '',
         creativesSonicImage: initialData?.creativesSonicImage || '',
+        artsyUrl: initialData?.artsyUrl || '',
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -162,6 +163,15 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
                             folder="settings"
                         />
                         <p className="text-[10px] text-white/20 italic">These images will replace the latest talent headshots in the homepage creatives grid.</p>
+                    </div>
+
+                    <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-4 h-fit">
+                        <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#B59431] border-b border-white/5 pb-4">Footer Links</h3>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">YAAAS Artsy Profile URL</label>
+                            <input type="url" value={formData.artsyUrl} onChange={(e) => setFormData({ ...formData, artsyUrl: e.target.value })} className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors" placeholder="https://www.artsy.net/..." />
+                            <p className="text-[10px] text-white/30">Add the agency’s Artsy profile. It will appear in the footer navigation.</p>
+                        </div>
                     </div>
 
                     <div className="bg-[#B59431]/5 border border-[#B59431]/20 p-8 rounded-sm">
