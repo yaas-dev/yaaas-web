@@ -23,6 +23,7 @@ export async function createNews(formData: any) {
     revalidatePath("/", "layout");
     revalidatePath("/news", "layout");
     revalidatePath("/blog", "layout");
+    revalidatePath("/contents", "layout");
     return JSON.parse(JSON.stringify(post));
 }
 
@@ -33,6 +34,7 @@ export async function updateNews(id: string, formData: any) {
     revalidatePath("/", "layout");
     revalidatePath("/news", "layout");
     revalidatePath("/blog", "layout");
+    revalidatePath("/contents", "layout");
     return JSON.parse(JSON.stringify(post));
 }
 
@@ -43,5 +45,6 @@ export async function deleteNews(id: string) {
     revalidatePath("/", "layout");
     revalidatePath("/news", "layout");
     revalidatePath("/blog", "layout");
+    revalidatePath("/contents", "layout");
     return { success: true };
 }
