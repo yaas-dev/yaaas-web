@@ -27,6 +27,7 @@ export async function updateProject(id: string, formData: any) {
     revalidatePath(`/contents/${id}`);
     revalidatePath("/");
     revalidatePath("/contents");
+    revalidatePath("/services");
     return JSON.parse(JSON.stringify(project));
 }
 
@@ -36,6 +37,7 @@ export async function deleteProject(id: string) {
     revalidatePath("/admin/contents");
     revalidatePath("/");
     revalidatePath("/contents");
+    revalidatePath("/services");
     return { success: true };
 }
 export async function getProjectById(id: string) {
