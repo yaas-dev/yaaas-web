@@ -4,9 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Instagram, Linkedin } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getSettings } from "@/actions/settingsActions";
 
 export default function Footer() {
     const pathname = usePathname();
+    const [artsyUrl, setArtsyUrl] = useState("");
+
+    useEffect(() => {
+        getSettings().then((settings) => setArtsyUrl(settings?.artsyUrl || "")).catch(() => setArtsyUrl(""));
+    }, []);
 
     if (pathname?.startsWith('/admin')) return null;
 
