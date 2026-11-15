@@ -11,6 +11,6 @@ export async function getSettings() {
 export async function updateSettings(formData: any) {
     await dbConnect();
     const settings = await Settings.findOneAndUpdate({}, formData, { new: true, upsert: true });
-    ["/", "/about", "/admin/settings", "/admin/homepage", "/admin/about-team", "/admin/about-intro", "/admin/upcoming-event"].forEach(path => revalidatePath(path));
+    ["/", "/about", "/catalogue", "/admin/settings", "/admin/homepage", "/admin/about-team", "/admin/about-intro", "/admin/upcoming-event"].forEach(path => revalidatePath(path));
     return JSON.parse(JSON.stringify(settings));
 }
