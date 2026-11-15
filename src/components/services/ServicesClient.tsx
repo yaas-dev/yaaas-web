@@ -88,15 +88,6 @@ export default function ServicesClient({ services = [], settings, featuredProjec
                 </section>
             )}
 
-            <section className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-20">
-                <div className="bg-[#171717] text-[#F1EFE8] px-7 py-10 md:px-14 md:py-14 flex flex-col md:flex-row md:items-center justify-between gap-8">
-                    <div>
-                        <p className="text-[#D2B65C] text-[10px] uppercase tracking-[0.28em] font-bold mb-3">Have a project in mind?</p>
-                        <h2 className="font-serif text-3xl md:text-5xl">Let’s make it happen.</h2>
-                    </div>
-                    <Link href="/contact" className="inline-flex items-center justify-center bg-[#B59431] text-black px-7 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#D2B65C] transition-colors">Start a conversation</Link>
-                </div>
-            </section>
             <ContactSection />
         </main>
     );
