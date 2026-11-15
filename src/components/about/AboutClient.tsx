@@ -11,7 +11,7 @@ export default function AboutClient({ team, intro }: { team: TeamMember[]; intro
     const founderIds = new Set(["julie-rozand", "belly-ogunyemi"]);
     const founders = people.filter(person => founderIds.has(person.id));
     const teamMembers = people.filter(person => !founderIds.has(person.id));
-    const renderPeople = (members: TeamMember[], startIndex = 0) => members.map((person, index) => <article key={person.id || person.name} className="group">
+    const renderPeople = (members: TeamMember[], startIndex = 0) => members.map((person, index) => <article key={person.id || person.name} className="group w-full max-w-[320px] mx-auto">
         <div className="relative aspect-[4/5] bg-[#292929] overflow-hidden mb-5">
             {person.image ? <Image src={person.image} alt={person.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"/> : <div className="absolute inset-0 flex items-center justify-center"><span className="font-serif text-6xl text-[#B59431]/70">{person.name.split(" ").map(part => part[0]).slice(0,2).join("")}</span></div>}
             <span className="absolute top-4 left-4 text-[10px] tracking-widest text-white/60">0{startIndex + index + 1}</span>
@@ -29,7 +29,7 @@ export default function AboutClient({ team, intro }: { team: TeamMember[]; intro
                     <p>{copy.paragraphOne}</p>
                     <p className="mt-6">{copy.paragraphTwo}</p>
                 </div>
-                <div className="relative aspect-[4/3] min-h-[250px] md:min-h-[340px] overflow-hidden bg-[#E4E0D6]">
+                <div className="relative aspect-[4/3] w-full max-w-[480px] justify-self-end overflow-hidden bg-[#E4E0D6]">
                     {copy.image ? <Image src={copy.image} alt="YAAAS creative work" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover"/> : <div className="absolute inset-0 flex flex-col items-center justify-center border border-black/10 text-[#77746D]"><span className="text-[10px] uppercase tracking-[0.25em] font-bold">Image placeholder</span><span className="font-serif text-4xl mt-3 text-[#B59431]">YAAAS</span></div>}
                 </div>
             </div>
@@ -42,11 +42,11 @@ export default function AboutClient({ team, intro }: { team: TeamMember[]; intro
                 </div>
                 {founders.length > 0 && <div className="mb-14 md:mb-20">
                     <div className="flex items-center gap-5 mb-7"><h3 className="text-[#B59431] text-[10px] uppercase tracking-[0.28em] font-bold">Founders</h3><div className="h-px bg-white/15 flex-1"/></div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-12 max-w-[900px] mx-auto">{renderPeople(founders)}</div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-12 max-w-[720px] mx-auto">{renderPeople(founders)}</div>
                 </div>}
                 {teamMembers.length > 0 && <div>
                     <div className="flex items-center gap-5 mb-7"><h3 className="text-[#B59431] text-[10px] uppercase tracking-[0.28em] font-bold">The team</h3><div className="h-px bg-white/15 flex-1"/></div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-12">{renderPeople(teamMembers, founders.length)}</div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7 gap-y-12 max-w-[1050px] mx-auto">{renderPeople(teamMembers, founders.length)}</div>
                 </div>}
             </div>
         </section>
