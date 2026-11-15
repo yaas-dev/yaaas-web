@@ -12,6 +12,15 @@ interface ServicesClientProps {
 
 export default function ServicesClient({ services = [], settings, featuredProjects = [] }: ServicesClientProps) {
     const headerBg = settings?.servicesHeaderImage;
+    const serviceDescriptions: Record<string, string> = {
+        "creative direction + strategy": "YAAAS is a creative strategy and brand development agency working with artists, businesses and cultural organisations across Africa and its diaspora. We shape brand positioning, creative direction and campaign concepts, then bring them to life through visual identity, storytelling, content strategy and marketing communications. From artist and brand positioning to campaign planning, social media and creative production oversight, we connect clear strategic thinking with culturally relevant ideas that help brands and creative projects reach the right audiences.",
+        "talent development + representation": "YAAAS provides artist management, talent development and creative representation for emerging and established African and diaspora creatives. We help visual artists, musicians and multidisciplinary talent define their positioning, develop sustainable careers and access meaningful opportunities. Our work includes career strategy, artist profiling, brand partnerships, deal structuring, bookings, project development and introductions to relevant platforms, collaborators and audiences. We combine hands-on representation with long-term thinking to help creative talent grow while protecting the integrity of their work and identity.",
+        "experiential + cultural programming": "YAAAS develops cultural experiences and creative programmes that connect artists, audiences, brands and communities across Africa and its diaspora. Our cultural programming and event production services include exhibition development, artist residencies, creative workshops, live activations, spatial concepts, talent programming and cultural partnerships. From the first idea and audience journey to production, communications and documentation, we bring the creative and operational elements together to deliver thoughtful experiences rooted in art, music and contemporary culture."
+    };
+    const getServiceDescription = (service: any) => {
+        const title = String(service.title || "").toLowerCase().replace(/\\s+/g, " ").trim();
+        return serviceDescriptions[title] || service.description;
+    };
 
     return (
         <main className="bg-[#F1EFE8] text-[#171717]">
@@ -43,7 +52,7 @@ export default function ServicesClient({ services = [], settings, featuredProjec
                             </div>
                             <div className="p-6 md:p-7 flex-1">
                                 <h3 className="font-serif text-2xl md:text-3xl leading-tight">{service.title}</h3>
-                                <p className="text-[#5D5951] text-sm leading-relaxed mt-4">{service.description}</p>
+                                <p className="text-[#5D5951] text-sm leading-relaxed mt-4">{getServiceDescription(service)}</p>
                             </div>
                         </article>
                     ))}
