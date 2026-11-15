@@ -12,7 +12,14 @@ export default function Footer() {
     const [footerLinks, setFooterLinks] = useState({ instagram: "https://www.instagram.com/yaaas.agency", linkedin: "https://ci.linkedin.com/company/yaaas-agency", artsy: "" });
 
     useEffect(() => {
-        getSettings().then((settings) => {\n            const content = settings?.homepageContent || {};\n            setFooterLinks({\n                instagram: content.footerInstagramUrl || "https://www.instagram.com/yaaas.agency",\n                linkedin: content.footerLinkedinUrl || "https://ci.linkedin.com/company/yaaas-agency",\n                artsy: content.footerArtsyUrl || "",\n            });\n        }).catch(() => {});
+        getSettings().then((settings) => {
+            const content = settings?.homepageContent || {};
+            setFooterLinks({
+                instagram: content.footerInstagramUrl || "https://www.instagram.com/yaaas.agency",
+                linkedin: content.footerLinkedinUrl || "https://ci.linkedin.com/company/yaaas-agency",
+                artsy: content.footerArtsyUrl || "",
+            });
+        }).catch(() => {});
     }, []);
 
     if (pathname?.startsWith('/admin')) return null;
@@ -64,7 +71,6 @@ export default function Footer() {
                                         </Link>
                                     </li>
                                 ))}
-                                {artsyUrl && <li><a href={artsyUrl} target="_blank" rel="noreferrer" className="hover:text-[#B59431] transition-colors">ARTSY</a></li>}
                             </ul>
                         </div>
 
@@ -72,8 +78,9 @@ export default function Footer() {
                             <h4 className="text-[13px] tracking-[0.3em] font-bold text-[#B59431] uppercase">LINKS</h4>
                             <ul className="flex flex-col gap-4 text-xs md:text-sm uppercase tracking-widest font-semibold text-gray-300">
                                 {[
-                                    { label: "INSTAGRAM", href: "https://www.instagram.com/yaaas.agency" },
-                                    { label: "LINKEDIN", href: "https://ci.linkedin.com/company/yaaas-agency" },
+                                    { label: "INSTAGRAM", href: footerLinks.instagram },
+                                    { label: "LINKEDIN", href: footerLinks.linkedin },
+                                    ...(footerLinks.artsy ? [{ label: "ARTSY", href: footerLinks.artsy }] : []),
                                 ].map(({ label, href }) => (
                                     <li key={label}>
                                         <a href={href} target="_blank" rel="noreferrer" className="hover:text-[#B59431] transition-colors">{label}</a>
