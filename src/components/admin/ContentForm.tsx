@@ -60,7 +60,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!formData.mainImage) {
-            alert("Please upload a main featured image for the content.");
+            alert("Please upload a main featured image for this case study.");
             return;
         }
 
@@ -89,10 +89,10 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                 <div className="flex flex-col gap-2">
                     <Link href="/admin/contents" className="text-[10px] text-[#B59431] uppercase tracking-[0.2em] font-bold flex items-center gap-2 hover:text-white transition-colors">
                         <ArrowLeft size={12} />
-                        Back to Contents
+                        Back to Case Studies
                     </Link>
                     <h1 className="text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">
-                        {isEditing ? `Edit Content: ${initialData.title}` : 'Launch New Content'}
+                        {isEditing ? `Edit Case Study: ${initialData.title}` : 'Create New Case Study'}
                     </h1>
                 </div>
                 <button
@@ -101,7 +101,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                     className="bg-[#B59431] text-black px-10 py-4 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center gap-3 disabled:opacity-50"
                 >
                     <Save size={16} />
-                    {isLoading ? 'Archiving...' : (isEditing ? 'Update Content' : 'Publish Content')}
+                    {isLoading ? 'Archiving...' : (isEditing ? 'Update Case Study' : 'Publish Case Study')}
                 </button>
             </div>
 
@@ -152,7 +152,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                     <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="flex flex-col gap-2">
-                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Content Title</label>
+                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Case Study Title</label>
                                 <input
                                     required
                                     type="text"
@@ -163,7 +163,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
-                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Content Category</label>
+                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Case Study Category</label>
                                 <input
                                     required
                                     type="text"
@@ -174,7 +174,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
-                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Content Date</label>
+                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Case Study Date</label>
                                 <input
                                     type="text"
                                     value={formData.date}
@@ -191,7 +191,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                         </label>
 
                         <div className="flex flex-col gap-4">
-                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Key Content Details (Bullet Points)</label>
+                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Key Case Study Details (Bullet Points)</label>
                             <div className="flex flex-col gap-3">
                                 {formData.details.map((detail: string, index: number) => (
                                     <div key={index} className="flex gap-2 group">
@@ -223,7 +223,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Full Content Description</label>
+                            <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Full Case Study Description</label>
                             <textarea
                                 required
                                 rows={10}
