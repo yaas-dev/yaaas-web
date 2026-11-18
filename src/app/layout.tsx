@@ -7,6 +7,7 @@ import { ModalProvider } from "@/components/Modal";
 import PageTransition from "@/components/PageTransition";
 import Providers from "@/components/Providers";
 import NewsletterPopupController from "@/components/shared/NewsletterPopupController";
+import { getSettings } from "@/actions/settingsActions";
 
 import { azonix, modernSans } from "./fonts";
 
@@ -18,39 +19,44 @@ const poppins = Poppins({
 
 const siteUrl = "https://www.yaaas.co";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: "YAAAS Agency | African Art, Artists & Cultural Experiences",
-    template: "%s | YAAAS Agency",
-  },
-  description:
-    "YAAAS is an independent creative agency championing contemporary African and diasporic creativity through artist representation, brand strategy and cultural programming.",
-  applicationName: "YAAAS Agency",
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteUrl,
-    siteName: "YAAAS Agency",
-    title: "YAAAS Agency | African Art, Artists & Cultural Experiences",
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const shareImage = settings?.socialShareImage || "/images/hero.png";
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: "YAAAS Agency | African Art, Artists & Cultural Experiences",
+      template: "%s | YAAAS Agency",
+    },
     description:
-      "Discover contemporary African and diasporic artists, exhibitions and cultural projects with YAAAS, an independent creative agency.",
-    images: [{ url: "/images/hero.png", width: 1200, height: 630, alt: "YAAAS Agency" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "YAAAS Agency | African Art, Artists & Cultural Experiences",
-    description:
-      "Artist representation, creative strategy and cultural programming across Africa and its diaspora.",
-    images: ["/images/hero.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
-};
+      "YAAAS is an independent creative agency championing contemporary African and diasporic creativity through artist representation, brand strategy and cultural programming.",
+    applicationName: "YAAAS Agency",
+    alternates: { canonical: "/" },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: siteUrl,
+      siteName: "YAAAS Agency",
+      title: "YAAAS Agency | African Art, Artists & Cultural Experiences",
+      description:
+        "Discover contemporary African and diasporic artists, exhibitions and cultural projects with YAAAS, an independent creative agency.",
+      images: [{ url: shareImage, width: 1200, height: 630, alt: "YAAAS Agency" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "YAAAS Agency | African Art, Artists & Cultural Experiences",
+      description:
+        "Artist representation, creative strategy and cultural programming across Africa and its diaspora.",
+      images: [shareImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    },
+  };
+}
 
 export default function RootLayout({
   children,
