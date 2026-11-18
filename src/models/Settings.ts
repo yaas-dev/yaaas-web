@@ -6,6 +6,7 @@ export interface ISettings extends Document {
     artsyUrl?: string;
     creativesVisualImage?: string;
     creativesSonicImage?: string;
+    socialShareImage?: string;
     homepageContent?: Record<string, string>;
     aboutTeam?: Array<{ id: string; name: string; role: string; bio: string; image: string; visible: boolean }>;
     aboutIntro?: { eyebrow: string; headline: string; paragraphOne: string; paragraphTwo: string; image?: string };
@@ -13,7 +14,7 @@ export interface ISettings extends Document {
 }
 const SettingsSchema: Schema = new Schema({
     heroBackground: { type: { type: String, enum: ['image', 'video'], default: 'image' }, src: { type: String, default: '/images/hero.png' } },
-    servicesHeaderImage: { type: String, default: '' }, artsyUrl: { type: String, default: '' }, creativesVisualImage: { type: String, default: '' }, creativesSonicImage: { type: String, default: '' },
+    servicesHeaderImage: { type: String, default: '' }, socialShareImage: { type: String, default: '' }, artsyUrl: { type: String, default: '' }, creativesVisualImage: { type: String, default: '' }, creativesSonicImage: { type: String, default: '' },
     homepageContent: { type: Schema.Types.Mixed, default: {} }, aboutTeam: { type: Schema.Types.Mixed, default: [] }, aboutIntro: { type: Schema.Types.Mixed, default: {} },
     newsletter: {
         enabled: { type: Boolean, default: true }, eyebrow: { type: String, default: 'THE YAAAS EDIT' }, heading: { type: String, default: 'Stay close to African creativity.' },
