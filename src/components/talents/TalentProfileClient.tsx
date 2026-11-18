@@ -120,6 +120,8 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
             {!isSonic ? (
                 <>
                     {/* Visual Artist Layout: Art Catalogue */}
+                    {visualArtworks.length > 0 && (
+                    <>
                     <div className="w-full flex justify-center mb-16 border-t border-black/10 pt-16">
                         <div className="max-w-[1400px] w-full px-6 md:px-12">
                             <h2 className="text-[#171717] text-3xl md:text-4xl font-bold tracking-[0.15em] mb-4">
@@ -167,24 +169,23 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                         </div>
                                     </div>
                                     <div className="flex flex-col pl-1">
-                                        <span className="text-white font-medium text-[8px] sm:text-[10px] md:text-sm tracking-wide leading-tight md:leading-normal uppercase">
+                                        <span className="text-[#55534E] font-medium text-[8px] sm:text-[10px] md:text-sm tracking-wide leading-tight md:leading-normal uppercase">
                                             {art.artistName} {art.year ? `(${art.year}, ${art.medium})` : `(${art.medium})`}
                                         </span>
                                     </div>
                                 </div>
                             ))}
-                            {visualArtworks.length === 0 && (
-                                <div className="col-span-3 py-20 text-center text-[#99958B] italic text-sm tracking-widest uppercase">
-                                    No artworks currently listed for this artist.
-                                </div>
-                            )}
                         </div>
                     </div>
+                    </>
+                    )}
                 </>
             ) : (
                 <>
                     {/* Sonic Artist Layout: Releases & Events */}
 
+                    {releases.length > 0 && (
+                    <>
                     {/* Latest Releases Section */}
                     <div className="w-full flex justify-center mb-16 border-t border-black/10 pt-16">
                         <div className="max-w-[1400px] w-full px-6 md:px-12">
@@ -229,14 +230,14 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                     </div>
                                 </div>
                             ))}
-                            {releases.length === 0 && (
-                                <div className="col-span-2 py-20 text-center text-[#99958B] italic text-sm tracking-widest uppercase">
-                                    No releases listed yet.
-                                </div>
-                            )}
                         </div>
                     </div>
 
+                    </>
+                    )}
+
+                    {events.length > 0 && (
+                    <>
                     {/* Recent Events Section */}
                     <div className="w-full flex justify-center mb-16 pt-16">
                         <div className="max-w-[1400px] w-full px-6 md:px-12">
@@ -295,13 +296,10 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                     </div>
                                 </div>
                             ))}
-                            {events.length === 0 && (
-                                <div className="py-20 text-center text-[#99958B] italic text-sm tracking-widest uppercase">
-                                    No recent events listed yet.
-                                </div>
-                            )}
                         </div>
                     </div>
+                    </>
+                    )}
                 </>
             )}
 
