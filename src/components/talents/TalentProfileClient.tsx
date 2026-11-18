@@ -226,7 +226,7 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-[#B59431] font-bold text-xs md:text-sm tracking-widest mb-1 uppercase">{art.artistName}</span>
-                                        <span className="text-white font-bold text-sm md:text-lg tracking-widest uppercase">{art.title}</span>
+                                        <span className="text-[#55534E] font-bold text-sm md:text-lg tracking-widest uppercase">{art.title}</span>
                                     </div>
                                 </div>
                             ))}
@@ -288,10 +288,10 @@ export default function TalentProfileClient({ artist }: TalentProfileClientProps
                                             }}
                                             className="group/btn flex items-center gap-3 w-fit cursor-pointer"
                                         >
-                                            <span className="text-white text-xs uppercase tracking-[0.2em] font-bold group-hover/btn:text-[#B59431] transition-colors">
+                                            <span className="text-[#55534E] text-xs uppercase tracking-[0.2em] font-bold group-hover/btn:text-[#B59431] transition-colors">
                                                 {art.externalLink ? 'Listen / View' : 'View Event'}
                                             </span>
-                                            <div className="w-8 h-[1px] bg-white group-hover/btn:bg-[#B59431] transition-colors" />
+                                            <div className="w-8 h-[1px] bg-[#55534E] group-hover/btn:bg-[#B59431] transition-colors" />
                                         </div>
                                     </div>
                                 </div>
