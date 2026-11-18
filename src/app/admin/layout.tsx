@@ -26,7 +26,7 @@ const ADMIN_NAV = [
     { name: 'Talents', href: '/admin/talents', icon: Users },
     { name: 'Catalogue', href: '/admin/catalogue', icon: ImageIcon },
     { name: 'News', href: '/admin/news', icon: FileText },
-    { name: 'Contents', href: '/admin/contents', icon: Briefcase },
+    { name: 'Case Studies', href: '/admin/contents', icon: Briefcase },
     { name: 'Enquiries', href: '/admin/enquiries', icon: Mail },
     { name: 'Newsletter', href: '/admin/newsletter', icon: Send },
     { name: 'Services', href: '/admin/services', icon: LayoutGrid },
