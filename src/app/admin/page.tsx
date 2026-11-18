@@ -20,7 +20,7 @@ export default async function AdminDashboard() {
     const STATS = [
         { name: 'Total Talents', value: stats.talents, icon: Users, color: 'text-blue-400', href: '/admin/talents' },
         { name: 'Artworks', value: stats.artworks, icon: ImageIcon, color: 'text-[#B59431]', href: '/admin/catalogue' },
-        { name: 'Contents', value: stats.projects, icon: Briefcase, color: 'text-green-400', href: '/admin/contents' },
+        { name: 'Case Studies', value: stats.projects, icon: Briefcase, color: 'text-green-400', href: '/admin/contents' },
         { name: 'News Posts', value: stats.news, icon: FileText, color: 'text-purple-400', href: '/admin/news' },
         { name: 'Enquiries', value: stats.enquiries, icon: Mail, color: 'text-pink-400', href: '/admin/enquiries', badge: stats.newEnquiries > 0 ? stats.newEnquiries : null },
         { name: 'Newsletter Subscribers', value: stats.newsletterSubscribers, icon: Send, color: 'text-[#B59431]', href: '/admin/newsletter' },
@@ -76,7 +76,7 @@ export default async function AdminDashboard() {
                         <Link href="/admin/talents/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Add Talent</span></Link>
                         <Link href="/admin/catalogue?action=new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Upload Art</span></Link>
                         <Link href="/admin/news/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Post News</span></Link>
-                        <Link href="/admin/contents/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">New Content</span></Link>
+                        <Link href="/admin/contents/new" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">New Case Study</span></Link>
                         <Link href="/admin/enquiries" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">View Inbox</span>{stats.newEnquiries > 0 && <span className="ml-2 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">{stats.newEnquiries}</span>}</Link>
                         <Link href="/admin/newsletter" className="bg-white/5 hover:bg-white/10 p-4 text-center rounded-sm transition-all border border-white/5 hover:border-[#B59431]/20"><span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Manage Newsletter</span></Link>
                     </div>
