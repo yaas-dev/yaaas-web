@@ -27,7 +27,7 @@ export default function ContentsAdminPage() {
     }
 
     async function handleDelete(id: string) {
-        if (confirm("Are you sure you want to delete this content?")) {
+        if (confirm("Are you sure you want to delete this case study?")) {
             await deleteProject(id);
             loadContents();
         }
@@ -37,7 +37,7 @@ export default function ContentsAdminPage() {
         <div className="flex flex-col gap-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Agency Contents</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white uppercase tracking-[0.1em]">Case Studies</h1>
                     <p className="text-white/40 text-sm tracking-wide">Showcase major agency commissions and case studies.</p>
                 </div>
                 <Link
@@ -45,7 +45,7 @@ export default function ContentsAdminPage() {
                     className="w-full sm:w-auto bg-[#B59431] text-black px-6 py-3 rounded-sm font-extrabold text-xs tracking-widest uppercase hover:bg-white transition-all flex items-center justify-center gap-3"
                 >
                     <Plus size={16} />
-                    New Content
+                    New Case Study
                 </Link>
             </div>
 
@@ -56,7 +56,7 @@ export default function ContentsAdminPage() {
                     </div>
                 ) : contents.length === 0 ? (
                     <div className="col-span-full p-24 text-center text-white/20 text-xs italic tracking-widest uppercase">
-                        No contents added yet.
+                        No case studies added yet.
                     </div>
                 ) : (
                     contents.map((item) => (
