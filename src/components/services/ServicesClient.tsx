@@ -12,15 +12,7 @@ interface ServicesClientProps {
 
 export default function ServicesClient({ services = [], settings, featuredProjects = [] }: ServicesClientProps) {
     const headerBg = settings?.servicesHeaderImage;
-    const serviceDescriptions: Record<string, string> = {
-        "creative direction + strategy": "Good creative work starts with a clear point of view. YAAAS helps brands, artists and cultural organisations define theirs through brand positioning, creative direction and campaign strategy. We bring together research, visual identity, storytelling and marketing communications to turn ideas into distinctive, culturally relevant brands and campaigns. Whether shaping a new identity or giving an existing project a sharper voice, we connect the thinking behind the work with how it is seen and experienced.",
-        "talent development + representation": "We work alongside African and diaspora visual artists, musicians and multidisciplinary creatives to help build lasting careers. YAAAS offers artist representation and management, from shaping an artist’s profile and professional positioning to negotiating opportunities, developing partnerships and connecting talent with galleries, collectors, brands and cultural platforms. The focus is on thoughtful, long-term representation: creating room for artists to grow, reach new audiences and retain control of their creative direction.",
-        "experiential + cultural programming": "From exhibitions and artist residencies to workshops, live activations and cultural events, YAAAS creates programmes that bring people closer to contemporary African creativity. We develop the concept, shape the experience and coordinate the people and production needed to deliver it. Working with brands, institutions and cultural partners, we build thoughtful encounters between artists, audiences and place — with each programme designed around its own context, community and purpose."
-    };
-    const getServiceDescription = (service: any) => {
-        const title = String(service.title || "").toLowerCase().replace(/\\s+/g, " ").trim();
-        return serviceDescriptions[title] || service.description;
-    };
+    const getServiceDescription = (service: any) => service.description || "";
 
     return (
         <main className="bg-[#F1EFE8] text-[#171717]">
