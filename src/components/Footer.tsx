@@ -55,7 +55,7 @@ export default function Footer() {
                                     { label: "CREATIVES", href: "/talents" },
                                     { label: "SERVICES", href: "/services" },
                                     { label: "ABOUT US", href: "/about" },
-                                    { label: "CONTENTS", href: "/contents" },
+                                    { label: "BLOG", href: "/contents" },
                                     { label: "CONTACT", href: "/contact" },
                                 ].map(({ label, href }, index) => (
                                     <li key={label}>
