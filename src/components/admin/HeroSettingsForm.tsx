@@ -21,6 +21,7 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
         servicesHeaderImage: initialData?.servicesHeaderImage || '',
         creativesVisualImage: initialData?.creativesVisualImage || '',
         creativesSonicImage: initialData?.creativesSonicImage || '',
+        socialShareImage: initialData?.socialShareImage || '',
         artsyUrl: initialData?.artsyUrl || '',
     });
 
@@ -163,6 +164,18 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
                             folder="settings"
                         />
                         <p className="text-[10px] text-white/20 italic">These images will replace the latest talent headshots in the homepage creatives grid.</p>
+                    </div>
+
+                    <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-8 h-fit">
+                        <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#B59431] border-b border-white/5 pb-4">Social Sharing Preview</h3>
+                        <MediaUpload
+                            label="WhatsApp & Social Sharing Image"
+                            type="image"
+                            value={formData.socialShareImage}
+                            onChange={(url) => setFormData({ ...formData, socialShareImage: url })}
+                            folder="settings/social-sharing"
+                        />
+                        <p className="text-[10px] text-white/30 leading-relaxed">This image is used when someone shares yaaas.co on WhatsApp and social platforms. For the best result, upload a landscape image at 1200 × 630 px. Save Settings to publish the change.</p>
                     </div>
 
                     <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-4 h-fit">
