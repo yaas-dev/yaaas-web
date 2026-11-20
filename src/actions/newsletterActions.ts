@@ -6,6 +6,7 @@ import dbConnect from '@/lib/mongodb';
 import NewsletterSubscriber from '@/models/NewsletterSubscriber';
 import Settings from '@/models/Settings';
 import { revalidatePath } from 'next/cache';
+import { registerBrevoUnsubscribeWebhook, syncBrevoContact } from '@/lib/brevo';
 
 const DEFAULT_NEWSLETTER_SETTINGS = {
     enabled: true,
@@ -62,13 +63,43 @@ export async function updateNewsletterSettings(input: any) {
     }
 }
 
+async function syncSubscriberToBrevo(subscriber: any) {
+    try {
+        const result = await syncBrevoContact({
+            email: subscriber.email,
+            firstName: subscriber.firstName,
+            status: subscriber.status,
+            subscribedAt: subscriber.consentedAt,
+            unsubscribedAt: subscriber.unsubscribedAt,
+        });
+        await NewsletterSubscriber.updateOne(
+            { _id: subscriber._id },
+            { $set: {
+                brevoSyncStatus: result.configured ? 'SYNCED' : 'NOT_CONFIGURED',
+                brevoSyncedAt: result.configured ? new Date() : undefined,
+                brevoSyncError: '',
+            } }
+        );
+        return result;
+    } catch (error: any) {
+        await NewsletterSubscriber.updateOne(
+            { _id: subscriber._id },
+            { $set: {
+                brevoSyncStatus: 'ERROR',
+                brevoSyncError: String(error?.message || 'Brevo sync failed').slice(0, 500),
+            } }
+        );
+        console.error('Brevo newsletter sync failed:', error);
+        return { configured: true, synced: false };
+    }
+}
+
 export async function subscribeToNewsletter(input: { email?: string; firstName?: string; consent?: boolean; website?: string }) {
     try {
-        // Honeypot field: real visitors leave this blank.
         if (input.website) return { success: true };
         const email = String(input.email || '').trim().toLowerCase();
         const firstName = String(input.firstName || '').trim().slice(0, 80);
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+        if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || email.length > 254) {
             return { success: false, error: 'Please enter a valid email address.' };
         }
         if (input.consent !== true) {
@@ -76,19 +107,20 @@ export async function subscribeToNewsletter(input: { email?: string; firstName?:
         }
 
         await dbConnect();
-        const existing = await NewsletterSubscriber.findOne({ email });
-        if (existing?.status === 'SUBSCRIBED') return { success: true, alreadySubscribed: true };
-
+        let subscriber = await NewsletterSubscriber.findOne({ email });
         const now = new Date();
-        if (existing) {
-            existing.firstName = firstName || existing.firstName;
-            existing.status = 'SUBSCRIBED';
-            existing.consent = true;
-            existing.consentedAt = now;
-            existing.unsubscribedAt = undefined;
-            await existing.save();
+
+        if (subscriber) {
+            if (subscriber.status !== 'SUBSCRIBED') {
+                subscriber.firstName = firstName || subscriber.firstName;
+                subscriber.status = 'SUBSCRIBED';
+                subscriber.consent = true;
+                subscriber.consentedAt = now;
+                subscriber.unsubscribedAt = undefined;
+                await subscriber.save();
+            }
         } else {
-            await NewsletterSubscriber.create({
+            subscriber = await NewsletterSubscriber.create({
                 email,
                 firstName,
                 status: 'SUBSCRIBED',
@@ -99,8 +131,9 @@ export async function subscribeToNewsletter(input: { email?: string; firstName?:
             });
         }
 
+        await syncSubscriberToBrevo(subscriber);
         revalidatePath('/admin/newsletter');
-        return { success: true };
+        return { success: true, alreadySubscribed: subscriber.createdAt?.getTime?.() !== subscriber.consentedAt?.getTime?.() };
     } catch (error: any) {
         if (error?.code === 11000) return { success: true, alreadySubscribed: true };
         console.error('Error subscribing to newsletter:', error);
@@ -132,14 +165,45 @@ export async function setNewsletterSubscriberStatus(id: string, status: 'SUBSCRI
 
     try {
         await dbConnect();
-        await NewsletterSubscriber.findByIdAndUpdate(id, {
-            status,
-            unsubscribedAt: status === 'UNSUBSCRIBED' ? new Date() : null,
-        });
+        const subscriber = await NewsletterSubscriber.findById(id);
+        if (!subscriber) return { success: false, error: 'Subscriber not found.' };
+        subscriber.status = status;
+        subscriber.unsubscribedAt = status === 'UNSUBSCRIBED' ? new Date() : undefined;
+        if (status === 'SUBSCRIBED') {
+            subscriber.consent = true;
+            subscriber.consentedAt = new Date();
+        }
+        await subscriber.save();
+        await syncSubscriberToBrevo(subscriber);
         revalidatePath('/admin/newsletter');
         return { success: true };
     } catch (error) {
         console.error('Error updating subscriber:', error);
         return { success: false, error: 'Could not update subscriber.' };
+    }
+}
+
+export async function connectBrevoAndSyncSubscribers() {
+    const session = await auth();
+    if (!session?.user) return { success: false, error: 'Unauthorized' };
+
+    try {
+        await dbConnect();
+        await registerBrevoUnsubscribeWebhook();
+        const subscribers = await NewsletterSubscriber.find({}).sort({ createdAt: 1 });
+        let synced = 0;
+        let failed = 0;
+
+        for (const subscriber of subscribers) {
+            const result = await syncSubscriberToBrevo(subscriber);
+            if (result.synced) synced += 1;
+            else if (result.configured) failed += 1;
+        }
+
+        revalidatePath('/admin/newsletter');
+        return { success: true, synced, failed, total: subscribers.length };
+    } catch (error: any) {
+        console.error('Brevo connection failed:', error);
+        return { success: false, error: String(error?.message || 'Could not connect Brevo.') };
     }
 }
