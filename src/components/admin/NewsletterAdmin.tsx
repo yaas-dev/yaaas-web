@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState } from 'react';
-import { Download, Save, Users, CheckCircle2, Mail, Search, Monitor, Smartphone } from 'lucide-react';
+import { Download, Save, Users, CheckCircle2, Mail, Search, Monitor, Smartphone, RefreshCw } from 'lucide-react';
 import Image from 'next/image';
 import ImageUpload from '@/components/admin/ImageUpload';
-import { updateNewsletterSettings, setNewsletterSubscriberStatus } from '@/actions/newsletterActions';
+import { updateNewsletterSettings, setNewsletterSubscriberStatus, connectBrevoAndSyncSubscribers } from '@/actions/newsletterActions';
 
 type Subscriber = {
     _id: string;
@@ -34,6 +34,7 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
     const [subscribers, setSubscribers] = useState<Subscriber[]>(initialSubscribers);
     const [query, setQuery] = useState('');
     const [saving, setSaving] = useState(false);
+    const [syncingBrevo, setSyncingBrevo] = useState(false);
     const [notice, setNotice] = useState('');
     const [previewMode, setPreviewMode] = useState<'desktop' | 'mobile'>('desktop');
 
@@ -68,6 +69,16 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
         link.download = 'yaaas-newsletter-subscribers.csv';
         link.click();
         URL.revokeObjectURL(url);
+    };
+
+    const connectBrevo = async () => {
+        setSyncingBrevo(true);
+        setNotice('');
+        const result = await connectBrevoAndSyncSubscribers();
+        setSyncingBrevo(false);
+        setNotice(result.success
+            ? `Brevo connected. ${result.synced} subscribers synced${result.failed ? `; ${result.failed} need attention` : '.'}`
+            : result.error || 'Could not connect Brevo.');
     };
 
     const toggleStatus = async (subscriber: Subscriber) => {
@@ -172,9 +183,12 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-5">
                     <div>
                         <h2 className="text-lg font-semibold">Subscribers</h2>
-                        <p className="text-xs text-white/40 mt-1">Email addresses collected through the YAAAS website.</p>
+                        <p className="text-xs text-white/40 mt-1">Email addresses collected through the YAAAS website. Connect Brevo to sync your list and keep unsubscribe status aligned.</p>
                     </div>
-                    <button onClick={exportCsv} className="inline-flex items-center justify-center gap-2 border border-white/15 px-4 py-3 text-xs font-bold uppercase tracking-widest hover:border-[#B59431]"><Download size={15} /> Export CSV</button>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        <button onClick={connectBrevo} disabled={syncingBrevo} className="inline-flex items-center justify-center gap-2 bg-[#B59431] text-black px-4 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#c9a640] disabled:opacity-50"><RefreshCw size={15} className={syncingBrevo ? 'animate-spin' : ''} /> {syncingBrevo ? 'Connecting...' : 'Connect Brevo & sync'}</button>
+                        <button onClick={exportCsv} className="inline-flex items-center justify-center gap-2 border border-white/15 px-4 py-3 text-xs font-bold uppercase tracking-widest hover:border-[#B59431]"><Download size={15} /> Export CSV</button>
+                    </div>
                 </div>
                 <div className="relative max-w-md">
                     <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
