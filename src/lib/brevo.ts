@@ -6,6 +6,7 @@ type BrevoContactInput = {
   status: NewsletterStatus;
   subscribedAt?: Date | string | null;
   unsubscribedAt?: Date | string | null;
+  allowResubscribe?: boolean;
 };
 
 export function isBrevoConfigured() {
@@ -39,7 +40,7 @@ export async function syncBrevoContact(contact: BrevoContactInput) {
           email,
           attributes: contact.firstName ? { FNAME: contact.firstName } : {},
           listIds: [listId],
-          emailBlacklisted: false,
+          ...(contact.allowResubscribe ? { emailBlacklisted: false } : {}),
           updateEnabled: true,
         }
       : { emailBlacklisted: true }),
@@ -67,7 +68,7 @@ export async function registerBrevoUnsubscribeWebhook() {
   const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://yaaas.co').replace(/\/$/, '');
   const webhookUrl = `${baseUrl}/api/newsletter/brevo-webhook`;
 
-  const listResponse = await fetch('https://api.brevo.com/v3/webhooks', {
+  const listResponse = await fetch('https://api.brevo.com/v3/webhooks?type=marketing', {
     headers: { 'api-key': apiKey, Accept: 'application/json' },
     cache: 'no-store',
   });
