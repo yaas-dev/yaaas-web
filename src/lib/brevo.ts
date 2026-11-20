@@ -73,7 +73,8 @@ export async function registerBrevoUnsubscribeWebhook() {
     cache: 'no-store',
   });
   if (!listResponse.ok) {
-    throw new Error(`Could not check existing Brevo webhooks (${listResponse.status}).`);
+    const detail = await listResponse.text();
+    throw new Error(`Could not check existing Brevo webhooks (${listResponse.status}): ${detail.slice(0, 500)}`);
   }
 
   const listData = await listResponse.json();
@@ -93,7 +94,10 @@ export async function registerBrevoUnsubscribeWebhook() {
       }),
       cache: 'no-store',
     });
-    if (!updateResponse.ok) throw new Error('Could not update the existing Brevo unsubscribe webhook.');
+    if (!updateResponse.ok) {
+      const detail = await updateResponse.text();
+      throw new Error(`Could not update the existing Brevo unsubscribe webhook (${updateResponse.status}): ${detail.slice(0, 500)}`);
+    }
     return { created: false };
   }
 
@@ -111,7 +115,7 @@ export async function registerBrevoUnsubscribeWebhook() {
   });
   if (!createResponse.ok) {
     const detail = await createResponse.text();
-    throw new Error(`Could not create Brevo webhook (${createResponse.status}): ${detail.slice(0, 300)}`);
+    throw new Error(`Could not create Brevo webhook (${createResponse.status}): ${detail.slice(0, 500)}`);
   }
   return { created: true };
 }
