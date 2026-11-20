@@ -63,7 +63,7 @@ export async function updateNewsletterSettings(input: any) {
     }
 }
 
-async function syncSubscriberToBrevo(subscriber: any) {
+async function syncSubscriberToBrevo(subscriber: any, allowResubscribe = false) {
     try {
         const result = await syncBrevoContact({
             email: subscriber.email,
@@ -71,6 +71,7 @@ async function syncSubscriberToBrevo(subscriber: any) {
             status: subscriber.status,
             subscribedAt: subscriber.consentedAt,
             unsubscribedAt: subscriber.unsubscribedAt,
+            allowResubscribe,
         });
         await NewsletterSubscriber.updateOne(
             { _id: subscriber._id },
@@ -132,7 +133,7 @@ export async function subscribeToNewsletter(input: { email?: string; firstName?:
             });
         }
 
-        await syncSubscriberToBrevo(subscriber);
+        await syncSubscriberToBrevo(subscriber, true);
         revalidatePath('/admin/newsletter');
         return { success: true, alreadySubscribed };
     } catch (error: any) {
@@ -175,7 +176,7 @@ export async function setNewsletterSubscriberStatus(id: string, status: 'SUBSCRI
             subscriber.consentedAt = new Date();
         }
         await subscriber.save();
-        await syncSubscriberToBrevo(subscriber);
+        await syncSubscriberToBrevo(subscriber, status === 'SUBSCRIBED');
         revalidatePath('/admin/newsletter');
         return { success: true };
     } catch (error) {
