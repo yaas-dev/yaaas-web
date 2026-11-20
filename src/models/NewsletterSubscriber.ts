@@ -9,6 +9,9 @@ const NewsletterSubscriberSchema = new Schema({
     unsubscribedAt: { type: Date },
     source: { type: String, default: 'website_popup' },
     unsubscribeToken: { type: String, required: true, unique: true },
+    brevoSyncStatus: { type: String, enum: ['PENDING', 'SYNCED', 'NOT_CONFIGURED', 'ERROR'], default: 'NOT_CONFIGURED' },
+    brevoSyncedAt: { type: Date },
+    brevoSyncError: { type: String, maxlength: 500 },
 }, { timestamps: true });
 
 export default mongoose.models.NewsletterSubscriber || mongoose.model('NewsletterSubscriber', NewsletterSubscriberSchema);
