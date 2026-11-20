@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
             const result = await NewsletterSubscriber.updateOne(
                 { email },
-                { $set: { status: 'UNSUBSCRIBED', unsubscribedAt: new Date() } }
+                { $set: { status: 'UNSUBSCRIBED', unsubscribedAt: new Date(), brevoSyncStatus: 'SYNCED', brevoSyncedAt: new Date(), brevoSyncError: '' } }
             );
             if (result.modifiedCount > 0) updated += 1;
         }
