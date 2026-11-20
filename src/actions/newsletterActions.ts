@@ -108,6 +108,7 @@ export async function subscribeToNewsletter(input: { email?: string; firstName?:
 
         await dbConnect();
         let subscriber = await NewsletterSubscriber.findOne({ email });
+        const alreadySubscribed = subscriber?.status === 'SUBSCRIBED';
         const now = new Date();
 
         if (subscriber) {
@@ -133,7 +134,7 @@ export async function subscribeToNewsletter(input: { email?: string; firstName?:
 
         await syncSubscriberToBrevo(subscriber);
         revalidatePath('/admin/newsletter');
-        return { success: true, alreadySubscribed: subscriber.createdAt?.getTime?.() !== subscriber.consentedAt?.getTime?.() };
+        return { success: true, alreadySubscribed };
     } catch (error: any) {
         if (error?.code === 11000) return { success: true, alreadySubscribed: true };
         console.error('Error subscribing to newsletter:', error);
@@ -188,6 +189,9 @@ export async function connectBrevoAndSyncSubscribers() {
     if (!session?.user) return { success: false, error: 'Unauthorized' };
 
     try {
+        if (!process.env.BREVO_API_KEY || !process.env.BREVO_LIST_ID || !process.env.BREVO_WEBHOOK_TOKEN) {
+            return { success: false, error: 'Please add BREVO_API_KEY, BREVO_LIST_ID and BREVO_WEBHOOK_TOKEN to Vercel environment variables first.' };
+        }
         await dbConnect();
         await registerBrevoUnsubscribeWebhook();
         const subscribers = await NewsletterSubscriber.find({}).sort({ createdAt: 1 });
