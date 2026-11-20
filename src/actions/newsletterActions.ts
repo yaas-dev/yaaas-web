@@ -99,7 +99,7 @@ export async function subscribeToNewsletter(input: { email?: string; firstName?:
         if (input.website) return { success: true };
         const email = String(input.email || '').trim().toLowerCase();
         const firstName = String(input.firstName || '').trim().slice(0, 80);
-        if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || email.length > 254) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
             return { success: false, error: 'Please enter a valid email address.' };
         }
         if (input.consent !== true) {
