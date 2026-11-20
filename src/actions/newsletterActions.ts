@@ -133,7 +133,7 @@ export async function subscribeToNewsletter(input: { email?: string; firstName?:
             });
         }
 
-        await syncSubscriberToBrevo(subscriber, true);
+        await syncSubscriberToBrevo(subscriber, !alreadySubscribed);
         revalidatePath('/admin/newsletter');
         return { success: true, alreadySubscribed };
     } catch (error: any) {
