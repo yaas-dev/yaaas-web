@@ -6,7 +6,7 @@ import dbConnect from '@/lib/mongodb';
 import NewsletterSubscriber from '@/models/NewsletterSubscriber';
 import Settings from '@/models/Settings';
 import { revalidatePath } from 'next/cache';
-import { registerBrevoUnsubscribeWebhook, syncBrevoContact } from '@/lib/brevo';
+import { registerBrevoUnsubscribeWebhook, syncBrevoContact, verifyBrevoConnection } from '@/lib/brevo';
 
 const DEFAULT_NEWSLETTER_SETTINGS = {
     enabled: true,
@@ -190,11 +190,13 @@ export async function connectBrevoAndSyncSubscribers() {
     if (!session?.user) return { success: false, error: 'Unauthorized' };
 
     try {
-        if (!process.env.BREVO_API_KEY || !process.env.BREVO_LIST_ID || !process.env.BREVO_WEBHOOK_TOKEN) {
-            return { success: false, error: 'Please add BREVO_API_KEY, BREVO_LIST_ID and BREVO_WEBHOOK_TOKEN to Vercel environment variables first.' };
+        if (!process.env.BREVO_API_KEY || !process.env.BREVO_LIST_ID) {
+            return { success: false, error: 'Please add BREVO_API_KEY and BREVO_LIST_ID to Vercel environment variables first.' };
         }
+
+        // Verify the API key and target list independently of webhook configuration.
+        const list = await verifyBrevoConnection();
         await dbConnect();
-        await registerBrevoUnsubscribeWebhook();
         const subscribers = await NewsletterSubscriber.find({}).sort({ createdAt: 1 });
         let synced = 0;
         let failed = 0;
@@ -205,8 +207,17 @@ export async function connectBrevoAndSyncSubscribers() {
             else if (result.configured) failed += 1;
         }
 
+        // A webhook problem must never prevent the contact import/sync from completing.
+        let webhookWarning = '';
+        try {
+            await registerBrevoUnsubscribeWebhook();
+        } catch (error: any) {
+            webhookWarning = String(error?.message || 'Could not configure the Brevo unsubscribe webhook.').slice(0, 400);
+            console.warn('Brevo contact sync completed, but unsubscribe webhook setup needs attention:', error);
+        }
+
         revalidatePath('/admin/newsletter');
-        return { success: true, synced, failed, total: subscribers.length };
+        return { success: true, synced, failed, total: subscribers.length, listName: list.name, webhookWarning };
     } catch (error: any) {
         console.error('Brevo connection failed:', error);
         return { success: false, error: String(error?.message || 'Could not connect Brevo.') };
