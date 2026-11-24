@@ -6,7 +6,7 @@ import dbConnect from '@/lib/mongodb';
 import NewsletterSubscriber from '@/models/NewsletterSubscriber';
 import Settings from '@/models/Settings';
 import { revalidatePath } from 'next/cache';
-import { registerBrevoUnsubscribeWebhook, syncBrevoContact, verifyBrevoConnection } from '@/lib/brevo';
+import { syncBrevoContact, verifyBrevoConnection } from '@/lib/brevo';
 
 const DEFAULT_NEWSLETTER_SETTINGS = {
     enabled: true,
@@ -207,17 +207,12 @@ export async function connectBrevoAndSyncSubscribers() {
             else if (result.configured) failed += 1;
         }
 
-        // A webhook problem must never prevent the contact import/sync from completing.
-        let webhookWarning = '';
-        try {
-            await registerBrevoUnsubscribeWebhook();
-        } catch (error: any) {
-            webhookWarning = String(error?.message || 'Could not configure the Brevo unsubscribe webhook.').slice(0, 400);
-            console.warn('Brevo contact sync completed, but unsubscribe webhook setup needs attention:', error);
-        }
+        // Keep bulk contact sync independent from webhook administration.
+        // Brevo webhook setup is handled separately because its list endpoint is
+        // currently returning document_not_found for this account.
 
         revalidatePath('/admin/newsletter');
-        return { success: true, synced, failed, total: subscribers.length, listName: list.name, webhookWarning };
+        return { success: true, synced, failed, total: subscribers.length, listName: list.name };
     } catch (error: any) {
         console.error('Brevo connection failed:', error);
         return { success: false, error: String(error?.message || 'Could not connect Brevo.') };
