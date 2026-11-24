@@ -13,6 +13,27 @@ export function isBrevoConfigured() {
   return Boolean(process.env.BREVO_API_KEY && process.env.BREVO_LIST_ID);
 }
 
+export async function verifyBrevoConnection() {
+  const apiKey = process.env.BREVO_API_KEY;
+  const listId = Number(process.env.BREVO_LIST_ID);
+
+  if (!apiKey) throw new Error('BREVO_API_KEY is missing.');
+  if (!Number.isInteger(listId) || listId <= 0) throw new Error('BREVO_LIST_ID is missing or invalid.');
+
+  const response = await fetch(`https://api.brevo.com/v3/contacts/lists/${listId}`, {
+    headers: { 'api-key': apiKey, Accept: 'application/json' },
+    cache: 'no-store',
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Could not access the Brevo contact list (${response.status}): ${detail.slice(0, 400)}`);
+  }
+
+  const list = await response.json();
+  return { id: list.id, name: list.name };
+}
+
 export async function syncBrevoContact(contact: BrevoContactInput) {
   const apiKey = process.env.BREVO_API_KEY;
   const listId = Number(process.env.BREVO_LIST_ID);
