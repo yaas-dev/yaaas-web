@@ -77,7 +77,7 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
         const result = await connectBrevoAndSyncSubscribers();
         setSyncingBrevo(false);
         setNotice(result.success
-            ? `Brevo connected. ${result.synced} subscribers synced${result.failed ? `; ${result.failed} need attention` : '.'}`
+            ? `Brevo connected to ${result.listName || 'your contact list'}. ${result.synced} subscribers synced${result.failed ? `; ${result.failed} need attention.` : '.'} Unsubscribe webhook setup is separate and has not been changed.`
             : result.error || 'Could not connect Brevo.');
     };
 
@@ -183,7 +183,7 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-5">
                     <div>
                         <h2 className="text-lg font-semibold">Subscribers</h2>
-                        <p className="text-xs text-white/40 mt-1">Email addresses collected through the YAAAS website. Connect Brevo to sync your list and keep unsubscribe status aligned.</p>
+                        <p className="text-xs text-white/40 mt-1">Email addresses collected through the YAAAS website. Connect Brevo to sync your contact list. Automatic unsubscribe-event syncing from Brevo is handled separately.</p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2">
                         <button onClick={connectBrevo} disabled={syncingBrevo} className="inline-flex items-center justify-center gap-2 bg-[#B59431] text-black px-4 py-3 text-xs font-bold uppercase tracking-widest hover:bg-[#c9a640] disabled:opacity-50"><RefreshCw size={15} className={syncingBrevo ? 'animate-spin' : ''} /> {syncingBrevo ? 'Connecting...' : 'Connect Brevo & sync'}</button>
