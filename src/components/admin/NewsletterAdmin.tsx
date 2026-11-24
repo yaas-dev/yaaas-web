@@ -77,7 +77,7 @@ export default function NewsletterAdmin({ initialSettings, initialSubscribers }:
         const result = await connectBrevoAndSyncSubscribers();
         setSyncingBrevo(false);
         setNotice(result.success
-            ? `Brevo connected. ${result.synced} subscribers synced${result.failed ? `; ${result.failed} need attention` : '.'}`
+            ? `Brevo connected to ${result.listName || 'your contact list'}. ${result.synced} subscribers synced${result.failed ? `; ${result.failed} need attention` : '.'}${result.webhookWarning ? ` Unsubscribe webhook needs attention: ${result.webhookWarning}` : ''}`
             : result.error || 'Could not connect Brevo.');
     };
 
