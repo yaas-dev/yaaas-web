@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { Upload, X, ImageIcon, Loader2 } from 'lucide-react';
+import { Upload, X, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { uploadToCloudinary } from '@/actions/uploadActions';
 
@@ -10,17 +10,19 @@ interface ImageUploadProps {
     onChange: (url: string) => void;
     label?: string;
     folder?: string;
+    aspectRatio?: 'default' | 'square';
+    fit?: 'cover' | 'contain';
 }
 
-export default function ImageUpload({ value, onChange, label, folder = 'yaaas' }: ImageUploadProps) {
+export default function ImageUpload({ value, onChange, label, folder = 'yaaas', aspectRatio = 'default', fit = 'cover' }: ImageUploadProps) {
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const previewClass = aspectRatio === 'square' ? 'aspect-square max-w-[220px]' : 'aspect-video md:aspect-[4/3]';
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // Validate size (e.g., 5MB)
         if (file.size > 5 * 1024 * 1024) {
             alert("File is too large. Max 5MB.");
             return;
@@ -32,15 +34,20 @@ export default function ImageUpload({ value, onChange, label, folder = 'yaaas' }
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = async () => {
-                const base64String = reader.result as string;
-                const result = await uploadToCloudinary(base64String, folder);
-
-                if (result.success && result.url) {
-                    onChange(result.url);
-                } else {
-                    alert("Upload failed: " + result.error);
+                try {
+                    const base64String = reader.result as string;
+                    const result = await uploadToCloudinary(base64String, folder);
+                    if (result.success && result.url) {
+                        onChange(result.url);
+                    } else {
+                        alert("Upload failed: " + result.error);
+                    }
+                } catch (error) {
+                    console.error("Upload error:", error);
+                    alert("Something went wrong during upload.");
+                } finally {
+                    setIsUploading(false);
                 }
-                setIsUploading(false);
             };
         } catch (error) {
             console.error("Upload error:", error);
@@ -60,12 +67,13 @@ export default function ImageUpload({ value, onChange, label, folder = 'yaaas' }
 
             <div className="relative group">
                 {value ? (
-                    <div className="relative w-full aspect-video md:aspect-[4/3] bg-[#111] border border-white/10 rounded-sm overflow-hidden">
+                    <div className={`relative w-full ${previewClass} bg-[#111] border border-white/10 rounded-sm overflow-hidden`}>
                         <Image
                             src={value}
                             alt="Uploaded"
                             fill
-                            className="object-cover"
+                            sizes={aspectRatio === 'square' ? '220px' : '(max-width: 768px) 100vw, 50vw'}
+                            className={fit === 'contain' ? 'object-contain p-3' : 'object-cover'}
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <button
@@ -80,7 +88,7 @@ export default function ImageUpload({ value, onChange, label, folder = 'yaaas' }
                 ) : (
                     <div
                         onClick={() => !isUploading && fileInputRef.current?.click()}
-                        className={`w-full aspect-video md:aspect-[4/3] bg-black/50 border-2 border-dashed border-white/10 rounded-sm flex flex-col items-center justify-center gap-4 cursor-pointer hover:border-[#B59431]/40 hover:bg-white/[0.02] transition-all ${isUploading ? 'cursor-not-allowed opacity-50' : ''}`}
+                        className={`w-full ${previewClass} bg-black/50 border-2 border-dashed border-white/10 rounded-sm flex flex-col items-center justify-center gap-4 cursor-pointer hover:border-[#B59431]/40 hover:bg-white/[0.02] transition-all ${isUploading ? 'cursor-not-allowed opacity-50' : ''}`}
                     >
                         {isUploading ? (
                             <>
