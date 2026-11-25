@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ISettings extends Document {
     heroBackground: { type: 'image' | 'video'; src: string };
+    faviconUrl?: string;
     servicesHeaderImage?: string;
     artsyUrl?: string;
     creativesVisualImage?: string;
@@ -14,6 +15,7 @@ export interface ISettings extends Document {
 }
 const SettingsSchema: Schema = new Schema({
     heroBackground: { type: { type: String, enum: ['image', 'video'], default: 'image' }, src: { type: String, default: '/images/hero.png' } },
+    faviconUrl: { type: String, default: '' },
     servicesHeaderImage: { type: String, default: '' }, socialShareImage: { type: String, default: '' }, artsyUrl: { type: String, default: '' }, creativesVisualImage: { type: String, default: '' }, creativesSonicImage: { type: String, default: '' },
     homepageContent: { type: Schema.Types.Mixed, default: {} }, aboutTeam: { type: Schema.Types.Mixed, default: [] }, aboutIntro: { type: Schema.Types.Mixed, default: {} },
     newsletter: {
