@@ -22,6 +22,7 @@ const siteUrl = "https://www.yaaas.co";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
   const shareImage = settings?.socialShareImage || "/images/hero.png";
+  const favicon = settings?.faviconUrl || "/favicon.ico";
 
   return {
     metadataBase: new URL(siteUrl),
@@ -33,6 +34,10 @@ export async function generateMetadata(): Promise<Metadata> {
       "YAAAS is an independent creative agency championing contemporary African and diasporic creativity through artist representation, brand strategy and cultural programming.",
     applicationName: "YAAAS Agency",
     alternates: { canonical: "/" },
+    icons: {
+      icon: [{ url: favicon }],
+      apple: [{ url: favicon }],
+    },
     openGraph: {
       type: "website",
       locale: "en_US",
