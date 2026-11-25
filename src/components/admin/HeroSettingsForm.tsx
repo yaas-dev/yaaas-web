@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateSettings } from '@/actions/settingsActions';
 import MediaUpload from './MediaUpload';
+import ImageUpload from './ImageUpload';
 import { Save, Loader2 } from 'lucide-react';
 
 interface HeroSettingsFormProps {
@@ -22,6 +23,7 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
         creativesVisualImage: initialData?.creativesVisualImage || '',
         creativesSonicImage: initialData?.creativesSonicImage || '',
         socialShareImage: initialData?.socialShareImage || '',
+        faviconUrl: initialData?.faviconUrl || '',
         artsyUrl: initialData?.artsyUrl || '',
     });
 
@@ -124,6 +126,29 @@ export default function HeroSettingsForm({ initialData }: HeroSettingsFormProps)
                 </div>
 
                 <div className="flex flex-col gap-12">
+                    <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-6 h-fit">
+                        <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#B59431] border-b border-white/5 pb-4">Browser Icon / Favicon</h3>
+                        <ImageUpload
+                            label="Square YAAAS Browser Icon"
+                            value={formData.faviconUrl}
+                            onChange={(url) => setFormData({ ...formData, faviconUrl: url })}
+                            folder="settings/favicon"
+                            aspectRatio="square"
+                            fit="contain"
+                        />
+                        <p className="text-[10px] text-white/30 leading-relaxed">Upload a square PNG or WEBP icon (512 × 512 px recommended). The preview preserves the artwork's proportions instead of stretching or cropping it. Save Settings to apply it to browser tabs and mobile home-screen icons. Leave empty to use the default site icon.</p>
+                        {formData.faviconUrl && (
+                            <div className="flex flex-col gap-2">
+                                <label className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Image URL</label>
+                                <input
+                                    type="url"
+                                    value={formData.faviconUrl}
+                                    onChange={(e) => setFormData({ ...formData, faviconUrl: e.target.value })}
+                                    className="bg-black border border-white/10 p-4 text-sm text-white outline-none focus:border-[#B59431] transition-colors"
+                                />
+                            </div>
+                        )}
+                    </div>
                     <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-12 rounded-sm flex flex-col gap-8 h-fit">
                         <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#B59431] border-b border-white/5 pb-4">Services Page Header</h3>
                         <MediaUpload
